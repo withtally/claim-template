@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
+import { siteName } from '~/constants/site'
 import { Metadata } from '~/types/common'
 
 interface SEOProps {
@@ -15,17 +16,15 @@ interface SEOProps {
 export const SEO: FC<SEOProps> = ({ title, description, image, author, publishedTime, metadata }) => {
   const { pathname } = useRouter()
 
-
-  const favicon = process.env.siteFavicon
-  const titleSuffix = process.env.siteTitle
+  // const favicon = process.env.siteFavicon
+  // const titleSuffix = process.env.siteTitle
   const _image = image || process.env.siteImagePreviewURL
   const metaDescription = description || process.env.siteDescription
 
-  const siteName = process.env.siteName
   const siteUrl = process.env.siteUrl
   const siteDomain = process.env.siteDomain
-  const metaTitle = title ? `${title}${titleSuffix}` : siteName
-  const siteFavicon = favicon
+  const metaTitle = title ? `${title} | ${siteName}` : siteName
+  // const siteFavicon = favicon
   const imagePreview = _image?.includes('https://') ? _image : `${process.env.siteUrl}${_image}`
 
   return (
@@ -56,8 +55,16 @@ export const SEO: FC<SEOProps> = ({ title, description, image, author, published
           content={author}
         />
       )}
-    <link href="https://app.hedgey.finance/favicon-dark.svg" rel="icon" media="(prefers-color-scheme: light)" />
-    <link href="https://app.hedgey.finance/favicon-light.svg" rel="icon" media="(prefers-color-scheme: dark)" />
+      <link
+        href="https://app.hedgey.finance/favicon-dark.svg"
+        rel="icon"
+        media="(prefers-color-scheme: light)"
+      />
+      <link
+        href="https://app.hedgey.finance/favicon-light.svg"
+        rel="icon"
+        media="(prefers-color-scheme: dark)"
+      />
       {/* Open Graph */}
       <meta
         property="og:title"

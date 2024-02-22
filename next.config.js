@@ -9,9 +9,9 @@ module.exports = {
   swcMinify: true,
   env: {
     // siteDomain: 'grg.com.au',
+    // projectName: 'Hedgey Claims',
     siteDomain: 'app.hedgey.finance',
-    siteName: 'Hedgey Claims',
-    siteTitle: ' | Hedgey Claims',
+    // siteTitle: ' | Hedgey Claims',
     siteDescription:
       '',
     siteUrl: 'https://hedgey-claims.vercel.app',

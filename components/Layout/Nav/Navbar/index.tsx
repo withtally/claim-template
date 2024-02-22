@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Container from '~/components/Layout/Container'
 import { socialIcons } from '~/components/Layout/Nav/Navbar/presets'
+import { siteName } from '~/constants/site'
 import ChevronDownIcon from '~/public/img/icons/chevron-down.svg'
 import EthIcon from '~/public/img/icons/eth.svg'
 
@@ -11,7 +12,7 @@ const Navbar: FC = () => {
         <Container className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-x-20">
             <button onClick={() => window.location.reload()}>
-              <span className="cursor-pointer select-none text-2xl font-bold">zkSync Claims</span>
+              <span className="cursor-pointer select-none text-2xl font-bold">{siteName} Claims</span>
             </button>
             <ul className="flex items-center gap-x-6">
               {Array.from({ length: 3 }).map((_, i) => (

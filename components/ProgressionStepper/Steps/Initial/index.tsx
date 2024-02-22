@@ -2,6 +2,7 @@ import cx from 'classnames'
 import { FC, useState } from 'react'
 import StepForm from '~/components/ProgressionStepper/StepForm'
 import { stepItems } from '~/components/ProgressionStepper/Steps/Initial/presets'
+import { siteName } from '~/constants/site'
 import InfoIcon from '~/public/img/icons/info.svg'
 import TickIcon from '~/public/img/icons/tick.svg'
 
@@ -26,7 +27,7 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
     <div className="inline snap-start transition-opacity">
       <StepForm
         isLoading={isSubmitting}
-        title="zkSync Claim"
+        title={`${siteName} Claim`}
         buttonText="Sign Message"
         onSubmit={_onSubmit}
       >
@@ -60,7 +61,7 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
             'my-4 max-h-16': isSubmitting,
           })}
         >
-          <div className="bg-blue-grey-lighter flex w-full items-center gap-x-2 overflow-hidden rounded-md p-4 text-xs">
+          <div className="flex w-full items-center gap-x-2 overflow-hidden rounded-md bg-blue-grey-lighter p-4 text-xs">
             <InfoIcon className="size-4 text-white" />
             <div>
               <p>Processing transaction</p>
