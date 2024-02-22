@@ -17,6 +17,9 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
     setTimeout(() => {
       onSubmit()
     }, 3000)
+    setTimeout(() => {
+      setIsSubmitting(false)
+    }, 4000)
   }
 
   return (
@@ -34,14 +37,14 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
               className="border-b border-gray-500 py-4 first:border-t"
             >
               <div
-                className={cx('mb-2 flex items-center justify-between', {
-                  'text-green': i === 0,
+                className={cx('mb-2 flex items-center justify-between transition-colors', {
+                  'text-green': i === 0 && isSubmitting,
                 })}
               >
                 <h3 className="text-caption uppercase">
                   0{i + 1} {title}
                 </h3>
-                {i === 0 && <TickIcon className="size-4" />}
+                {i === 0 && isSubmitting && <TickIcon className="size-4" />}
               </div>
               <p className="text-gray-400">{description}</p>
             </li>
@@ -51,7 +54,7 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
           You will need to approve <b>2 actions</b> in your wallet.
         </p>
         <div
-          className={cx('w-full overflow-hidden transition-[max-height,opacity,margin]', {
+          className={cx('w-full overflow-hidden transition-[max-height,opacity,margin] duration-500', {
             'max-h-0 opacity-0': !isSubmitting,
             'my-4 max-h-16': isSubmitting,
           })}

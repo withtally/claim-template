@@ -183,3 +183,15 @@ input[type='number'] {
   );
   @apply xxs:opacity-50;
 }
+
+.light-blue-gradient {
+  background: conic-gradient(
+    from 230.29deg at 51.63% 52.16%,
+    #0d92ff 0deg,
+    #0d92ff 67.5deg,
+    #0d92ff 198.75deg,
+    #0d92ff 251.25deg,
+    #0d92ff 301.88deg,
+    #0d92ff 360deg
+  );
+}

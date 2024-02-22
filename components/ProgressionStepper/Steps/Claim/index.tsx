@@ -13,8 +13,11 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit }) => {
   const _onSubmit = () => {
     setIsSubmitting(true)
     setTimeout(() => {
-      setIsSubmitting(false)
+      onSubmit()
     }, 3000)
+    setTimeout(() => {
+      setIsSubmitting(false)
+    }, 4000)
   }
 
   return (
@@ -24,8 +27,9 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit }) => {
         buttonText="Claim your tokens"
         onBack={onBack}
         onSubmit={_onSubmit}
+        scrollContainerClassName="mt-0"
       >
-        <div className="flex gap-x-4">
+        <div className="flex items-center gap-x-4">
           <OptimisedImage
             src="/img/icons/wallet-placeholder.png"
             alt="wallet"
@@ -55,13 +59,11 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit }) => {
         <div className="mb-4 w-full">
           <span className="text-caption mb-2 block text-xs uppercase">You're giving voting rights to</span>
           <div className="bg-blue-grey-lighter flex h-14 items-center gap-x-4 rounded-full px-2">
-            <div className="bg-blue-grey inline-flex size-10 items-center justify-center rounded-full">
-              <OptimisedImage
-                src="/img/icons/wallet-placeholder.png"
-                alt="wallet"
-                className="size-6 max-h-6 min-h-6 min-w-6 max-w-6 overflow-hidden rounded-full"
-              />
-            </div>
+            <OptimisedImage
+              src="/img/icons/wallet-placeholder.png"
+              alt="wallet"
+              className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
+            />
             <span className="text-caption">Lindsey Winder</span>
           </div>
         </div>

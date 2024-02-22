@@ -21,14 +21,16 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
 
   const stepperContainerRef = useRef<HTMLDivElement>(null)
 
-  const updateStepInView = (step: number) => setStepInView(step)
+  const updateStepInView = (step: number) => {
+    setStep(step)
+    setStepInView(step)
+  }
 
   const handleUpdateStep = (newStep: number) => {
+    setStep(newStep)
     if (newStep > totalSteps) {
-      setStep(newStep)
       onComplete && onComplete()
     } else if (step < newStep) {
-      setStep(newStep)
       setCompletedSteps(newStep)
       handleScrollToStep(newStep)
     } else {
@@ -39,6 +41,7 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
   const handleScrollToStep = (step: number) => {
     if (!stepperContainerRef.current) return
     clearTimeout(scrollTimeout)
+    setStep(step)
     scrollTimeout = setTimeout(() => {
       stepperContainerRef.current.scrollTo(window.innerWidth * step, 0)
     }, SCROLL_DELAY)
@@ -71,16 +74,17 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
         handleScrollToStep={handleScrollToStep}
       />
 
-      <div className="fixed inset-0 flex items-center justify-center">
+      <div className="pointer-events-none fixed inset-0 z-[-1] flex items-center justify-center">
         <AnimateOnUpdate
-          updateKey={stepInView}
+          updateKey={step}
           duration={0.3}
           className="relative size-[500px]"
         >
           <div
             className={cx('gradient-background size-full', {
-              'orange-blue-gradient': stepInView === 1,
-              'blue-purple-gradient': stepInView === 2,
+              'orange-blue-gradient': step === 0,
+              'blue-purple-gradient': step === 1,
+              'light-blue-gradient': step === 2,
             })}
           />
         </AnimateOnUpdate>
@@ -90,11 +94,11 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
       {components.map((Component, i) => (
         <InView
           key={i}
-          handleUpdateInView={() => updateStepInView(i + 1)}
+          handleUpdateInView={() => updateStepInView(i)}
         >
           <Component
             onBack={handleGoBack}
-            onSubmit={() => handleUpdateStep(i + 2)}
+            onSubmit={() => handleUpdateStep(i + 1)}
           />
         </InView>
       ))}
