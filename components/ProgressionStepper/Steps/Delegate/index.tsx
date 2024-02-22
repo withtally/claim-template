@@ -78,10 +78,10 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
             </div>
             {/* RIGHT SIDE */}
             <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                _onSubmit()
-              }}
+              // onSubmit={(e) => {
+              //   e.preventDefault()
+              //   _onSubmit()
+              // }}
               className="bg-blue-grey/70 relative z-10 flex w-full max-w-[450px] flex-col items-start rounded-2xl p-6 backdrop-blur-md"
               // className="xxs:bg-transparent xxs:backdrop-blur-none"
             >
@@ -118,7 +118,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
 
               <div className="flex w-full flex-1 items-end">
                 <Button
-                  type="submit"
+                  // type="submit"
                   isLoading={isSubmitting}
                   labelClassName="md:translate-x-0 translate-x-3"
                   className="w-full"

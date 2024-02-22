@@ -10,7 +10,9 @@ const Navbar: FC = () => {
       <nav>
         <Container className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-x-20">
-            <span className="text-2xl font-bold">zkSync Claims</span>
+            <button onClick={() => window.location.reload()}>
+              <span className="cursor-pointer select-none text-2xl font-bold">zkSync Claims</span>
+            </button>
             <ul className="flex items-center gap-x-6">
               {Array.from({ length: 3 }).map((_, i) => (
                 <li
