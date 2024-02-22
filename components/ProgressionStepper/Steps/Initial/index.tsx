@@ -27,7 +27,7 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
       <StepForm
         isLoading={isSubmitting}
         title="zkSync Claim"
-        buttonText="Claim & Delegate"
+        buttonText="Sign Message"
         onSubmit={_onSubmit}
       >
         <ul className="mb-6">

@@ -121,7 +121,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                   labelClassName="md:translate-x-0 translate-x-3"
                   className="w-full"
                 >
-                  Claim and delegate
+                  Claim and Delegate
                 </Button>
               </div>
             </form>
