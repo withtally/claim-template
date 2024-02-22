@@ -49,7 +49,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ stepInView, completedSteps, t
               </span>
               {/* Step Border */}
               <span
-                className={cx('inline-block h-8 w-8 rounded-full border-2 bg-white transition-colors', {
+                className={cx('inline-block h-8 w-8 rounded-full border-2 bg-white transition-all', {
                   'border-dark-purple': Boolean(i < stepInView && i <= completedSteps),
                   'border-transparent': !Boolean(i < stepInView && i <= completedSteps),
                   'cursor-not-allowed opacity-50': i > completedSteps,

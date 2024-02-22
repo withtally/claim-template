@@ -42,7 +42,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               <div className="grid grid-cols-2 gap-4">
                 {/* CARD #1 */}
                 <div className="bg-blue-grey relative rounded-md border-2 p-4 pt-9">
-                  <div className="text-green bg-green/40 absolute right-2 top-2 inline-flex items-center gap-x-2 rounded p-1 pb-1.5 text-xs">
+                  <div className="text-green bg-green/20 absolute right-2 top-2 inline-flex items-center gap-x-2 rounded p-1 pb-1.5 text-xs">
                     <TickIcon className="size-4" />
                     <span className="text-caption uppercase">Selected</span>
                   </div>

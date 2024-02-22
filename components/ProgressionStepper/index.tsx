@@ -89,18 +89,21 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
         </div>
       </div>
 
-      {/* DIFFERENT GRADIENT ON DIFFERENT STEP */}
-      {components.map((Component, i) => (
-        <InView
-          key={i}
-          handleUpdateInView={() => updateStepInView(i)}
-        >
-          <Component
-            onBack={handleGoBack}
-            onSubmit={() => handleUpdateStep(i + 1)}
-          />
-        </InView>
-      ))}
+      {components.map(
+        (Component, i) => (
+          // i >= step && (
+          <InView
+            key={i}
+            handleUpdateInView={() => updateStepInView(i)}
+          >
+            <Component
+              onBack={handleGoBack}
+              onSubmit={() => handleUpdateStep(i + 1)}
+            />
+          </InView>
+        )
+        // )
+      )}
     </div>
   )
 }

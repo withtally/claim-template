@@ -41,8 +41,9 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
                   'text-green': i === 0 && isSubmitting,
                 })}
               >
-                <h3 className="text-caption uppercase">
-                  0{i + 1} {title}
+                <h3 className="text-caption inline-flex items-center gap-x-4 uppercase">
+                  <span>0{i + 1}</span>
+                  <span>{title}</span>
                 </h3>
                 {i === 0 && isSubmitting && <TickIcon className="size-4" />}
               </div>
