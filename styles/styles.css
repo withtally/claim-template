@@ -4,8 +4,9 @@
 
 @font-face {
   font-family: 'Gilroy';
-  src: url('/fonts/Gilroy-Regular.woff2') format('woff2'),
-      url('/fonts/Gilroy-Regular.woff') format('woff');
+  src:
+    url('/fonts/Gilroy-Regular.woff2') format('woff2'),
+    url('/fonts/Gilroy-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -13,8 +14,9 @@
 
 @font-face {
   font-family: 'Gilroy';
-  src: url('/fonts/Gilroy-SemiBold.woff2') format('woff2'),
-      url('/fonts/Gilroy-SemiBold.woff') format('woff');
+  src:
+    url('/fonts/Gilroy-SemiBold.woff2') format('woff2'),
+    url('/fonts/Gilroy-SemiBold.woff') format('woff');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -22,8 +24,9 @@
 
 @font-face {
   font-family: 'Gilroy';
-  src: url('/fonts/Gilroy-Medium.woff2') format('woff2'),
-      url('/fonts/Gilroy-Medium.woff') format('woff');
+  src:
+    url('/fonts/Gilroy-Medium.woff2') format('woff2'),
+    url('/fonts/Gilroy-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -31,8 +34,9 @@
 
 @font-face {
   font-family: 'Gilroy';
-  src: url('/fonts/Gilroy-Bold.woff2') format('woff2'),
-      url('/fonts/Gilroy-Bold.woff') format('woff');
+  src:
+    url('/fonts/Gilroy-Bold.woff2') format('woff2'),
+    url('/fonts/Gilroy-Bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -40,7 +44,7 @@
 
 @layer base {
   body {
-    @apply w-full min-w-[320px] font-sans text-base font-normal leading-5 text-black;
+    @apply w-full min-w-[320px] bg-black font-sans text-base font-normal leading-6 text-white;
   }
   .text-display-m {
     @apply text-[80px] font-semibold leading-[80px] -tracking-[2.4px];
@@ -106,6 +110,10 @@ input:focus {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   @apply bg-white;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  @apply h-0 w-0;
 }
 
 ::selection {

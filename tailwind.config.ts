@@ -26,7 +26,9 @@ module.exports = {
         DEFAULT: '#1e69ff',
       },
       colors: {
-        'blue': '#1e69ff',
+        blue: '#1e69ff',
+        'blue-grey': '#262b33',
+        'blue-grey-lighter': '#3d424d',
       },
     },
     fontFamily: {
