@@ -19,7 +19,7 @@ const Header: FC<HeaderProps> = ({ onClick }) => {
           className="w-[600px] overflow-hidden rounded-md"
         />
       </div>
-      <Container className="flex h-svh min-h-[600px] flex-col items-start justify-center">
+      <Container className="flex h-svh min-h-[600px] flex-col items-start justify-center pt-16">
         <header className="flex flex-col items-start gap-y-6">
           <h1 className="text-display-m">{siteName} Claim Portal</h1>
           <p className="text-title text-gray-400">Check your eligibility to claim tokens</p>
