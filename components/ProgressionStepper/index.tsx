@@ -1,6 +1,5 @@
 import cx from 'classnames'
 import { ComponentType, FC, useEffect, useRef, useState } from 'react'
-import AnimateOnUpdate from '~/components/Layout/AnimateOnUpdate'
 import InView from '~/components/ProgressionStepper/InView'
 import ProgressBar from '~/components/ProgressionStepper/ProgressBar'
 import { SCROLL_DELAY } from '~/components/ProgressionStepper/presets'
@@ -75,19 +74,19 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
       />
 
       <div className="pointer-events-none fixed inset-0 z-[-1] flex items-center justify-center">
-        <AnimateOnUpdate
-          updateKey={step}
-          duration={0.3}
-          className="relative size-[500px]"
-        >
-          <div
-            className={cx('gradient-background size-full', {
-              'orange-blue-gradient': step === 0,
-              'blue-purple-gradient': step === 1,
-              'light-blue-gradient': step === 2,
-            })}
-          />
-        </AnimateOnUpdate>
+        <div className="relative size-[500px]">
+          {Array.from({ length: totalSteps }).map((_, i) => (
+            <div
+              key={i}
+              className={cx('gradient-background size-full', {
+                'xxs:opacity-0': i !== step,
+                'orange-blue-gradient': i === 0,
+                'blue-purple-gradient': i === 1,
+                'light-blue-gradient': i === 2,
+              })}
+            />
+          ))}
+        </div>
       </div>
 
       {/* DIFFERENT GRADIENT ON DIFFERENT STEP */}
