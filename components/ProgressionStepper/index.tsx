@@ -80,9 +80,9 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
               key={i}
               className={cx('gradient-background size-full', {
                 'xxs:opacity-0': i !== step,
-                'orange-blue-gradient': i === 0,
-                'blue-purple-gradient': i === 1,
-                'light-blue-gradient': i === 2,
+                'blue-purple-gradient': i === 0,
+                'light-blue-gradient': i === 1,
+                'orange-blue-gradient': i === 2,
               })}
             />
           ))}

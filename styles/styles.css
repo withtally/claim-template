@@ -181,7 +181,7 @@ input[type='number'] {
     rgb(54, 103, 196) 301.88deg,
     rgb(105, 30, 255) 360deg
   );
-  @apply xxs:opacity-50;
+  @apply xxs:opacity-60;
 }
 
 .light-blue-gradient {
@@ -194,4 +194,5 @@ input[type='number'] {
     #0d92ff 301.88deg,
     #0d92ff 360deg
   );
+  @apply xxs:opacity-50;
 }
