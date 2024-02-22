@@ -1,0 +1,145 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Regular.woff2') format('woff2'),
+      url('/fonts/Gilroy-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-SemiBold.woff2') format('woff2'),
+      url('/fonts/Gilroy-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Medium.woff2') format('woff2'),
+      url('/fonts/Gilroy-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Bold.woff2') format('woff2'),
+      url('/fonts/Gilroy-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  body {
+    @apply w-full min-w-[320px] font-sans text-base font-normal leading-5 text-black;
+  }
+  .text-display-m {
+    @apply text-[80px] font-semibold leading-[80px] -tracking-[2.4px];
+  }
+  .text-title,
+  .text-title-bold {
+    @apply text-[48px] leading-[48px] -tracking-[0.96px];
+  }
+  .text-title-bold {
+    @apply font-semibold;
+  }
+  .text-subheading,
+  .text-subheading-bold {
+    @apply text-2xl leading-[26px];
+  }
+  .text-subheading-bold {
+    @apply font-bold;
+  }
+  .text-body-bold {
+    @apply font-medium;
+  }
+}
+
+html,
+body {
+  @apply h-svh w-screen;
+}
+
+body {
+  overflow: hidden;
+}
+
+html.smooth-scroll {
+  @apply scroll-smooth;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+/* Prevent blue tap colouring and outlines on button focus */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+textarea:focus,
+select:focus,
+input:focus {
+  outline: none !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply size-1;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-white;
+}
+
+::selection {
+  @apply bg-black text-white;
+}
+
+/* Hide up and down arrows on quantity inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.next-image {
+  position: relative !important;
+  inset: unset !important;
+}
+
+/* Transform blur fix */
+.sharpen-transform {
+  transform: translate3d(0, 0, 0) perspective(999px);
+}
+
+/* Ensure text does not overflow on a single line */
+.label-preview {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
