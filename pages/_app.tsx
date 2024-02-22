@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { FC } from 'react'
 import AnimateLayout from '~/components/Layout/AnimateLayout'
 import ErrorBoundary from '~/components/Layout/ErrorBoundary'
+import Navbar from '~/components/Layout/Nav/Navbar'
 import '~/styles/styles.css'
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
@@ -12,7 +13,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <ErrorBoundary>
-      {/* <Navbar /> */}
+      <Navbar />
       <AnimatePresence onExitComplete={() => window.scrollTo(0, 0)}>
         <AnimateLayout key={_asPath}>
           <Component {...pageProps} />

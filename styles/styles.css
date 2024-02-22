@@ -66,6 +66,9 @@
   .text-body-bold {
     @apply font-medium;
   }
+  .text-caption {
+    @apply font-caption tracking-[2px];
+  }
 }
 
 html,
@@ -117,7 +120,7 @@ input:focus {
 }
 
 ::selection {
-  @apply bg-black text-white;
+  @apply bg-white text-black;
 }
 
 /* Hide up and down arrows on quantity inputs */
@@ -150,4 +153,33 @@ input[type='number'] {
   line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* BACKGROUND GRADIENTS */
+.gradient-background {
+  @apply absolute inset-0 z-[-1] opacity-70 blur-[160px] transition-opacity duration-1000;
+}
+
+.orange-blue-gradient {
+  background: conic-gradient(
+    from 230.29deg at 51.63% 52.16%,
+    rgb(157, 65, 39) 0deg,
+    rgb(36, 0, 255) 67.5deg,
+    rgb(157, 65, 39) 198.75deg,
+    rgb(157, 65, 39) 251.25deg,
+    rgb(54, 103, 196) 301.88deg,
+    rgb(157, 65, 39) 360deg
+  );
+}
+.blue-purple-gradient {
+  background: conic-gradient(
+    from 230.29deg at 51.63% 52.16%,
+    rgb(36, 0, 255) 0deg,
+    rgb(0, 135, 255) 67.5deg,
+    rgb(108, 39, 157) 198.75deg,
+    rgb(24, 38, 163) 251.25deg,
+    rgb(54, 103, 196) 301.88deg,
+    rgb(105, 30, 255) 360deg
+  );
+  @apply xxs:opacity-50;
 }

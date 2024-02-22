@@ -1,4 +1,6 @@
+import cx from 'classnames'
 import { ComponentType, FC, useEffect, useRef, useState } from 'react'
+import AnimateOnUpdate from '~/components/Layout/AnimateOnUpdate'
 import InView from '~/components/ProgressionStepper/InView'
 import ProgressBar from '~/components/ProgressionStepper/ProgressBar'
 import { SCROLL_DELAY } from '~/components/ProgressionStepper/presets'
@@ -9,16 +11,10 @@ let scrollTimeout: NodeJS.Timeout | null = null
 interface ProgessionStepperProps {
   totalSteps: number
   components: ComponentType<any>[]
-  initialComponent: ComponentType<any>
   onComplete?: () => void
 }
 
-const ProgessionStepper: FC<ProgessionStepperProps> = ({
-  totalSteps,
-  components,
-  initialComponent: InitialComponent,
-  onComplete,
-}) => {
+const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components, onComplete }) => {
   const [step, setStep] = useState(0)
   const [completedSteps, setCompletedSteps] = useState(0)
   const [stepInView, setStepInView] = useState(0)
@@ -66,7 +62,7 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({
   return (
     <div
       ref={stepperContainerRef}
-      className="scrollbar-hidden flex max-h-screen max-w-[100vw] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth"
+      className="scrollbar-hidden relative flex max-h-screen max-w-[100vw] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth"
     >
       <ProgressBar
         stepInView={stepInView}
@@ -74,22 +70,34 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({
         totalSteps={totalSteps}
         handleScrollToStep={handleScrollToStep}
       />
-      <InitialComponent onSubmit={() => handleUpdateStep(1)} />
 
-      {components.map(
-        (Component, i) =>
-          step >= i + 1 && (
-            <InView
-              key={i}
-              handleUpdateInView={() => updateStepInView(i + 1)}
-            >
-              <Component
-                onBack={handleGoBack}
-                onSubmit={() => handleUpdateStep(i + 2)}
-              />
-            </InView>
-          )
-      )}
+      <div className="fixed inset-0 flex items-center justify-center">
+        <AnimateOnUpdate
+          updateKey={stepInView}
+          duration={0.3}
+          className="relative size-[500px]"
+        >
+          <div
+            className={cx('gradient-background size-full', {
+              'orange-blue-gradient': stepInView === 1,
+              'blue-purple-gradient': stepInView === 2,
+            })}
+          />
+        </AnimateOnUpdate>
+      </div>
+
+      {/* DIFFERENT GRADIENT ON DIFFERENT STEP */}
+      {components.map((Component, i) => (
+        <InView
+          key={i}
+          handleUpdateInView={() => updateStepInView(i + 1)}
+        >
+          <Component
+            onBack={handleGoBack}
+            onSubmit={() => handleUpdateStep(i + 2)}
+          />
+        </InView>
+      ))}
     </div>
   )
 }

@@ -1,21 +1,33 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import AnimateOnUpdate from '~/components/Layout/AnimateOnUpdate'
+import Header from '~/components/Pages/Home/Header'
 import ProgessionStepper from '~/components/ProgressionStepper'
+import ClaimStep from '~/components/ProgressionStepper/Steps/Claim'
 import InitialScreen from '~/components/ProgressionStepper/Steps/Initial'
 import { SEO } from '~/components/SEO'
 
 const HireReactDeveloperPage: FC = () => {
-  const components = []
+  const [isClaimStepperVisible, setIsClaimStepperVisible] = useState(false)
+  const components = [InitialScreen, ClaimStep]
+
+  const handleShowClaimStepper = () => setIsClaimStepperVisible(true)
 
   return (
     <>
       <SEO title="Home" />
-      <div className="flex max-h-screen flex-col">
-        <ProgessionStepper
-          initialComponent={InitialScreen}
-          components={components}
-          totalSteps={components.length}
-        />
-      </div>
+      <AnimateOnUpdate
+        updateKey={isClaimStepperVisible}
+        className="flex max-h-svh flex-col"
+      >
+        {!isClaimStepperVisible ? (
+          <Header onClick={handleShowClaimStepper} />
+        ) : (
+          <ProgessionStepper
+            components={components}
+            totalSteps={components.length}
+          />
+        )}
+      </AnimateOnUpdate>
     </>
   )
 }

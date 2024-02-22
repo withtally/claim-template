@@ -24,7 +24,7 @@ const Button: FC<ButtonProps> = ({
   <button
     tabIndex={tabIndex}
     className={cx(
-      'group relative flex h-[50px] select-none items-center justify-center gap-x-2 rounded-full px-9 text-base transition-all',
+      'group relative flex h-[50px] max-h-[50px] select-none items-center justify-center gap-x-2 rounded-full px-9 text-base transition-all',
       className,
       BUTTON_COLOURS[variant]
     )}
@@ -40,7 +40,7 @@ const Button: FC<ButtonProps> = ({
     {isLoading !== undefined && (
       <Loader
         className={cx(
-          'absolute left-1/2 top-1/2 h-6 min-h-[24px] w-6 min-w-[24px] -translate-x-1/2 -translate-y-1/2 transition-opacity',
+          'absolute left-1/2 top-1/2 size-8 min-h-8 min-w-8 -translate-x-1/2 -translate-y-1/2 transition-opacity',
           {
             'opacity-0': !isLoading,
           }

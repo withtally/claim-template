@@ -4,7 +4,7 @@ import Button from '~/components/Layout/Button'
 import Container from '~/components/Layout/Container'
 
 interface StepFormProps {
-  title: string | ReactNode
+  title?: string | ReactNode
   errorText?: string
   buttonText: string
   isLoading?: boolean
@@ -33,7 +33,7 @@ const StepForm: FC<StepFormProps> = ({
   <section className="min-w-[100vw]">
     <Container
       className={cx(
-        'flex h-screen items-center pb-[72px] pt-20 xxs:static xxs:px-4 md:px-6 md:pb-20 md:pt-16 xl:pb-[190px]',
+        'flex h-screen items-center pb-[72px] pt-20 xxs:static xxs:px-4 md:px-6 md:pb-20 md:pt-16',
         containerClassName
       )}
     >
@@ -43,18 +43,20 @@ const StepForm: FC<StepFormProps> = ({
           onSubmit(e)
         }}
         className={cx(
-          'relative z-10 mx-auto flex max-h-[calc(100vh-200px)] w-full max-w-[calc(100vw-32px)] flex-col items-center justify-center rounded-2xl bg-white/60 p-4 pt-4 backdrop-blur-sm md:max-h-[calc(100vh-160px)] md:max-w-[640px] md:p-6 xl:max-h-[calc(100vh-260px)]',
+          'bg-blue-grey/70 relative z-10 mx-auto flex max-h-[calc(100vh-200px)] w-full max-w-[calc(100vw-32px)] flex-col items-center justify-center rounded-2xl p-4 pt-4 backdrop-blur-md md:max-h-[calc(100vh-160px)] md:max-w-[450px] md:p-6 xl:max-h-[calc(100vh-260px)]',
           className,
           {
             'overflow-hidden': !disableOverflow,
           }
         )}
       >
-        <h2 className="text-center text-xl font-bold text-black xs:text-2xl">
-          <span>{title}</span>
-        </h2>
+        {title && (
+          <h2 className="text-center text-xl font-bold xs:text-2xl">
+            <span>{title}</span>
+          </h2>
+        )}
         <div
-          className={cx('my-4 flex w-full flex-grow flex-col items-center gap-y-4', scrollContainerClassName, {
+          className={cx('my-4 flex w-full flex-grow flex-col items-start', scrollContainerClassName, {
             'overflow-y-auto': !disableOverflow,
           })}
         >

@@ -27,7 +27,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ stepInView, completedSteps, t
           {stepsArray.map((_, i) => (
             <button
               key={i}
-              onClick={() => handleScrollToStep(i + 1)}
+              onClick={() => handleScrollToStep(i)}
               className={cx('group relative h-8 w-8', {
                 'cursor-not-allowed': i + 1 > completedSteps,
               })}
@@ -44,7 +44,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ stepInView, completedSteps, t
                   }
                 )}
               >
-                {i === totalSteps - 1 ? `🎉` : i + 1}
+                {/* {i === totalSteps - 1 ? `🎉` : i + 1} */}
+                {i + 1}
               </span>
               {/* Step Border */}
               <span
@@ -57,7 +58,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ stepInView, completedSteps, t
               {/* Step Background */}
               <span
                 className={cx(
-                  'bg-dark-purple absolute left-0 top-0 z-10 inline-block h-8 w-8 overflow-hidden rounded-full transition-opacity',
+                  'absolute left-0 top-0 z-10 inline-block h-8 w-8 overflow-hidden rounded-full bg-blue transition-opacity',
                   {
                     // 'opacity-100': i < stepInView && i + 1 <= completedSteps,
                     'opacity-0': i + 1 >= stepInView,
