@@ -100,13 +100,11 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
 
               <hr className="my-4 w-full border-gray-500" />
               <div className="bg-blue-grey-lighter mb-6 flex h-14 w-full items-center gap-x-4 rounded-full px-2">
-                <div className="bg-blue-grey inline-flex size-10 items-center justify-center rounded-full">
-                  <OptimisedImage
-                    src="/img/icons/wallet-placeholder.png"
-                    alt="wallet"
-                    className="size-6 max-h-6 min-h-6 min-w-6 max-w-6 overflow-hidden rounded-full"
-                  />
-                </div>
+                <OptimisedImage
+                  src="/img/icons/wallet-placeholder.png"
+                  alt="wallet"
+                  className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
+                />
                 <span className="text-caption">Lindsey Winder</span>
               </div>
 
