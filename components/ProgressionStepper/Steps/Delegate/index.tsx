@@ -25,7 +25,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
         <Container className="flex h-svh items-center pb-[72px] pt-20 xxs:static xxs:px-4 md:px-6 md:pb-20 md:pt-16">
           <div className="mx-auto flex min-w-[1200px] gap-x-10">
             {/* LEFT SIDE */}
-            <div className="bg-blue-grey/70 h-[600px] w-full rounded-2xl p-6 backdrop-blur-md">
+            <div className="h-[600px] w-full rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
               <h2 className="mb-4 text-3xl font-medium">Choose a Delegate</h2>
               <p className="mb-4 text-xl text-gray-400">
                 Pick someone who you believe will be invested in growing the ecosystem.
@@ -41,8 +41,8 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               {/* DELEGATE CARD */}
               <div className="grid grid-cols-2 gap-4">
                 {/* CARD #1 */}
-                <div className="bg-blue-grey relative rounded-md border-2 p-4 pt-9">
-                  <div className="text-green bg-green/20 absolute right-2 top-2 inline-flex items-center gap-x-2 rounded p-1 pb-1.5 text-xs">
+                <div className="relative rounded-md border-2 bg-blue-grey p-4 pt-10">
+                  <div className="absolute right-2 top-2 inline-flex items-center gap-x-2 rounded bg-green/20 p-1 pb-1.5 text-xs text-green">
                     <TickIcon className="size-4" />
                     <span className="text-caption uppercase">Selected</span>
                   </div>
@@ -82,13 +82,13 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               //   e.preventDefault()
               //   _onSubmit()
               // }}
-              className="bg-blue-grey/70 relative z-10 flex w-full max-w-[450px] flex-col items-start rounded-2xl p-6 backdrop-blur-md"
+              className="relative z-10 flex w-full max-w-[450px] flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md"
               // className="xxs:bg-transparent xxs:backdrop-blur-none"
             >
               <h2 className="text-caption text-subheading mb-6 uppercase">Voting Power</h2>
 
-              <div className="bg-blue-grey-lighter flex h-14 w-full items-center gap-x-4 rounded-full px-2">
-                <div className="bg-blue-grey inline-flex size-10 items-center justify-center rounded-full">
+              <div className="flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
+                <div className="inline-flex size-10 items-center justify-center rounded-full bg-blue-grey">
                   <OptimisedImage
                     src="/img/icons/zksync-placeholder.png"
                     alt="wallet"
@@ -99,7 +99,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               </div>
 
               <hr className="my-4 w-full border-gray-500" />
-              <div className="bg-blue-grey-lighter mb-6 flex h-14 w-full items-center gap-x-4 rounded-full px-2">
+              <div className="mb-6 flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
                 <OptimisedImage
                   src="/img/icons/wallet-placeholder.png"
                   alt="wallet"
