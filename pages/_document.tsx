@@ -15,7 +15,7 @@ export const Document: FC<DocumentProps> = () => (
         crossOrigin="anonymous"
       />
       <link
-        href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed&family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet"
       />
     </Head>

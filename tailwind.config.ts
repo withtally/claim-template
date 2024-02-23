@@ -27,14 +27,14 @@ module.exports = {
       },
       colors: {
         green: '#4EC272',
-        blue: '#1e69ff',
+        blue: '#00a5d3',
         'blue-grey': '#262b33',
         'blue-grey-lighter': '#3d424d',
         'card-background': '#262b33cc',
       },
     },
     fontFamily: {
-      sans: ["'Gilroy'", 'sans-serif'],
+      sans: ["'Poppins'", 'sans-serif'],
       caption: ["'Barlow Semi Condensed'", 'sans-serif'],
     },
   },
