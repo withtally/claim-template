@@ -44,13 +44,9 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit }) => {
 
         <div className="mb-6 w-full">
           <span className="text-caption mb-2 block text-xs uppercase">You will receive</span>
-          <div className="bg-blue-grey-lighter flex h-14 items-center gap-x-4 rounded-full px-2">
-            <div className="bg-blue-grey inline-flex size-10 items-center justify-center rounded-full">
-              <OptimisedImage
-                src="/img/icons/zksync-placeholder.png"
-                alt="wallet"
-                className="size-6 max-h-6 min-h-6 min-w-6 max-w-6 overflow-hidden rounded-full"
-              />
+          <div className="flex h-14 items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
+            <div className="inline-flex size-10 items-center justify-center rounded-full bg-blue-grey">
+              <div className="gradient-background orange-blue-gradient size-6 max-h-6 min-h-6 min-w-6 max-w-6 overflow-hidden rounded-full xxs:relative xxs:z-0 xxs:opacity-100 xxs:blur-none" />
             </div>
             <span className="text-caption">6500.0</span>
           </div>
@@ -58,7 +54,7 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit }) => {
 
         <div className="mb-4 w-full">
           <span className="text-caption mb-2 block text-xs uppercase">You're giving voting rights to</span>
-          <div className="bg-blue-grey-lighter flex h-14 items-center gap-x-4 rounded-full px-2">
+          <div className="flex h-14 items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
             <OptimisedImage
               src="/img/icons/wallet-placeholder.png"
               alt="wallet"

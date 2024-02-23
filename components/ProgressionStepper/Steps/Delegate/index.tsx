@@ -89,11 +89,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
 
               <div className="flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
                 <div className="inline-flex size-10 items-center justify-center rounded-full bg-blue-grey">
-                  <OptimisedImage
-                    src="/img/icons/zksync-placeholder.png"
-                    alt="wallet"
-                    className="size-6 max-h-6 min-h-6 min-w-6 max-w-6 overflow-hidden rounded-full"
-                  />
+                  <div className="gradient-background orange-blue-gradient size-6 max-h-6 min-h-6 min-w-6 max-w-6 overflow-hidden rounded-full xxs:relative xxs:z-0 xxs:opacity-100 xxs:blur-none" />
                 </div>
                 <span className="text-caption">6500.0</span>
               </div>
