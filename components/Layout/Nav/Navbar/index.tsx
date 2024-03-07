@@ -2,8 +2,8 @@ import { FC } from 'react'
 import Container from '~/components/Layout/Container'
 import { socialIcons } from '~/components/Layout/Nav/Navbar/presets'
 import { siteName } from '~/constants/site'
-import ChevronDownIcon from '~/public/img/icons/chevron-down.svg'
-import EthIcon from '~/public/img/icons/eth.svg'
+import { useConnect, useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi';
+import { WalletConnector } from '../../WalletConnect/WalletConnectButton'
 
 const Navbar: FC = () => {
   return (
@@ -27,16 +27,12 @@ const Navbar: FC = () => {
           </div>
 
           <div className="flex items-center gap-x-10">
-            <button className="inline-flex h-10 items-center justify-center gap-x-4 rounded-full bg-white/20 p-2 px-2">
-              <EthIcon className="size-7" />
-              <span>nevergonnagiveyouup.eth</span>
-              <ChevronDownIcon className="mr-1 size-3.5" />
-            </button>
+            <WalletConnector />
+
             <ul className="flex items-center gap-x-6">
               {socialIcons.map((Icon, i) => (
-                <button>
+                <button key={i}>
                   <Icon
-                    key={i}
                     className="size-8 text-white transition-colors hover:text-blue"
                   />
                 </button>
