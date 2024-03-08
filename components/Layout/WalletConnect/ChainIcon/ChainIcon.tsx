@@ -6,6 +6,10 @@ import OptimismIcon from '~/public/img/icons/chains/optimism.svg'
 import AvalancheIcon from '~/public/img/icons/chains/avalanche.svg'
 import BNBIcon from '~/public/img/icons/chains/bnb.svg'
 import ArbitrumOneIcon from '~/public/img/icons/chains/arbitrum_one.svg'
+import GnosisIcon from '~/public/img/icons/chains/gnosis.svg'
+import ArbitrumNovaIcon from '~/public/img/icons/chains/arbitrum_nova.svg'
+import ZkSyncEraIcon from '~/public/img/icons/chains/zksync_era.svg'
+import MoonbeamIcon from '~/public/img/icons/chains/moonbeam.svg'
 import { Chains } from '~/types/chains'
 
 interface Props {
@@ -29,8 +33,14 @@ export const ChainIcon: FC<Props> = ({ className, chainName }) => {
       return <BNBIcon className={className} />
     case 'Arbitrum One':
       return <ArbitrumOneIcon className={className} />
-    case 'OP Mainnet':
-      return <SepoliaIcon className={className} />
+    case 'Gnosis':
+      return <GnosisIcon className={className} />
+    case 'Arbitrum Nova':
+      return <ArbitrumNovaIcon className={className} />
+    case 'zkSync Era':
+      return <ZkSyncEraIcon className={className} />
+    case 'Moonbeam':
+      return <MoonbeamIcon className={className} />
     default:
       break
   }

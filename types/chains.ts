@@ -1,2 +1,2 @@
-export type Chains = 'Ethereum' | 'Polygon' | 'Sepolia' | 'OP Mainnet' |
-  'Avalanche' | 'BNB Smart Chain' | 'Arbitrum One' | 'Arbitrum Nova';
+export type Chains = 'Ethereum' | 'Sepolia' | 'Polygon' | 'OP Mainnet' |'Avalanche' | 'BNB Smart Chain' |
+  'Arbitrum One' | 'Gnosis' | 'Arbitrum Nova' | 'zkSync Era' | 'Moonbeam' ;
