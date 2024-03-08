@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react'
 import { Connector, useConnect, useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi'
 import Button from '../../Button'
-import EthIcon from '~/public/img/icons/eth.svg'
+import EthIcon from '~/public/img/icons/chains/eth.svg'
 import ChevronDownIcon from '~/public/img/icons/chevron-down.svg'
 import { useWalletConnectContext } from '../../../../contexts/WalletConnectContext'
 import { normalize } from 'viem/ens'

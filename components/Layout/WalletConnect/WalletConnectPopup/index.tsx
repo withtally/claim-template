@@ -1,15 +1,13 @@
 import { useWalletConnectContext } from '../../../../contexts/WalletConnectContext'
-import { FC } from 'react'
-import { Connector, useConnect, useAccount, useDisconnect, useEnsAvatar, useEnsName, useChains } from 'wagmi'
-import { mainnet, sepolia, polygon, optimism } from 'wagmi/chains'
+import { FC, useState } from 'react'
 import Cross from '../../../../public/img/icons/cross.svg'
-import { WalletIcon } from '../WalletIcon'
-import { WalletConnectors } from '~/types/wallet-connectors'
+import Back from '../../../../public/img/icons/back.svg'
+import WalletsList from './WalletsList'
+import ChainsList from '~/components/Layout/WalletConnect/WalletConnectPopup/ChainsList'
 
 export const WalletConnectPopup: FC = () => {
+  const [isChainsShowed, setIsChainsShowed] = useState<boolean>(false)
   const { setConnectConnectPopupVisibility } = useWalletConnectContext()
-  const { connectors, connect } = useConnect()
-  const chains = useChains()
 
   return (
     <div
@@ -27,35 +25,40 @@ export const WalletConnectPopup: FC = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative my-8 w-full max-w-lg transform overflow-hidden rounded-2xl bg-blue-grey text-left shadow-xl transition-all"
+            className="relative my-8 w-full max-w-lg transform overflow-hidden rounded-2xl bg-blue-grey text-left shadow-xl transition-all p-[16px]"
           >
-            <div className="flex items-center justify-between p-[16px]">
+            <div className="flex items-center justify-between mb-[32px]">
               <h1 className="text-xl font-extrabold font-semibold">Connect Wallet</h1>
 
-              <Cross
-                className="size-3.5 cursor-pointer"
-                onClick={() => setConnectConnectPopupVisibility(false)}
-              />
-            </div>
-            <div>
-              {connectors.map((connector) => {
-                return (
-                  <div 
-                    key={connector.name}
-                    onClick={() => {
-                      connect(
-                        { connector, chainId: optimism.id },
-                        { onSuccess: () => setConnectConnectPopupVisibility(false) }
-                      )
-                    }}
-                    className="m-[16px] flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-[15px] "
-                  >
-                    {connector.name}
-
-                    <WalletIcon className='size-10' walletName={connector.name as WalletConnectors} />
-                  </div>
+              {
+                isChainsShowed ? (
+                  <Back
+                    className="size-3.5 cursor-pointer"
+                    onClick={() => setIsChainsShowed(false)}
+                  />
+                ) : (
+                  <Cross
+                    className="size-3.5 cursor-pointer"
+                    onClick={() => setConnectConnectPopupVisibility(false)}
+                  />
                 )
-              })}
+              }
+
+            </div>
+            <div className="mb-[32px]">
+              {
+                isChainsShowed ? (
+                  <ChainsList />
+                ) : (
+                  <WalletsList
+                    setIsChainsShowed={setIsChainsShowed}
+                  />
+                )
+              }
+            </div>
+            <div className="flex">
+              <p className="mr-[8px]">Don't have a wallet?</p>
+              <a href="https://ethereum.org/en/wallets/">Learn more</a>
             </div>
           </div>
         </div>
