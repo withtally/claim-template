@@ -1,4 +1,5 @@
-import { createConfig, http, cookieStorage, createStorage, } from 'wagmi'
+import { createConfig, http, cookieStorage, createStorage } from 'wagmi'
+import { metaMask, coinbaseWallet, walletConnect, safe } from 'wagmi/connectors'
 import {
   mainnet,
   sepolia,
@@ -9,12 +10,14 @@ import {
   arbitrum,
   gnosis,
   arbitrumNova,
-  zkSync, moonbeam,
+  zkSync,
+  moonbeam,
+  bscTestnet,
 } from 'wagmi/chains'
-import { metaMask, coinbaseWallet, walletConnect } from 'wagmi/connectors'
 
 export const config = createConfig({
   chains: [
+    bscTestnet,
     mainnet,
     sepolia,
     polygon,
@@ -25,7 +28,7 @@ export const config = createConfig({
     gnosis,
     arbitrumNova,
     zkSync,
-    moonbeam
+    moonbeam,
   ],
   multiInjectedProviderDiscovery: false,
   ssr: true,
@@ -34,7 +37,7 @@ export const config = createConfig({
   }),
   connectors: [
     metaMask(),
-    walletConnect({ projectId: '77804d9f3d662d865161a11b1c286c92',}),
+    walletConnect({ projectId: '77804d9f3d662d865161a11b1c286c92', }),
     coinbaseWallet({
       appName: 'Tally',
       enableMobileWalletLink: true,
@@ -52,5 +55,6 @@ export const config = createConfig({
     [arbitrumNova.id]: http(),
     [zkSync.id]: http(),
     [moonbeam.id]: http(),
+    [bscTestnet.id]: http(),
   },
 })

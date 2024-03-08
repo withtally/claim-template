@@ -1,17 +1,47 @@
 import { useWalletConnectContext } from '../../../../contexts/WalletConnectContext'
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useMemo, useState, MouseEvent } from 'react'
 import Cross from '../../../../public/img/icons/cross.svg'
 import Back from '../../../../public/img/icons/back.svg'
-import WalletsList from './WalletsList'
-import ChainsList from '~/components/Layout/WalletConnect/WalletConnectPopup/ChainsList'
-import { WalletDisconnectPopup } from '../WalletDisconnectPopup'
-import { useAccount, useDisconnect } from 'wagmi'
+import WalletsList from './components/WalletsList'
+import ChainsList from '~/components/Layout/WalletConnect/WalletConnectPopup/components/ChainsList'
+import { DisconnectContent } from './components/DisconnectContent'
+import { Connector, useAccount, useChains, useConnect, useDisconnect } from 'wagmi'
+import { WALLLET_CONNECT_ID } from '~/constants/site'
 
 export const WalletConnectPopup: FC = () => {
   const [isChainsShowed, setIsChainsShowed] = useState<boolean>(false)
   const { setConnectConnectPopupVisibility } = useWalletConnectContext()
   const { address, connector, isConnected } = useAccount()
+  const { connectors, connect } = useConnect()
   const { disconnect } = useDisconnect()
+  const chains = useChains()
+
+  const walletConnectconnector: Connector = useMemo(() => {
+    return connectors.find((connector) => connector.id === WALLLET_CONNECT_ID)
+  }, [])
+
+ const walletConnectHandler = useCallback(() => {
+    return (event: MouseEvent) => {
+      setIsChainsShowed(true);
+    };
+  }, []);
+
+  const defaultConnectHandler = useCallback((connector: Connector) => {
+    return (event: MouseEvent) => {
+      connect(
+        { connector },
+        { onSuccess: () => setConnectConnectPopupVisibility(false) }
+      );
+      event.preventDefault();
+    };
+  }, []);
+
+  const connectWithChain = useCallback((chainId: number) => {
+    connect(
+      { connector: walletConnectconnector, chainId: chainId },
+      { onSuccess: () => setConnectConnectPopupVisibility(false) }
+    )
+  },[])
 
   const doDisconnect = useCallback(() => {
     disconnect(
@@ -47,7 +77,7 @@ export const WalletConnectPopup: FC = () => {
             className="relative my-8 w-full max-w-md transform overflow-hidden rounded-2xl bg-blue-grey p-[16px] text-left shadow-xl transition-all"
           >
             {isConnected ? (
-              <WalletDisconnectPopup
+              <DisconnectContent
                 address={address}
                 connector={connector}
                 onDisconnect={doDisconnect}
@@ -71,7 +101,15 @@ export const WalletConnectPopup: FC = () => {
                   )}
                 </div>
                 <div className="mb-[32px]">
-                  {isChainsShowed ? <ChainsList /> : <WalletsList setIsChainsShowed={setIsChainsShowed} />}
+                  {isChainsShowed 
+                    ? <ChainsList chains={chains} connectWithChain={connectWithChain}/> 
+                    : <WalletsList
+                        connectors={connectors}
+                        setIsChainsShowed={setIsChainsShowed}
+                        defaultConnectHandler={defaultConnectHandler}
+                        walletConnectHandler={walletConnectHandler}
+                      />
+                    }
                 </div>
                 <div className="flex">
                   <p className="mr-[8px]">Don't have a wallet?</p>
