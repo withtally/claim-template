@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react'
+import { useAccount } from 'wagmi'
 import { WalletConnectPopup } from '~/components/Layout/WalletConnect/WalletConnectPopup'
+import { WalletDisconnectPopup } from '~/components/Layout/WalletConnect/WalletDisconnectPopup'
 
 type WalletConnectContextType = {
   isConnectConnectPopupVisible: boolean
@@ -18,6 +20,9 @@ const useWalletConnectContext = () => {
 
 const WalletConnectContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isConnectConnectPopupVisible, setConnectConnectPopupVisibility] = useState<boolean>(false)
+  const { isConnected } = useAccount()
+
+  const PopUp = isConnected ? WalletDisconnectPopup : WalletConnectPopup;
 
   return (
     <WalletConnectContext.Provider value={{ isConnectConnectPopupVisible, setConnectConnectPopupVisibility }}>

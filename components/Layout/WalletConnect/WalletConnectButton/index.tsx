@@ -7,6 +7,7 @@ import { useWalletConnectContext } from '../../../../contexts/WalletConnectConte
 import { normalize } from 'viem/ens'
 import { WalletIcon } from '../WalletIcon'
 import { WalletConnectors } from '~/types/wallet-connectors'
+import { shortenAddress } from '~/utils/common'
 
 export const WalletConnector: FC = () => {
   const { address, isConnected, chainId, connector } = useAccount()
@@ -20,14 +21,16 @@ export const WalletConnector: FC = () => {
     <>
       {isConnected ? (
         <button
-          onClick={() => disconnect()}
+          // onClick={() => disconnect()}
+          onClick={() => setConnectConnectPopupVisibility(true)}
+
           className="inline-flex h-10 items-center justify-center gap-x-4 rounded-full bg-white/20 p-2 px-2"
         >
           <WalletIcon
             className="size-7"
             walletName={connectorName as WalletConnectors}
           />
-          <span>{address}</span>
+          <span>{shortenAddress(address)}</span>
           <ChevronDownIcon className="mr-1 size-3.5" />
         </button>
       ) : (
