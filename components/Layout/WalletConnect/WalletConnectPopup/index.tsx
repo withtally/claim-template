@@ -1,95 +1,13 @@
 import { useWalletConnectContext } from '../../../../contexts/WalletConnectContext'
-import { FC, useState, MouseEvent } from 'react'
-import { Connector, useConnect, useAccount, useDisconnect, useEnsAvatar, useEnsName, useChains } from 'wagmi'
+import { FC, useState } from 'react'
 import Cross from '../../../../public/img/icons/cross.svg'
 import Back from '../../../../public/img/icons/back.svg'
-import { WalletIcon } from '../WalletIcon'
-import { WalletConnectors } from '~/types/wallet-connectors'
-import { siteName, WALLLET_CONNECT_ID } from '~/constants/site'
-import { ChainIcon } from '~/components/Layout/WalletConnect/ChainIcon/ChainIcon'
-import { Chains } from '~/types/chains'
+import WalletsList from './WalletsList'
+import ChainsList from '~/components/Layout/WalletConnect/WalletConnectPopup/ChainsList'
 
 export const WalletConnectPopup: FC = () => {
-  const { setConnectConnectPopupVisibility } = useWalletConnectContext()
-  const { connectors, connect } = useConnect()
   const [isChainsShowed, setIsChainsShowed] = useState<boolean>(false)
-  const chains = useChains()
-
-  const defaultConnectHandler = (connector: Connector) => {
-    return (event: MouseEvent) => {
-      connect(
-        { connector },
-        { onSuccess: () => setConnectConnectPopupVisibility(false) }
-      )
-      event.preventDefault();
-    }
-  }
-
-  const walletConnectHandler = () => {
-    return (event: MouseEvent) => {
-      setIsChainsShowed(true)
-    }
-  }
-
-  const chainsList = () => {
-    const connector = connectors.find(connector => connector.id === WALLLET_CONNECT_ID)
-    return(
-      <>
-        <div className="mb-[16px]">
-          Please select a network for WalletConnect:
-        </div>
-        <div className="flex flex-col gap-y-[16px] max-h-[50vh] md:max-h-[500px] overflow-y-auto">
-          {chains.filter(chain => !chain.testnet).map((chain) => {
-            return (
-              <div
-                key={chain.name}
-                onClick={() => {
-                  connect(
-                    { connector, chainId: chain.id },
-                    { onSuccess: () => setConnectConnectPopupVisibility(false) }
-                  )
-                }}
-                className="flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-[15px] "
-              >
-                {chain.name}
-
-                <ChainIcon className="size-10" chainName={chain.name as Chains} />
-              </div>
-            )
-          })}
-        </div>
-      </>
-    )
-  }
-
-  const renderConnectBody = () => {
-    return (
-      <>
-        <div className="mb-[16px]">
-          Please select a wallet to connect to {siteName}:
-        </div>
-        <div className="flex flex-col gap-y-[16px]">
-          {connectors.map((connector) => {
-            return (
-              <div
-                key={connector.name}
-                onClick={
-                  connector.id === WALLLET_CONNECT_ID ? (
-                    walletConnectHandler()
-                  ) : defaultConnectHandler(connector)
-                }
-                className="flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-[15px] "
-              >
-                {connector.name}
-
-                <WalletIcon className="size-10" walletName={connector.name as WalletConnectors} />
-              </div>
-            )
-          })}
-        </div>
-      </>
-    )
-  }
+  const { setConnectConnectPopupVisibility } = useWalletConnectContext()
 
   return (
     <div
@@ -129,7 +47,13 @@ export const WalletConnectPopup: FC = () => {
             </div>
             <div className="mb-[32px]">
               {
-                isChainsShowed ? chainsList() : renderConnectBody()
+                isChainsShowed ? (
+                  <ChainsList />
+                ) : (
+                  <WalletsList
+                    setIsChainsShowed={setIsChainsShowed}
+                  />
+                )
               }
             </div>
             <div className="flex">
