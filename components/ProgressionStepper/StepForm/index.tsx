@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import { FC, ReactNode } from 'react'
-import Button from '~/components/Layout/Button'
+import { Button } from '@chakra-ui/react';
 import Container from '~/components/Layout/Container'
 
 interface StepFormProps {
@@ -75,7 +75,7 @@ const StepForm: FC<StepFormProps> = ({
               className="w-full"
               disabled={isLoading}
               onClick={onBack}
-              labelClassName="md:translate-x-0 -translate-x-3"
+              // labelClassName="md:translate-x-0 -translate-x-3"
             >
               Back
             </Button>
@@ -83,7 +83,7 @@ const StepForm: FC<StepFormProps> = ({
           <Button
             type="submit"
             isLoading={isLoading}
-            labelClassName="md:translate-x-0 translate-x-3"
+            // labelClassName="md:translate-x-0 translate-x-3"
             className="w-full"
           >
             {buttonText}

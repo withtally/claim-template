@@ -1,5 +1,6 @@
 import { FC } from 'react'
-import Button from '~/components/Layout/Button'
+// import Button from '~/components/Layout/Button'
+import { Button } from '@chakra-ui/react'
 import Container from '~/components/Layout/Container'
 import { OptimisedImage } from '~/components/Layout/OptimisedImage'
 import { siteName } from '~/constants/site'
