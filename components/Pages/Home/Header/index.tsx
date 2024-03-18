@@ -22,7 +22,7 @@ const Header: FC<HeaderProps> = ({ onClick }) => {
       </div>
       <Container className="flex h-svh min-h-[600px] flex-col items-start justify-center pt-16">
         <header className="flex flex-col items-start gap-y-6">
-          <h1 className="text-display-m">Whereas disregard and contempt for human rights have resulted</h1>
+          <h1 className="text-display-m">{siteName} Claim Portal</h1>
           <p className="text-title text-gray-400">Check your eligibility to claim tokens</p>
           <Button onClick={onClick}>Check eligibility</Button>
         </header>
