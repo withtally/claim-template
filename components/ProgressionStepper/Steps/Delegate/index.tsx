@@ -1,8 +1,11 @@
 import { FC, useState } from 'react'
-import { Button } from '@chakra-ui/react'
 import Container from '~/components/Layout/Container'
-import { OptimisedImage } from '~/components/Layout/OptimisedImage'
-import TickIcon from '~/public/img/icons/tick.svg'
+import { useGetDelegates } from '~/hooks/delegateStep/useGetDelegates'
+import { DelegateCard } from '~/components/Layout/DelegateCard'
+import { Delegate } from '~/types/delegate'
+import { VotingPowerSection } from './components/VotingPowerSection'
+import { useDelegateSelector } from '~/hooks/delegateStep/useDelegateSelection'
+import { Spinner } from '@chakra-ui/react'
 
 interface DelegateStepProps {
   onBack: () => void
@@ -10,24 +13,22 @@ interface DelegateStepProps {
 }
 
 const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const _onSubmit = () => {
-    setIsSubmitting(true)
-    setTimeout(() => {
-      setIsSubmitting(false)
-    }, 3000)
-  }
+  const { delegates, isError, error, isFetched, isLoading } = useGetDelegates()
+  const { selectedDelegate, onDelegateSelect } = useDelegateSelector()
 
   return (
     <div className="inline snap-start transition-opacity">
-      <section className="min-w-[100vw]">
-        <Container className="flex h-svh items-center pb-[72px] pt-20 xxs:static xxs:px-4 md:px-6 md:pb-20 md:pt-16">
-          <div className="mx-auto flex  gap-x-10">
+      <section className="min-w-[100vw] max-h-[100vh] overflow-auto">
+        <Container
+          className='relative mt-[250px] mb-[250px] max-w-[1920px]'
+          // className="flex h-svh items-center pb-[72px] pt-20 xxs:static xxs:px-4 md:px-6 md:pb-20 md:pt-16"
+         >
+          {/* <div className="mx-auto flex gap-x-10 overflow-auto"> */}
+          <div className="relative mx-auto flex flex-col-reverse lg:flex-row gap-10">
             {/* LEFT SIDE */}
-            <div className="h-[600px] w-full rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md overflow-y-auto">
-              <h2 className="mb-4 text-xl md:text-3xl font-medium">Choose a Delegate</h2>
-              <p className="mb-4 text-md md:text-xl text-gray-400">
+            <div className="h-[auto] w-full overflow-y-auto rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
+              <h2 className="mb-4 text-xl font-medium md:text-3xl">Choose a Delegate</h2>
+              <p className="text-md mb-4 text-gray-400 md:text-xl">
                 Pick someone who you believe will be invested in growing the ecosystem.
                 <br />
                 <b>You will keep all of your tokens.</b> The delegate only gets the voting power alloted to your token
@@ -39,87 +40,33 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                 </span>
               </button>
               {/* DELEGATE CARD */}
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                {/* CARD #1 */}
-                <div className="relative rounded-md border-2 bg-blue-grey p-4 pt-10">
-                  <div className="absolute right-2 top-2 inline-flex items-center gap-x-2 rounded bg-green/20 p-1 pb-1.5 text-xs text-green">
-                    <TickIcon className="size-4" />
-                    <span className="text-caption uppercase">Selected</span>
-                  </div>
-                  {/* WALLET DETAILS */}
-                  <div className="mb-6 flex flex-col md:flex-row items-center gap-x-4">
-                    <OptimisedImage
-                      src="/img/icons/wallet-placeholder.png"
-                      alt="wallet"
-                      className="mt-2 size-12 max-h-12 min-h-12 min-w-12 max-w-12 overflow-hidden rounded-full"
+              {
+                isFetched && !isError && (
+                  <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+                  {/* CARDS */}
+                  {delegates.map((delegate) => (
+                    <DelegateCard
+                      delegate={delegate}
+                      isSelected={delegate.id === selectedDelegate?.id}
+                      setSelectedDelegate={onDelegateSelect}
+                      key={delegate.id}
                     />
-                    <div>
-                      <h3 className="text-subheading mb-1">nevergonnagiveyouup.eth</h3>
-                      <p className="break-all text-xs text-gray-400">0x7C9Aa8714e50cF4B4497631Fdb2cADC98b4B9a6D</p>
-                    </div>
-                  </div>
-
-                  <p className="mb-6">
-                    Liquidity mining is an important part of the decentralization process of a DAO...
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {['🎗️ Public goods funding', '⛓️ Further decentralizing the chain'].map((item) => (
-                      <span
-                        key={item}
-                        className="whitespace-nowrap rounded-full border border-gray-600 p-2 text-xs text-gray-300"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
+                  ))}
                 </div>
-              </div>
+                )
+              }
+
+              {
+                isLoading && (
+                <div className='flex justify-center'>
+                  <Spinner size='xl' />
+                </div>
+                )
+              }
+
             </div>
             {/* RIGHT SIDE */}
-            <form
-              // onSubmit={(e) => {
-              //   e.preventDefault()
-              //   _onSubmit()
-              // }}
-              className="relative z-10 flex w-full max-w-[450px] flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md"
-              // className="xxs:bg-transparent xxs:backdrop-blur-none"
-            >
-              <h2 className="text-caption text-subheading mb-6 uppercase">Voting Power</h2>
-
-              <div className="flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
-                <div className="inline-flex size-10 items-center justify-center rounded-full bg-blue-grey">
-                  <div className="gradient-background orange-blue-gradient size-6 max-h-6 min-h-6 min-w-6 max-w-6 overflow-hidden rounded-full xxs:relative xxs:z-0 xxs:opacity-100 xxs:blur-none" />
-                </div>
-                <span className="text-caption">6500.0</span>
-              </div>
-
-              <hr className="my-4 w-full border-gray-500" />
-              <div className="mb-6 flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
-                <OptimisedImage
-                  src="/img/icons/wallet-placeholder.png"
-                  alt="wallet"
-                  className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
-                />
-                <span className="text-caption">Lindsey Winder</span>
-              </div>
-
-              <p className="text-gray-400">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et viverra urna. Nulla facilisi. Donec ac
-                nunc nec orci aliquam lobortis. Nullam nec nunc nec orci aliquam lobortis. Nullam nec nunc nec orci
-                aliquam lobortis.
-              </p>
-
-              <div className="flex w-full flex-1 items-end">
-                <Button
-                  // type="submit"
-                  isLoading={isSubmitting}
-                  className="w-full"
-                >
-                  Claim and Delegate
-                </Button>
-              </div>
-            </form>
+            <VotingPowerSection selectedDelegate={selectedDelegate} />
           </div>
         </Container>
       </section>
