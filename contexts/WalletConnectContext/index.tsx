@@ -1,10 +1,12 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react'
 import { useAccount } from 'wagmi'
 import { WalletConnectPopup } from '~/components/Layout/WalletConnect/WalletConnectPopup'
+import { useDisclosure } from '@chakra-ui/hooks'
 
 type WalletConnectContextType = {
   isConnectPopupVisible: boolean
-  setConnectConnectPopupVisibility: React.Dispatch<React.SetStateAction<boolean>>
+  onOpenConnectPopup: () => void
+  onCloseConnectPopup: () => void
 }
 
 const WalletConnectContext = createContext<WalletConnectContextType | undefined>(undefined)
@@ -18,13 +20,13 @@ const useWalletConnectContext = () => {
 }
 
 const WalletConnectContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [isConnectPopupVisible, setConnectConnectPopupVisibility] = useState<boolean>(false)
+  const { isOpen: isConnectPopupVisible, onOpen: onOpenConnectPopup, onClose: onCloseConnectPopup } = useDisclosure()
   const { isConnected } = useAccount()
 
   return (
-    <WalletConnectContext.Provider value={{ isConnectPopupVisible, setConnectConnectPopupVisibility }}>
+    <WalletConnectContext.Provider value={{ isConnectPopupVisible, onOpenConnectPopup, onCloseConnectPopup }}>
       {children}
-      {isConnectPopupVisible && <WalletConnectPopup />}
+      <WalletConnectPopup isOpen={isConnectPopupVisible} onCloseConnectPopup={onCloseConnectPopup}/>
     </WalletConnectContext.Provider>
   )
 }

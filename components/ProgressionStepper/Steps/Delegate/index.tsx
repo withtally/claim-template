@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import Button from '~/components/Layout/Button'
+import { Button } from '@chakra-ui/react'
 import Container from '~/components/Layout/Container'
 import { OptimisedImage } from '~/components/Layout/OptimisedImage'
 import TickIcon from '~/public/img/icons/tick.svg'
@@ -23,23 +23,23 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
     <div className="inline snap-start transition-opacity">
       <section className="min-w-[100vw]">
         <Container className="flex h-svh items-center pb-[72px] pt-20 xxs:static xxs:px-4 md:px-6 md:pb-20 md:pt-16">
-          <div className="mx-auto flex min-w-[1200px] gap-x-10">
+          <div className="mx-auto flex  gap-x-10">
             {/* LEFT SIDE */}
-            <div className="h-[600px] w-full rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
-              <h2 className="mb-4 text-3xl font-medium">Choose a Delegate</h2>
-              <p className="mb-4 text-xl text-gray-400">
+            <div className="h-[600px] w-full rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md overflow-y-auto">
+              <h2 className="mb-4 text-xl md:text-3xl font-medium">Choose a Delegate</h2>
+              <p className="mb-4 text-md md:text-xl text-gray-400">
                 Pick someone who you believe will be invested in growing the ecosystem.
                 <br />
                 <b>You will keep all of your tokens.</b> The delegate only gets the voting power alloted to your token
                 value. You can keep voting power for yourself or redelegate at any time.
               </p>
-              <button className="mb-10 transition-colors hover:text-blue">
-                <span>
+              <button className="mb-10 transition-colors hover:text-blue ">
+                <span className="text-sm md:text-base">
                   <u>I want to delegate to myself</u>
                 </span>
               </button>
               {/* DELEGATE CARD */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 {/* CARD #1 */}
                 <div className="relative rounded-md border-2 bg-blue-grey p-4 pt-10">
                   <div className="absolute right-2 top-2 inline-flex items-center gap-x-2 rounded bg-green/20 p-1 pb-1.5 text-xs text-green">
@@ -47,7 +47,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                     <span className="text-caption uppercase">Selected</span>
                   </div>
                   {/* WALLET DETAILS */}
-                  <div className="mb-6 flex items-center gap-x-4">
+                  <div className="mb-6 flex flex-col md:flex-row items-center gap-x-4">
                     <OptimisedImage
                       src="/img/icons/wallet-placeholder.png"
                       alt="wallet"
@@ -114,7 +114,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                 <Button
                   // type="submit"
                   isLoading={isSubmitting}
-                  labelClassName="md:translate-x-0 translate-x-3"
                   className="w-full"
                 >
                   Claim and Delegate

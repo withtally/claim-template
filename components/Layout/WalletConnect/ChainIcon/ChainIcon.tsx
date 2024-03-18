@@ -22,14 +22,17 @@ export const ChainIcon: FC<Props> = ({ className, chainName }) => {
     case 'Ethereum':
       return <EthereumIcon className={className} />
     case 'Polygon':
+    case 'Polygon Mumbai':
       return <PolygonIcon className={className} />
     case 'Sepolia':
-      return <SepoliaIcon className={className} />
+      return <EthereumIcon className={className} />
     case 'OP Mainnet':
       return <OptimismIcon className={className} />
     case 'Avalanche':
+    case 'Avalanche Fuji':
       return <AvalancheIcon className={className} />
     case 'BNB Smart Chain':
+    case 'Binance Smart Chain Testnet':
       return <BNBIcon className={className} />
     case 'Arbitrum One':
       return <ArbitrumOneIcon className={className} />

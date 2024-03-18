@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react'
 import { Connector, useConnect, useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi'
-import Button from '../../Button'
+// import Button from '../../Button'
+import { Button } from '@chakra-ui/react'
 import EthIcon from '~/public/img/icons/chains/eth.svg'
 import ChevronDownIcon from '~/public/img/icons/chevron-down.svg'
 import { useWalletConnectContext } from '../../../../contexts/WalletConnectContext'
@@ -16,13 +17,13 @@ export const WalletConnector: FC = () => {
   const { data: ensAvatar } = useEnsAvatar({ name: ensName })
   const connectorName = connector?.name
 
-  const { setConnectConnectPopupVisibility } = useWalletConnectContext()
+  const { onOpenConnectPopup } = useWalletConnectContext()
   return (
     <>
       {isConnected ? (
         <button
           // onClick={() => disconnect()}
-          onClick={() => setConnectConnectPopupVisibility(true)}
+          onClick={() => onOpenConnectPopup()}
 
           className="inline-flex h-10 items-center justify-center gap-x-4 rounded-full bg-white/20 p-2 px-2"
         >
@@ -36,7 +37,7 @@ export const WalletConnector: FC = () => {
       ) : (
         <Button
           className="h-[40px] max-h-[40px]"
-          onClick={() => setConnectConnectPopupVisibility(true)}
+          onClick={() => onOpenConnectPopup()}
         >
           Connect wallet
         </Button>

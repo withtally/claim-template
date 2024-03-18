@@ -6,7 +6,8 @@ import Copy from '../../../../../../public/img/icons/copy.svg'
 import { WalletIcon } from '../../../WalletIcon'
 import { WalletConnectors } from '~/types/wallet-connectors'
 import { shortenAddress } from '~/utils/common'
-import Button from '../../../../Button'
+// import Button from '../../../../Button'
+import { Button } from '@chakra-ui/react'
 
 interface Props {
   onDisconnect: () => void
@@ -15,21 +16,12 @@ interface Props {
   onClose: () => void
 }
 
-export const DisconnectContent: FC<Props> = ({ onDisconnect, address, connector, onClose }) => {
+export const DisconnectContent: FC<Props> = ({ address, connector }) => {
   const connectorName = connector?.name
 
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-500 p-[16px]">
-        <h1 className="text-xl font-extrabold font-semibold">Connected</h1>
-
-        <Cross
-          className="size-3.5 cursor-pointer"
-          onClick={onClose}
-        />
-      </div>
-
-      <div className="flex flex-col items-center justify-between gap-6 p-[16px]">
+      <div className="flex flex-col items-center justify-between gap-6">
         <WalletIcon
           className="size-14"
           walletName={connectorName as WalletConnectors}
@@ -46,8 +38,6 @@ export const DisconnectContent: FC<Props> = ({ onDisconnect, address, connector,
             <Copy className="size-4" />
           </button>
         </div>
-
-        <Button onClick={onDisconnect}>Disconect</Button>
       </div>
     </>
   )
