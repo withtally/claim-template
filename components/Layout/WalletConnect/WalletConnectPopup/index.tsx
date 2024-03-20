@@ -1,4 +1,3 @@
-import { useWalletConnectContext } from '../../../../contexts/WalletConnectContext'
 import { FC, useCallback, useMemo, useState, MouseEvent } from 'react'
 import Cross from '../../../../public/img/icons/cross.svg'
 import Back from '../../../../public/img/icons/back.svg'
@@ -7,6 +6,7 @@ import ChainsList from '~/components/Layout/WalletConnect/WalletConnectPopup/com
 import { DisconnectContent } from './components/DisconnectContent'
 import { Connector, useAccount, useChains, useConnect, useDisconnect } from 'wagmi'
 import { WALLLET_CONNECT_ID } from '~/constants/site'
+import { useToast } from '@chakra-ui/react'
 import {
   Modal,
   ModalBody,
@@ -18,6 +18,8 @@ import {
 } from '@chakra-ui/modal'
 import './styles.module.css'
 import { Button } from '@chakra-ui/react'
+import useCustomToasters from '~/hooks/useToasters'
+
 
 interface Props {
   isOpen: boolean;
@@ -26,9 +28,10 @@ interface Props {
 
 export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) => {
   const [isChainsShowed, setIsChainsShowed] = useState<boolean>(false)
-  const { address, connector, isConnected } = useAccount()
+  const { address, connector, isConnected, chainId: accountChainId, chain,  } = useAccount()
   const { connectors, connect } = useConnect()
   const { disconnect } = useDisconnect()
+  const { errorToast } = useCustomToasters()
   const chains = useChains()
 
   const walletConnectconnector: Connector = useMemo(() => {
@@ -43,18 +46,16 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
 
   const defaultConnectHandler = useCallback((connector: Connector) => {
     return (event: MouseEvent) => {
-      if (navigator.userAgent.indexOf("Chrome") == -1){
-        alert('Is not chrome');
-        return;
-      }
-      try{
-        connect(
-          { connector },
-          { onSuccess: () => onCloseConnectPopup() }
-        );
-      }catch(e:any){
-        console.log(e)
-      }
+      connect(
+        { connector },
+        { onSuccess: () => {
+            onCloseConnectPopup()
+          },
+          onError: (e) => {
+            errorToast({title:"Oops, something went wrong..."})
+          }
+        }
+      );
       event.preventDefault();
     };
   }, []);
@@ -62,7 +63,14 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
   const connectWithChain = useCallback((chainId: number) => {
     connect(
       { connector: walletConnectconnector, chainId: chainId },
-      { onSuccess: () => onCloseConnectPopup() }
+      { onSuccess: () => {
+          onCloseConnectPopup()
+          setIsChainsShowed(false)
+        },
+        onError: (e) => {
+          errorToast({title:"Oops, something went wrong..."})
+        }
+      }
     )
   },[])
 
