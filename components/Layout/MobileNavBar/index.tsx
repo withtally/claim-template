@@ -93,8 +93,6 @@ function MobileNavBar() {
   },[])
 
   useEffect(() => {
-    // console.log('unmount');
-
     return () => closeMenu();
   }, [path]);
 

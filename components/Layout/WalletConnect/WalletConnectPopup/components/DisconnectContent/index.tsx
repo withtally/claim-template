@@ -5,7 +5,7 @@ import Cross from '../../../../../../public/img/icons/cross.svg'
 import Copy from '../../../../../../public/img/icons/copy.svg'
 import { WalletIcon } from '../../../WalletIcon'
 import { WalletConnectors } from '~/types/wallet-connectors'
-import { shortenAddress } from '~/utils/common'
+import { shortenAddress } from '../../../../../../libs/helpers/shortenAddress'
 // import Button from '../../../../Button'
 import { Button } from '@chakra-ui/react'
 

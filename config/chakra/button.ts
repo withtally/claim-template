@@ -41,6 +41,11 @@ export const Button = defineStyleConfig({
         bg: UIconfig.buttonBgColor(60),
       },
     },
+    secondary: {
+      border: '1px solid',
+      borderColor: UIconfig.SecondaryButtonColor(),
+      borderRadius: '5px'
+    },
   },
   // The default size and variant values
   defaultProps: {

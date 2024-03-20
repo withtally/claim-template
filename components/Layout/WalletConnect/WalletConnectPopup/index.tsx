@@ -1,4 +1,3 @@
-import { useWalletConnectContext } from '../../../../contexts/WalletConnectContext'
 import { FC, useCallback, useMemo, useState, MouseEvent } from 'react'
 import Cross from '../../../../public/img/icons/cross.svg'
 import Back from '../../../../public/img/icons/back.svg'

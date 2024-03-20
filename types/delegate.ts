@@ -12,13 +12,14 @@ export interface Account {
   name: string;
   picture: string;
   twitter: string;
+  ens: string;
 }
 
 export interface Statement {
   statementSummary: string;
   seekingDelegations: boolean;
   isSeekingDelegation: boolean;
-  issues: Issue[];
+  issues: Issue[] | null;
 }
 
 export interface Issue {
