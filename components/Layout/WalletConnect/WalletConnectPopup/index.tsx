@@ -19,6 +19,8 @@ import {
 import './styles.module.css'
 import { Button } from '@chakra-ui/react'
 import useCustomToasters from '~/hooks/useToasters'
+import { type ConnectErrorType } from '@wagmi/core'
+import { getErrorMessage } from '~/utils/getErrorMessage'
 
 
 interface Props {
@@ -51,8 +53,8 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
         { onSuccess: () => {
             onCloseConnectPopup()
           },
-          onError: (e) => {
-            errorToast({title:"Oops, something went wrong..."})
+          onError: (error: any) => {
+            errorToast({title:getErrorMessage(error.cause.code)})
           }
         }
       );
@@ -67,8 +69,8 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
           onCloseConnectPopup()
           setIsChainsShowed(false)
         },
-        onError: (e) => {
-          errorToast({title:"Oops, something went wrong..."})
+        onError: (error: any ) => {
+          errorToast({title:getErrorMessage(error.cause.code, error.message)})
         }
       }
     )
