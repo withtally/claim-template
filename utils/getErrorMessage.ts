@@ -6,6 +6,5 @@ const errorMessages = {
 
 export const getErrorMessage = (errorCode: number, message?: string) => {
   const key = errorCode || message.split('\n')[0];
-  console.log(key)
   return errorMessages[key] || 'Oops, something went wrong';
 }
