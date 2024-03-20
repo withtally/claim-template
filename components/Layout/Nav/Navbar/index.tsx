@@ -5,17 +5,21 @@ import { siteName } from '~/constants/site'
 import { useConnect, useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi';
 import { WalletConnector } from '../../WalletConnect/WalletConnectButton'
 import MobileNavBar from '~/components/Layout/MobileNavBar'
+import { chakra } from '@chakra-ui/react'
 
 export const renderLinks = () => {
   return (
       <>
         {Array.from({ length: 3 }).map((_, i) => (
-          <li
+          <chakra.li
             key={i}
-            className="cursor-pointer transition-colors hover:text-blue"
+            className="cursor-pointer transition-colors"
+            _hover={{
+              color: 'primary.600'
+            }}
           >
             <span>Link</span>
-          </li>
+          </chakra.li>
         ))}
       </>
   )
