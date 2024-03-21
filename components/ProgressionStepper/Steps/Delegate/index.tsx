@@ -37,6 +37,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
   } = useSortAndFilterDelegates({
     delegates,
   })
+  console.log(isError)
 
   return (
     <div className="inline snap-start transition-opacity">
@@ -106,7 +107,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               </div>
 
               {/* DELEGATE CARDa container */}
-              {isFetched && !isError && (
+              {isFetched && !isError && !isLoading && (
                 <div className="flex flex-col">
                   {processedDelegates.length > 0 ? (
                     <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
@@ -138,6 +139,12 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               {isLoading && (
                 <div className="flex justify-center">
                   <Spinner size="xl" />
+                </div>
+              )}
+
+              {isError && (
+                <div className="rounded-md border p-2 text-center">
+                  Can't fetch delegates
                 </div>
               )}
             </div>
