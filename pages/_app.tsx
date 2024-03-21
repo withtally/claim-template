@@ -10,39 +10,11 @@ import ErrorBoundary from '~/components/Layout/ErrorBoundary'
 import Navbar from '~/components/Layout/Nav/Navbar'
 import '~/styles/styles.css'
 import { WalletConnectContextProvider } from '../contexts/WalletConnectContext'
-import { ChakraProvider, extendTheme, StyleFunctionProps } from '@chakra-ui/react'
-import { mode } from "@chakra-ui/theme-tools";
-import { Button } from '~/config/chakra/button'
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { themeConfig } from '~/config/chakra/config'
 
-const theme = extendTheme({
-  // config,
-  components:{
-    Button
-  },
-  breakpoints: {
-    xxs: '1px',
-    xs: '400px',
-    xsm: '440px',
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px',
-    '2xl': '1536px',
-  },
-  styles: {
-    global: (props: StyleFunctionProps) => ({
-      body: {
-        bg: mode("white","black")(props),
-        color: mode("black","white")(props),
 
-      },
-      h1:{
-        fontFamily: "Poppins, sans-serif"
-      },
-
-    })
-  },
-})
+const theme = extendTheme(themeConfig)
 
 
 const queryClient = new QueryClient()

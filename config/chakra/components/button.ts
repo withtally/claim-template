@@ -30,15 +30,15 @@ export const Button = defineStyleConfig({
   variants: {
     outline: {
       border: '2px solid',
-      borderColor: UIconfig.buttonBgColor(),
+      borderColor: UIconfig.primaryWithOpacity(),
       color: 'purple.500',
 
     },
     solid: {
-      bg: UIconfig.buttonBgColor(),
+      bg: 'primary.600',
       color: 'white',
       _hover: {
-        bg: UIconfig.buttonBgColor(60),
+        bg: 'primary.800',
       },
     },
   },
