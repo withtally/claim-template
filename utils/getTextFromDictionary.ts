@@ -2,7 +2,6 @@ import dictionary from '~/config/dictionaryConfig.json'
 
 export const getTextFromDictionary = (path: string)=> {
   const arrOfKeys = path.split('_')
-  console.log(dictionary)
   let item = dictionary;
   for(const key of arrOfKeys){
     item = item[key];

@@ -6,7 +6,7 @@ import ChainsList from '~/components/Layout/WalletConnect/WalletConnectPopup/com
 import { DisconnectContent } from './components/DisconnectContent'
 import { Connector, useAccount, useChains, useConnect, useDisconnect } from 'wagmi'
 import { WALLLET_CONNECT_ID } from '~/constants/site'
-import { useToast } from '@chakra-ui/react'
+
 import {
   Modal,
   ModalBody,
@@ -19,8 +19,7 @@ import {
 import './styles.module.css'
 import { Button } from '@chakra-ui/react'
 import useCustomToasters from '~/hooks/useToasters'
-import { type ConnectErrorType } from '@wagmi/core'
-import { getErrorMessage } from '~/utils/getErrorMessage'
+import { showErrorMessage } from '~/utils/getErrorMessage'
 
 
 interface Props {
@@ -30,7 +29,7 @@ interface Props {
 
 export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) => {
   const [isChainsShowed, setIsChainsShowed] = useState<boolean>(false)
-  const { address, connector, isConnected, chainId: accountChainId, chain,  } = useAccount()
+  const { address, connector, isConnected  } = useAccount()
   const { connectors, connect } = useConnect()
   const { disconnect } = useDisconnect()
   const { errorToast } = useCustomToasters()
@@ -41,7 +40,7 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
   }, [])
 
   const walletConnectHandler = useCallback(() => {
-    return (event: MouseEvent) => {
+    return () => {
       setIsChainsShowed(true);
     };
   }, []);
@@ -54,7 +53,7 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
             onCloseConnectPopup()
           },
           onError: (error: any) => {
-            errorToast({title:getErrorMessage(error.cause.code)})
+            showErrorMessage({errorCode: error.cause.code, toast: errorToast})
           }
         }
       );
@@ -70,7 +69,7 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
           setIsChainsShowed(false)
         },
         onError: (error: any ) => {
-          errorToast({title:getErrorMessage(error.cause.code, error.message)})
+          showErrorMessage({errorCode: error.cause.code, message: error.message, toast: errorToast})
         }
       }
     )

@@ -4,7 +4,11 @@ const errorMessages = {
   "User rejected the request.": 'Connection to wallet canceled by user.'
 }
 
-export const getErrorMessage = (errorCode: number, message?: string) => {
+export const showErrorMessage = ({errorCode, message, toast} : {errorCode: number, message?: string, toast: any}) => {
   const key = errorCode || message.split('\n')[0];
-  return errorMessages[key] || 'Oops, something went wrong';
+  if(key === 4001 || key === "User rejected the request."){
+    return
+  }
+  if(!toast) return;
+  toast({title: errorMessages[key] || 'Oops! Something went wrong. Try again later.'})
 }
