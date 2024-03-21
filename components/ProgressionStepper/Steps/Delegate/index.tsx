@@ -37,7 +37,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
   } = useSortAndFilterDelegates({
     delegates,
   })
-  console.log(isError)
 
   return (
     <div className="inline snap-start transition-opacity">

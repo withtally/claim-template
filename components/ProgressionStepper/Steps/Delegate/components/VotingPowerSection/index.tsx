@@ -18,10 +18,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
   }, [selectedDelegate])
 
   return (
-    <form
-      className="relative z-10 flex max-h-[600px] w-full flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md lg:sticky lg:top-20 lg:max-w-[450px]"
-      // className="xxs:bg-transparent xxs:backdrop-blur-none"
-    >
+    <form className="relative z-10 flex max-h-[600px] w-full flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md lg:sticky lg:top-20 lg:max-w-[450px]">
       <h2 className="text-caption text-subheading mb-6 uppercase">Voting Power</h2>
 
       <div className="flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
@@ -51,7 +48,6 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
 
           <div className="flex w-full flex-1 items-end">
             <Button
-              // type="submit"
               isLoading={false}
               className="w-full"
             >
