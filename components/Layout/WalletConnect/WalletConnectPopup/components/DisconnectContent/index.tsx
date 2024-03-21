@@ -1,13 +1,10 @@
-import { useWalletConnectContext } from '../../../../../../contexts/WalletConnectContext'
 import { FC } from 'react'
-import { Connector, useAccount, useDisconnect } from 'wagmi'
-import Cross from '../../../../../../public/img/icons/cross.svg'
+import { Connector } from 'wagmi'
 import Copy from '../../../../../../public/img/icons/copy.svg'
 import { WalletIcon } from '../../../WalletIcon'
 import { WalletConnectors } from '~/types/wallet-connectors'
 import { shortenAddress } from '../../../../../../libs/helpers/shortenAddress'
-// import Button from '../../../../Button'
-import { Button } from '@chakra-ui/react'
+import useCustomToasters from '~/hooks/useToasters'
 
 interface Props {
   onDisconnect: () => void
@@ -18,6 +15,7 @@ interface Props {
 
 export const DisconnectContent: FC<Props> = ({ address, connector }) => {
   const connectorName = connector?.name
+  const { successToast } = useCustomToasters()
 
   return (
     <>
@@ -32,7 +30,8 @@ export const DisconnectContent: FC<Props> = ({ address, connector }) => {
           <button
             className=" rounded p-2 hover:bg-black hover:bg-opacity-20"
             onClick={() => {
-              navigator.clipboard.writeText(address)
+              navigator.clipboard.writeText(address);
+              successToast({ title: "Copied address", })
             }}
           >
             <Copy className="size-4" />

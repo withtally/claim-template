@@ -31,7 +31,7 @@ module.exports = {
       },
       colors: {
         green: '#4EC272',
-        blue: UIconfig.buttonBgColor(),
+        blue: UIconfig.primary['600'],
         'blue-grey': '#262b33',
         'blue-grey-lighter': '#3d424d',
         'card-background': '#262b33cc',
