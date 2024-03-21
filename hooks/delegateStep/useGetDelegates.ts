@@ -5,7 +5,7 @@ export const useGetDelegates = () => {
   const { isPending, error, data: delegates, isFetched, isLoading, isError } = useQuery<Delegate[]>({
     queryKey: ['delegates'],
     queryFn: () =>
-      fetch(process.env.NEXT_PUBLIC_FETCH_URL)
+      fetch(process.env.NEXT_PUBLIC_DELEGATES_FETCH_URL)
         .then((res) =>
           res.json(),
         ),
