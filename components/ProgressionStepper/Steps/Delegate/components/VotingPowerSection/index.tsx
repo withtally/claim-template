@@ -39,7 +39,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
               className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
               layout="cover"
             />
-            <span className="text-caption truncate">{selectedDelegate.account.name}</span>
+            <span className="text-caption truncate">{selectedDelegate.account.name || selectedDelegate?.account?.address}</span>
           </div>
 
           <p className={cx('mb-6', { 'text-gray-400': !formatedStatementSummaryOrBio })}>

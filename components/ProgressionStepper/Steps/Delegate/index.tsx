@@ -44,7 +44,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
         <Container className="relative mb-[250px] mt-[250px] max-w-[1920px]">
           <div className="relative mx-auto flex flex-col-reverse gap-10 lg:flex-row">
             {/* LEFT SIDE */}
-            <div className="h-[auto] w-full overflow-y-auto rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
+            <div className="min-h-[1000px] h-[auto] w-full overflow-y-auto rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
               <h2 className="mb-4 text-xl font-medium md:text-3xl">Choose a Delegate</h2>
               <p className="text-md mb-4 text-gray-400 md:text-xl">
                 Pick someone who you believe will be invested in growing the ecosystem.

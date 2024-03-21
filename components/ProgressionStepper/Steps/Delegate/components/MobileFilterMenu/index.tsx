@@ -27,14 +27,14 @@ export const MobileMilterMenu: FC<Props> = ({
   sortOptions,
 }) => {
   return (
-    <Menu closeOnSelect={false}>
+    <Menu closeOnSelect={true}>
       <MenuButton
         size={'md'}
         variant="secondary"
         as={IconButton}
         icon={<FilterIcon className="size-3" />}
       />
-      <MenuList>
+      <MenuList className=''>
         <MenuOptionGroup
           value={seekingDelegationValue}
           title="Seeking Delegations"
