@@ -8,7 +8,7 @@ import { useWalletConnectContext } from '../../../../contexts/WalletConnectConte
 import { normalize } from 'viem/ens'
 import { WalletIcon } from '../WalletIcon'
 import { WalletConnectors } from '~/types/wallet-connectors'
-import { shortenAddress } from '~/utils/common'
+import { shortenAddress } from '../../../../libs/helpers/shortenAddress'
 
 export const WalletConnector: FC = () => {
   const { address, isConnected, chainId, connector } = useAccount()

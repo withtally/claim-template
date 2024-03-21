@@ -3,7 +3,7 @@ import { Connector } from 'wagmi'
 import Copy from '../../../../../../public/img/icons/copy.svg'
 import { WalletIcon } from '../../../WalletIcon'
 import { WalletConnectors } from '~/types/wallet-connectors'
-import { shortenAddress } from '~/utils/common'
+import { shortenAddress } from '../../../../../../libs/helpers/shortenAddress'
 import useCustomToasters from '~/hooks/useToasters'
 
 interface Props {

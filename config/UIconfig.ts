@@ -1,4 +1,5 @@
 export const UIconfig = {
+  SecondaryButtonColor: () => 'rgb(75 85 99)',
   primaryWithOpacity: (opacity: number = 100) => `rgb(0 153 204 / ${opacity}%)`,
   primary:{
     100: 'hsl(195 100% 90%)',
