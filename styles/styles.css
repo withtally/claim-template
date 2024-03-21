@@ -2,9 +2,13 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   body {
-    @apply w-full min-w-[320px] bg-black font-sans text-base font-normal leading-6 text-white;
+    @apply w-full min-w-[320px] bg-black font-sans text-base leading-6;
   }
   .text-display-m {
     @apply text-[80px] font-semibold leading-[80px] -tracking-[2.4px];
@@ -155,4 +159,8 @@ input[type='number'] {
     #0d92ff 360deg
   );
   @apply xxs:opacity-50;
+}
+
+#wcm-modal{
+  z-index: 2147483647;
 }

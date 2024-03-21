@@ -1,3 +1,5 @@
+import { UIconfig } from './config/UIconfig'
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -6,6 +8,7 @@ module.exports = {
     './hooks/**/*.{js,ts,jsx,tsx}',
     './context/**/*.{js,ts,jsx,tsx}',
   ],
+  // important: "#root",
   theme: {
     screens: {
       // Used to override main styles
@@ -14,6 +17,7 @@ module.exports = {
       xsm: '440px',
       sm: '640px',
       md: '768px',
+      xmd: '850px',
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
@@ -27,7 +31,7 @@ module.exports = {
       },
       colors: {
         green: '#4EC272',
-        blue: '#00a5d3',
+        blue: UIconfig.primary['600'],
         'blue-grey': '#262b33',
         'blue-grey-lighter': '#3d424d',
         'card-background': '#262b33cc',
