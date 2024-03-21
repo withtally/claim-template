@@ -1,17 +1,25 @@
-import { FC } from 'react';
-import { Button } from '@chakra-ui/react';
-import { OptimisedImage } from '~/components/Layout/OptimisedImage';
-import { Delegate } from '~/types/delegate';
-import cx from 'classnames';
+import { FC, useMemo } from 'react'
+import { Button } from '@chakra-ui/react'
+import { OptimisedImage } from '~/components/Layout/OptimisedImage'
+import { Delegate } from '~/types/delegate'
+import cx from 'classnames'
 
 interface Props {
   selectedDelegate: Delegate | null
 }
 
 export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
+  const formatedStatementSummaryOrBio = useMemo(() => {
+    const statementSummary = selectedDelegate?.statement?.statementSummary
+
+    const bio = selectedDelegate?.account?.bio
+
+    return statementSummary || bio
+  }, [selectedDelegate])
+
   return (
     <form
-      className="relative lg:sticky lg:top-20 z-10 flex w-full lg:max-w-[450px] max-h-[600px] flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md"
+      className="relative z-10 flex max-h-[600px] w-full flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md lg:sticky lg:top-20 lg:max-w-[450px]"
       // className="xxs:bg-transparent xxs:backdrop-blur-none"
     >
       <h2 className="text-caption text-subheading mb-6 uppercase">Voting Power</h2>
@@ -22,7 +30,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
         </div>
         <span className="text-caption">6500.0</span>
       </div>
-      
+
       <hr className="my-4 w-full border-gray-500" />
 
       {selectedDelegate ? (
@@ -37,8 +45,8 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
             <span className="text-caption truncate">{selectedDelegate.account.name}</span>
           </div>
 
-          <p className={cx('mb-6', { 'text-gray-400': !selectedDelegate.account?.bio })}>
-            {selectedDelegate.account?.bio || 'No bio provided'}
+          <p className={cx('mb-6', { 'text-gray-400': !formatedStatementSummaryOrBio })}>
+            {formatedStatementSummaryOrBio || 'No bio provided'}
           </p>
 
           <div className="flex w-full flex-1 items-end">
@@ -52,7 +60,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
           </div>
         </>
       ) : (
-        <p className='text-gray-400 m-auto'>Choose a Delegate</p>
+        <p className="m-auto text-gray-400">Choose a Delegate</p>
       )}
     </form>
   )

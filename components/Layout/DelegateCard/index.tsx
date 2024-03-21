@@ -15,11 +15,16 @@ interface Props {
 }
 
 export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDelegate }) => {
-  const formatedStatementSummary = useMemo(() => {
-    return delegate?.statement?.statementSummary.length > 80
-      ? delegate?.statement?.statementSummary.slice(0, 80) + '…'
-      : delegate?.statement?.statementSummary
-  }, []);
+  const formatedStatementSummaryOrBio = useMemo(() => {
+    const statementSummary =
+      delegate?.statement?.statementSummary.length > 80
+        ? delegate?.statement?.statementSummary.slice(0, 80) + '…'
+        : delegate?.statement?.statementSummary
+
+    const bio = delegate?.account?.bio?.length > 80 ? delegate?.account?.bio.slice(0, 80) + '…' : delegate?.account?.bio
+
+    return statementSummary || bio
+  }, [])
 
   return (
     <div
@@ -45,8 +50,8 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
         </div>
       </div>
 
-      <p className={cx('mb-6 h-[80px] overflow-hidden text-clip', { 'text-gray-400': !formatedStatementSummary })}>
-        {formatedStatementSummary || 'No bio provided'}
+      <p className={cx('mb-6 h-[80px] overflow-hidden text-clip', { 'text-gray-400': !formatedStatementSummaryOrBio })}>
+        {formatedStatementSummaryOrBio || 'No bio provided'}
       </p>
 
       <div className="flex flex-wrap justify-between">

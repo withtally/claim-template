@@ -109,14 +109,15 @@ export const useSortAndFilterDelegates = ({ delegates }: IParams) => {
       default:
         break
     }
-
     return sortedDelegatesArr
   }, [delegates, debouncedSearchValue, selectedArea, seekingDelegationValue, sortOptionValue])
 
   const paginatedDelegates = useMemo(() => {
     const paginatedDelegatesArr = [...filteredDelegates]
 
-    paginatedDelegatesArr.length = amountOfDelegatesToShow
+    paginatedDelegatesArr.length = amountOfDelegatesToShow > filteredDelegates.length
+      ? filteredDelegates.length
+      : amountOfDelegatesToShow;
 
     return paginatedDelegatesArr
   }, [amountOfDelegatesToShow, filteredDelegates])

@@ -108,17 +108,22 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               {/* DELEGATE CARDa container */}
               {isFetched && !isError && (
                 <div className="flex flex-col">
-                  <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
-                    {/* CARDS */}
-                    {processedDelegates.map((delegate) => (
-                      <DelegateCard
-                        delegate={delegate}
-                        isSelected={delegate.id === selectedDelegate?.id}
-                        setSelectedDelegate={onDelegateSelect}
-                        key={delegate.id}
-                      />
-                    ))}
-                  </div>
+                  {processedDelegates.length > 0 ? (
+                    <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+                      {/* CARDS */}
+                      {processedDelegates.map((delegate) => (
+                        <DelegateCard
+                          delegate={delegate}
+                          isSelected={delegate.id === selectedDelegate?.id}
+                          setSelectedDelegate={onDelegateSelect}
+                          key={delegate.id}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="rounded-md border p-2 text-center">No results found</p>
+                  )}
+
                   {canLoadMoreDelegates && (
                     <Button
                       onClick={loadNextChunkOfDelegates}
