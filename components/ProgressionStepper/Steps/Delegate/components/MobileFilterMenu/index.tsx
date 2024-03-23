@@ -31,6 +31,7 @@ export const MobileMilterMenu: FC<Props> = ({
       <MenuButton
         size={'md'}
         variant="secondary"
+        borderRadius='5px'
         as={IconButton}
         icon={<FilterIcon className="size-3" />}
       />
