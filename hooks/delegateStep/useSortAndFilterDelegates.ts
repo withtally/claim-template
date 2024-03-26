@@ -15,8 +15,6 @@ export const useSortAndFilterDelegates = ({ delegates }: IParams) => {
   const [debouncedSearchValue, setDebouncedSearchValue] = useState<string>('')
   // Focus Areas states
   const [selectedArea, setSelectedArea] = useState<FocusAreasEnum | ''>('')
-  // Seeking Delegation states
-  const [seekingDelegationValue, setSeekingDelegation] = useState<SeekingDelegationEnum | ''>('')
   // Sort States
   const [sortOptionValue, setSortOptionValue] = useState<SortOptionsEnum>(SortOptionsEnum.VotingPower)
   // Pagination states
@@ -79,16 +77,6 @@ export const useSortAndFilterDelegates = ({ delegates }: IParams) => {
         }
       }
 
-      if (seekingDelegationValue) {
-        switch (seekingDelegationValue) {
-          case SeekingDelegationEnum.SeekingDelegations:
-            isSeekingDelegation = delegate?.statement?.isSeekingDelegation 
-            break
-          default:
-            break
-        }
-      }
-
       return searchValueMatches && areasMatches && isSeekingDelegation;
     })
 
@@ -110,7 +98,7 @@ export const useSortAndFilterDelegates = ({ delegates }: IParams) => {
         break
     }
     return sortedDelegatesArr
-  }, [delegates, debouncedSearchValue, selectedArea, seekingDelegationValue, sortOptionValue])
+  }, [delegates, debouncedSearchValue, selectedArea, sortOptionValue])
 
   const paginatedDelegates = useMemo(() => {
     const paginatedDelegatesArr = [...filteredDelegates]
@@ -132,13 +120,11 @@ export const useSortAndFilterDelegates = ({ delegates }: IParams) => {
     canLoadMoreDelegates,
     selectedArea,
     focusAreasOptions,
-    seekingDelegationValue,
     seekingDelegatesOptions,
     sortOptionValue,
     sortOptions,
     setSearchValue,
     setSelectedArea,
-    setSeekingDelegation,
     setSortOptionValue,
     loadNextChunkOfDelegates,
   }
