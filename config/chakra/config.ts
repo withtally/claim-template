@@ -1,16 +1,20 @@
 import { Button } from '~/config/chakra/components/button'
 import { UIconfig } from '~/config/UIconfig'
-import { StyleFunctionProps } from '@chakra-ui/react'
-import { mode } from '@chakra-ui/theme-tools'
 import { tabsTheme } from '~/config/chakra/components/tabs'
+import { modalTheme } from '~/config/chakra/components/modal'
+import { inputTheme } from '~/config/chakra/components/input'
 
-const { toastBg, primary } = UIconfig
+const { generateColorObject } = require("../../utils/generateColorObject")
+
+const { toastBg, site, fonts, colors } = UIconfig
 
 export const themeConfig = {
-  // config,
+  initialColorMode:"light",
   components:{
     Button,
-    Tabs:tabsTheme
+    Tabs:tabsTheme,
+    Modal: modalTheme,
+    Input: inputTheme
   },
   breakpoints: {
     xxs: '1px',
@@ -24,16 +28,17 @@ export const themeConfig = {
   },
   colors:{
     toastBg,
-    primary
+    primary: generateColorObject(colors.primary)
   },
   styles: {
-    global: (props: StyleFunctionProps) => ({
-      body: {
-        bg: mode("white","black")(props),
-        color: mode("black","white")(props),
+    global: () => ({
+      "*": {
+        borderColor: site.borderColor
       },
-      h1:{
-        fontFamily: "Poppins, sans-serif"
+      body: {
+        bg: site.bgColor,
+        color: site.textColor,
+        fontFamily: fonts.main
       },
     })
   },

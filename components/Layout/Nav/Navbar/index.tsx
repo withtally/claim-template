@@ -1,16 +1,17 @@
 import { FC } from 'react'
 import Container from '~/components/Layout/Container'
-import { socialIcons } from '~/components/Layout/Nav/Navbar/presets'
-import { siteName } from '~/constants/site'
-import { useConnect, useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi';
+import { SocialIcon } from '~/components/Layout/Nav/Navbar/presets'
 import { WalletConnector } from '../../WalletConnect/WalletConnectButton'
 import MobileNavBar from '~/components/Layout/MobileNavBar'
 import { chakra } from '@chakra-ui/react'
+import Link from 'next/link'
+import { UIconfig } from '~/config/UIconfig'
+import { OptimisedImage } from '~/components/Layout/OptimisedImage'
 
 export const renderLinks = () => {
   return (
       <>
-        {Array.from({ length: 3 }).map((_, i) => (
+        {UIconfig.navigation.map((nav, i) => (
           <chakra.li
             key={i}
             className="cursor-pointer transition-colors"
@@ -18,7 +19,9 @@ export const renderLinks = () => {
               color: 'primary.600'
             }}
           >
-            <span>Link</span>
+            <Link href={nav.url}>
+              {nav.title}
+            </Link>
           </chakra.li>
         ))}
       </>
@@ -28,25 +31,37 @@ export const renderLinks = () => {
 export const renderSocialButtons = () => {
   return (
     <>
-      {socialIcons.map((Icon, i) => (
-        <button key={i}>
-          <Icon
-            className="size-8 text-white transition-colors hover:text-blue"
+      {UIconfig.socialMedia.map((el, i) => (
+        <a key={i} href={el.url} target="_blank">
+          <SocialIcon
+            messenger={el.name}
+            className="size-8 transition-colors hover:text-blue"
           />
-        </button>
+        </a>
       ))}
     </>
   )
 }
 
 const Navbar: FC = () => {
+  const isLogoImage = UIconfig.logo.type === "text" ;
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-b-gray-500 bg-black/70 backdrop-blur-lg">
+    <header className="fixed left-0 top-0 z-50 w-full border-b bg-navbar/70 backdrop-blur-lg">
       <nav>
         <Container className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-x-20">
             <button onClick={() => window.location.reload()}>
-              <span className="cursor-pointer select-none text-2xl font-bold">{siteName} Claims</span>
+              {
+                isLogoImage ? (
+                  <span className="cursor-pointer select-none text-2xl font-bold">{UIconfig.logo.text}</span>
+                ) : (
+                  <OptimisedImage
+                    src={UIconfig.logo.img}
+                    alt="wallet"
+                    className="h-[80px] overflow-hidden"
+                  />
+                )
+              }
             </button>
             <ul className="flex items-center gap-x-6 max-xmd:hidden">
               {renderLinks()}

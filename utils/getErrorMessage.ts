@@ -5,8 +5,8 @@ const errorMessages = {
 }
 
 export const showErrorMessage = ({errorCode, message, toast} : {errorCode: number, message?: string, toast: any}) => {
-  const key = errorCode || message.split('\n')[0];
-  if(key === 4001 || key === "User rejected the request."){
+  const key = errorCode || message?.split('\n')[0];
+  if(key === 4001 || key === "User rejected the request." || key === undefined){
     return
   }
   if(!toast) return;
