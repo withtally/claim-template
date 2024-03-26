@@ -120,7 +120,6 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
                 ? <ChainsList chains={chains} connectWithChain={connectWithChain}/>
                 : <WalletsList
                   connectors={connectors}
-                  setIsChainsShowed={setIsChainsShowed}
                   defaultConnectHandler={defaultConnectHandler}
                   walletConnectHandler={walletConnectHandler}
                 />
