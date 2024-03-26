@@ -1,5 +1,7 @@
 import { UIconfig } from './config/UIconfig'
 
+const { colors, site, modal } = UIconfig;
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -30,16 +32,18 @@ module.exports = {
         DEFAULT: '#1e69ff',
       },
       colors: {
-        green: '#4EC272',
-        blue: UIconfig.primary['600'],
-        'blue-grey': '#262b33',
-        'blue-grey-lighter': '#3d424d',
-        'card-background': '#262b33cc',
+        green: colors.selected,
+        blue: colors.primary,
+        'blue-grey': modal.bgColor,
+        'blue-grey-lighter': colors.infoBlockBgColor,
+        navbar: site.bgColor,
+        maintext: site.textColor,
+        gray: UIconfig.colors.gray
       },
     },
     fontFamily: {
-      sans: ["'Poppins'", 'sans-serif'],
-      caption: ["'Barlow Semi Condensed'", 'sans-serif'],
+      sans: UIconfig.fonts.main,
+      caption: UIconfig.fonts.caption,
     },
   },
 }

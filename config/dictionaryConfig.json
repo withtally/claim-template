@@ -1,5 +1,15 @@
 {
   "site": {
     "title": "Hedgey"
+  },
+  "home": {
+    "siteType": "Claim Portal",
+    "checkEligibility": "Check your eligibility to claim tokens"
+  },
+  "stepper": {
+    "step1": {
+      "header1": "sign message",
+      "paragraph2": "The message is a confirmation you're delegating your votes to the delegate you selected"
+    }
   }
 }
