@@ -16,7 +16,6 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/modal'
-import './styles.module.css'
 import { Button } from '@chakra-ui/react'
 import useCustomToasters from '~/hooks/useToasters'
 import { showErrorMessage } from '~/utils/getErrorMessage'
@@ -53,7 +52,7 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
             onCloseConnectPopup()
           },
           onError: (error: any) => {
-            showErrorMessage({errorCode: error.cause.code, toast: errorToast})
+            showErrorMessage({errorCode: error?.cause?.code, message: error.message, toast: errorToast});
           }
         }
       );
@@ -69,7 +68,7 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
           setIsChainsShowed(false)
         },
         onError: (error: any ) => {
-          showErrorMessage({errorCode: error.cause.code, message: error.message, toast: errorToast})
+          showErrorMessage({errorCode: error?.cause?.code, message: error.message, toast: errorToast})
         }
       }
     )
@@ -94,9 +93,9 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
   }, [isChainsShowed]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} >
-      <ModalOverlay />
-      <ModalContent >
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay/>
+      <ModalContent className="max-md:mx-[20px]" >
         <ModalHeader>
           <h1 className="text-xl font-semibold">{isConnected ? 'Connected' : 'Connect Wallet'}</h1>
         </ModalHeader>
