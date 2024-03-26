@@ -1,13 +1,9 @@
-import { WALLLET_CONNECT_ID } from '~/constants/site'
 import { ChainIcon } from '~/components/Layout/WalletConnect/ChainIcon/ChainIcon'
 import { Chains } from '~/types/chains'
-import { Dispatch, FC, SetStateAction, useMemo } from 'react'
-import { Config, Connector, UseChainsReturnType, useChains, useConnect } from 'wagmi'
-import { useWalletConnectContext } from '../../../../../../contexts/WalletConnectContext'
+import { FC } from 'react'
+import { Config, UseChainsReturnType} from 'wagmi'
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs'
-import { WalletIcon } from '~/components/Layout/WalletConnect/WalletIcon'
-import { WalletConnectors } from '~/types/wallet-connectors'
-import { Icon } from '@chakra-ui/icon'
+import { Button } from '@chakra-ui/react'
 
 interface Props {
   chains: UseChainsReturnType<Config>;
@@ -28,23 +24,25 @@ const ChainsList: FC<Props> = ({
         </TabList>
         <TabPanels>
           <TabPanel>
-            <div className="flex flex-col gap-y-[16px] overflow-y-auto max-h-[410px]">
+            <div className="flex flex-col gap-y-[16px] overflow-y-auto max-h-[50vh]">
               {chains
                 .filter((chain) => !chain.testnet)
                 .map((chain) => {
                   return (
-                    <div
+                    <Button
                       key={chain.name}
                       onClick={() => connectWithChain(chain.id)}
-                      className="flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-[15px] "
-                    >
-                      {chain.name}
-
+                      rightIcon={
                         <ChainIcon
                           className="size-8"
                           chainName={chain.name as Chains}
                         />
-                    </div>
+                      }
+                      iconSpacing='auto'
+                      variant="connectWallet"
+                    >
+                      {chain.name}
+                    </Button>
                   )
                 })}
             </div>
@@ -55,18 +53,20 @@ const ChainsList: FC<Props> = ({
                 .filter((chain) => chain.testnet)
                 .map((chain) => {
                   return (
-                    <div
+                    <Button
                       key={chain.name}
                       onClick={() => connectWithChain(chain.id)}
-                      className="flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-[15px] "
-                    >
-                      {chain.name}
-
+                      rightIcon={
                         <ChainIcon
                           className="size-8"
                           chainName={chain.name as Chains}
                         />
-                    </div>
+                      }
+                      iconSpacing='auto'
+                      variant="connectWallet"
+                    >
+                      {chain.name}
+                    </Button>
                   )
                 })}
             </div>
