@@ -28,7 +28,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
         <span className="text-caption">6500.0</span>
       </div>
 
-      <hr className="my-4 w-full border-gray-500" />
+      <hr className="my-4 w-full border-1" />
 
       {selectedDelegate ? (
         <>
