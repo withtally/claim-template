@@ -8,7 +8,7 @@ const SECOND = 1000;
 
 const useCustomToasters = () => {
   const commonOptionsForToaster: Partial<UseToastOptions> = {
-    duration: 2 * SECOND,
+    duration: 10 * SECOND,
     isClosable: true,
     position: 'top-right',
     render(props: RenderProps): React.ReactNode {
