@@ -6,9 +6,7 @@ import Link from 'next/link';
 import CrossIcon from '../../../public/img/icons/cross.svg'
 import { renderLinks, renderSocialButtons } from '~/components/Layout/Nav/Navbar'
 import { WalletConnector } from '~/components/Layout/WalletConnect/WalletConnectButton'
-
-
-
+import { UIconfig } from '~/config/UIconfig'
 
 const BurgerIcon = ({
                       setIsActive,
@@ -120,8 +118,9 @@ function MobileNavBar() {
         }}
         style={{
           zIndex: isOpen ? 3 : 100,
+          background: UIconfig.mobileNavBar.bg
         }}
-        className="xmd:hidden flex-col bg-gradient-to-br from-purple from-blue via-purple-400 to-purple-600 flex flex-column w-full fixed pb-8 pl-8 pr-8 pt-6 right-0 top-0 z-20 overflow-hidden sm:max-w-sm"
+        className="xmd:hidden flex-col flex flex-column w-full fixed pb-8 pl-8 pr-8 pt-6 right-0 top-0 z-20 overflow-hidden sm:max-w-sm"
       >
         <div className="mb-8">
         </div>
