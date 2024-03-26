@@ -6,8 +6,6 @@ import { FocusAreasEnum, SeekingDelegationEnum, SortOptionsEnum } from '~/types/
 interface Props {
   selectedArea: FocusAreasEnum | ''
   setSelectedArea: (value: any) => void
-  seekingDelegationValue: SeekingDelegationEnum | ''
-  setSeekingDelegation: (value: any) => void
   sortOptionValue: SortOptionsEnum
   setSortOptionValue: (value: any) => void
   FocusAreasOptions: { value: FocusAreasEnum; text: FocusAreasEnum }[]
@@ -18,8 +16,6 @@ interface Props {
 export const MobileMilterMenu: FC<Props> = ({
   selectedArea,
   setSelectedArea,
-  seekingDelegationValue,
-  setSeekingDelegation,
   sortOptionValue,
   setSortOptionValue,
   FocusAreasOptions,
@@ -34,24 +30,7 @@ export const MobileMilterMenu: FC<Props> = ({
         as={IconButton}
         icon={<FilterIcon className="size-3" />}
       />
-      <MenuList className=''>
-        <MenuOptionGroup
-          value={seekingDelegationValue}
-          title="Seeking Delegations"
-          type="radio"
-          onChange={setSeekingDelegation}
-        >
-          <MenuItemOption value="">All Delegates</MenuItemOption>
-          {seekingDelegatesOptions.map(({ text, value }) => (
-            <MenuItemOption
-              key={value}
-              value={value}
-            >
-              {text}
-            </MenuItemOption>
-          ))}
-        </MenuOptionGroup>
-        <MenuDivider />
+      <MenuList>
         <MenuOptionGroup
           value={selectedArea}
           title="Issues"

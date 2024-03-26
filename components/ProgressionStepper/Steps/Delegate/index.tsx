@@ -25,13 +25,11 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
     canLoadMoreDelegates,
     focusAreasOptions,
     selectedArea,
-    seekingDelegationValue,
     seekingDelegatesOptions,
     sortOptionValue,
     sortOptions,
     setSearchValue,
     setSelectedArea,
-    setSeekingDelegation,
     setSortOptionValue,
     loadNextChunkOfDelegates,
   } = useSortAndFilterDelegates({
@@ -61,7 +59,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               {/* <div className="mb-10 flex flex-wrap gap-4 xl:flex-nowrap border"> */}
               <div className="mb-10 flex flex-nowrap gap-4 ">
                 <Input
-                  inputGroupClassName="xl:max-w-[300px]"
+                  inputGroupClassName="xl:max-w-[600px]"
                   value={searchValue}
                   onChange={setSearchValue}
                   placeholder="Exact ENS or address"
@@ -77,14 +75,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                 </div>
                 <div className="hidden w-[300px] xl:block">
                   <Select
-                    value={seekingDelegationValue}
-                    onChange={setSeekingDelegation}
-                    options={seekingDelegatesOptions}
-                    placeholder="All Delegates"
-                  />
-                </div>
-                <div className="hidden w-[300px] xl:block">
-                  <Select
                     value={sortOptionValue}
                     onChange={setSortOptionValue}
                     options={sortOptions}
@@ -94,8 +84,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                   <MobileMilterMenu
                     selectedArea={selectedArea}
                     setSelectedArea={setSelectedArea}
-                    seekingDelegationValue={seekingDelegationValue}
-                    setSeekingDelegation={setSeekingDelegation}
                     sortOptionValue={sortOptionValue}
                     setSortOptionValue={setSortOptionValue}
                     sortOptions={sortOptions}
