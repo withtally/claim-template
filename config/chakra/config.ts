@@ -39,7 +39,7 @@ export const themeConfig = {
   styles: {
     global: (props: StyleFunctionProps) => ({
       "*": {
-        borderColor: colors.gray['400']
+        borderColor: site.borderColor
       },
       body: {
         bg: site.bgColor,

@@ -37,7 +37,8 @@
   },
   "site": {
     "bgColor": "black",
-    "textColor": "white"
+    "textColor": "white",
+    "borderColor": "#414e61"
   },
   "colors": {
     "primary": "#0099cc",
