@@ -2,9 +2,9 @@ import cx from 'classnames'
 import { FC, useState } from 'react'
 import StepForm from '~/components/ProgressionStepper/StepForm'
 import { stepItems } from '~/components/ProgressionStepper/Steps/Initial/presets'
-import { siteName } from '~/constants/site'
 import InfoIcon from '~/public/img/icons/info.svg'
 import TickIcon from '~/public/img/icons/tick.svg'
+import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
 
 interface InitialScreenProps {
   onSubmit: () => void
@@ -27,7 +27,7 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
     <div className="inline snap-start transition-opacity">
       <StepForm
         isLoading={isSubmitting}
-        title={`${siteName} Claim`}
+        title={`${getTextFromDictionary('site_title')} Claim`}
         buttonText="Sign Message"
         onSubmit={_onSubmit}
       >
@@ -35,7 +35,7 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
           {stepItems.map(({ title, description }, i) => (
             <li
               key={title}
-              className="border-b border-gray-500 py-4 first:border-t"
+              className="border-b py-4 first:border-t"
             >
               <div
                 className={cx('mb-2 flex items-center justify-between transition-colors', {
