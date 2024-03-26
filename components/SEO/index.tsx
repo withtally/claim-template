@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { siteName } from '~/constants/site'
 import { Metadata } from '~/types/common'
+import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
 
 interface SEOProps {
   title?: string
@@ -23,6 +23,7 @@ export const SEO: FC<SEOProps> = ({ title, description, image, author, published
 
   const siteUrl = process.env.siteUrl
   const siteDomain = process.env.siteDomain
+  const siteName = getTextFromDictionary('site_title');
   const metaTitle = title ? `${title} | ${siteName}` : siteName
   // const siteFavicon = favicon
   const imagePreview = _image?.includes('https://') ? _image : `${process.env.siteUrl}${_image}`
