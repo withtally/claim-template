@@ -55,7 +55,7 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
       </p>
 
       <div className="flex flex-wrap justify-between">
-        <span className="whitespace-nowrap rounded-full border border-gray-600 p-2 text-xs text-gray-300">
+        <span className="whitespace-nowrap rounded-full border p-2 text-xs text-gray-300">
           {delegate.delegatorsCount > 0
             ? `Trusted by ${delegate.delegatorsCount} accounts`
             : 'No delegations to this account'}
