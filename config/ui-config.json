@@ -66,5 +66,14 @@
   "fonts": {
     "main": "Poppins, sans-serif",
     "caption":"Barlow Semi Condensed, sans-serif"
-  }
+  },
+  "focusAreas": [
+    "Public Goods",
+    "Decentralization",
+    "Treasury Management",
+    "Working Groups",
+    "Grants Programs",
+    "Community Outreach",
+    "Protocol"
+  ]
 }

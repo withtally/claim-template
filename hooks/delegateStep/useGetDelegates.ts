@@ -1,15 +1,23 @@
-import { useQuery } from '@tanstack/react-query';
-import { Delegate } from '~/types/delegate';
+import { useQuery } from '@tanstack/react-query'
+import { Delegate } from '~/types/delegate'
+
+const delegatesFetchFunction = async () => {
+  return fetch(process.env.NEXT_PUBLIC_DELEGATES_FETCH_URL).then((res) => res.json())
+}
 
 export const useGetDelegates = () => {
-  const { isPending, error, data: delegates, isFetched, isLoading, isError } = useQuery<Delegate[]>({
+  const {
+    data: delegates,
+    isPending,
+    error,
+    isFetched,
+    isLoading,
+    isError,
+  } = useQuery<Delegate[]>({
     queryKey: ['delegates'],
-    queryFn: () =>
-      fetch(process.env.NEXT_PUBLIC_DELEGATES_FETCH_URL)
-        .then((res) =>
-          res.json(),
-        ),
+    queryFn: () => delegatesFetchFunction(),
+    staleTime: Infinity,
   })
 
-  return { isPending, error, delegates, isFetched, isLoading, isError };
+  return { isPending, error, delegates, isFetched, isLoading, isError }
 }

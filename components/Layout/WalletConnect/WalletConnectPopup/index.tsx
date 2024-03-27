@@ -6,7 +6,6 @@ import ChainsList from '~/components/Layout/WalletConnect/WalletConnectPopup/com
 import { DisconnectContent } from './components/DisconnectContent'
 import { Connector, useAccount, useChains, useConnect, useDisconnect } from 'wagmi'
 import { WALLLET_CONNECT_ID } from '~/constants/site'
-
 import {
   Modal,
   ModalBody,
@@ -20,15 +19,14 @@ import { Button } from '@chakra-ui/react'
 import useCustomToasters from '~/hooks/useToasters'
 import { showErrorMessage } from '~/utils/getErrorMessage'
 
-
 interface Props {
-  isOpen: boolean;
-  onCloseConnectPopup: () => void;
+  isOpen: boolean
+  onCloseConnectPopup: () => void
 }
 
 export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) => {
   const [isChainsShowed, setIsChainsShowed] = useState<boolean>(false)
-  const { address, connector, isConnected  } = useAccount()
+  const { address, connector, isConnected } = useAccount()
   const { connectors, connect } = useConnect()
   const { disconnect } = useDisconnect()
   const { errorToast } = useCustomToasters()
@@ -40,71 +38,73 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
 
   const walletConnectHandler = useCallback(() => {
     return () => {
-      setIsChainsShowed(true);
-    };
-  }, []);
+      setIsChainsShowed(true)
+    }
+  }, [])
 
   const defaultConnectHandler = useCallback((connector: Connector) => {
     return (event: MouseEvent) => {
+      event.preventDefault();
+      onCloseConnectPopup();
       connect(
         { connector },
-        { onSuccess: () => {
-            onCloseConnectPopup()
-          },
+        {
+          onSuccess: () => onCloseConnectPopup(),
           onError: (error: any) => {
-            showErrorMessage({errorCode: error?.cause?.code, message: error.message, toast: errorToast});
-          }
+            showErrorMessage({ errorCode: error?.cause?.code, message: error.message, toast: errorToast })
+          },
         }
-      );
-      event.preventDefault();
-    };
-  }, []);
+      )
+    }
+  }, [])
 
   const connectWithChain = useCallback((chainId: number) => {
+    onCloseConnectPopup();
+    setIsChainsShowed(false);
     connect(
       { connector: walletConnectconnector, chainId: chainId },
-      { onSuccess: () => {
+      {
+        onSuccess: () => {
           onCloseConnectPopup()
           setIsChainsShowed(false)
         },
-        onError: (error: any ) => {
-          showErrorMessage({errorCode: error?.cause?.code, message: error.message, toast: errorToast})
-        }
+        onError: (error: any) => {
+          showErrorMessage({ errorCode: error?.cause?.code, message: error.message, toast: errorToast })
+        },
       }
     )
-  },[])
+  }, [])
 
   const doDisconnect = useCallback(() => {
     disconnect(
       {},
       {
         onSuccess: () => {
-          onCloseConnectPopup();
+          onCloseConnectPopup()
         },
       }
-    );
-  }, []);
+    )
+  }, [])
 
   const onClose = useCallback(() => {
-    if(isChainsShowed){
+    if (isChainsShowed) {
       return setIsChainsShowed(false)
     }
-    return onCloseConnectPopup();
-  }, [isChainsShowed]);
+    return onCloseConnectPopup()
+  }, [isChainsShowed])
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay/>
-      <ModalContent className="max-md:mx-[20px]" >
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+    >
+      <ModalOverlay />
+      <ModalContent className="max-md:mx-[20px]">
         <ModalHeader>
           <h1 className="text-xl font-semibold">{isConnected ? 'Connected' : 'Connect Wallet'}</h1>
         </ModalHeader>
         <ModalCloseButton>
-          {isChainsShowed ? (
-            <Back className="size-3.5" />
-          ) : (
-            <Cross className="size-3.5" />
-          )}
+          {isChainsShowed ? <Back className="size-3.5" /> : <Cross className="size-3.5" />}
         </ModalCloseButton>
         <ModalBody>
           {isConnected ? (
@@ -116,32 +116,33 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
             />
           ) : (
             <>
-              {isChainsShowed
-                ? <ChainsList chains={chains} connectWithChain={connectWithChain}/>
-                : <WalletsList
+              {isChainsShowed ? (
+                <ChainsList
+                  chains={chains}
+                  connectWithChain={connectWithChain}
+                />
+              ) : (
+                <WalletsList
                   connectors={connectors}
                   defaultConnectHandler={defaultConnectHandler}
                   walletConnectHandler={walletConnectHandler}
                 />
-              }
+              )}
             </>
           )}
         </ModalBody>
 
-        <ModalFooter justifyContent={isConnected ? "center" : "start"}>
-          {
-            isConnected ? (
-              <Button onClick={doDisconnect}>Disconect</Button>
-            ) : (
-              <>
-                <p className="mr-[8px]">Don't have a wallet?</p>
-                <a href="https://ethereum.org/en/wallets/">Learn more</a>
-              </>
-            )
-          }
+        <ModalFooter justifyContent={isConnected ? 'center' : 'start'}>
+          {isConnected ? (
+            <Button onClick={doDisconnect}>Disconect</Button>
+          ) : (
+            <>
+              <p className="mr-[8px]">Don't have a wallet?</p>
+              <a href="https://ethereum.org/en/wallets/">Learn more</a>
+            </>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>
-
   )
 }
