@@ -25,7 +25,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
     canLoadMoreDelegates,
     focusAreasOptions,
     selectedArea,
-    seekingDelegatesOptions,
     sortOptionValue,
     sortOptions,
     setSearchValue,
@@ -88,7 +87,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                     setSortOptionValue={setSortOptionValue}
                     sortOptions={sortOptions}
                     FocusAreasOptions={focusAreasOptions}
-                    seekingDelegatesOptions={seekingDelegatesOptions}
                   />
                 </div>
               </div>
