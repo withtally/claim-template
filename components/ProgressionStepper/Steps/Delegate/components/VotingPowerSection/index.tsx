@@ -3,6 +3,7 @@ import { Button } from '@chakra-ui/react'
 import { OptimisedImage } from '~/components/Layout/OptimisedImage'
 import { Delegate } from '~/types/delegate'
 import cx from 'classnames'
+import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
 
 interface Props {
   selectedDelegate: Delegate | null
@@ -19,7 +20,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
 
   return (
     <form className="relative z-10 flex max-h-[600px] w-full flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md lg:sticky lg:top-20 lg:max-w-[450px]">
-      <h2 className="text-caption text-subheading mb-6 uppercase">Voting Power</h2>
+      <h2 className="text-caption text-subheading mb-6 uppercase">{getTextFromDictionary("stepper_step2_votingPowerSection_title")}</h2>
 
       <div className="flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
         <div className="inline-flex size-10 items-center justify-center rounded-full bg-blue-grey">
@@ -51,12 +52,12 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
               isLoading={false}
               className="w-full"
             >
-              Claim and Delegate
+              {getTextFromDictionary("stepper_step2_votingPowerSection_confirm")}
             </Button>
           </div>
         </>
       ) : (
-        <p className="m-auto text-gray-400">Choose a Delegate</p>
+        <p className="m-auto text-gray-400">{getTextFromDictionary("stepper_step2_delegate_chooseDelegate")}</p>
       )}
     </form>
   )
