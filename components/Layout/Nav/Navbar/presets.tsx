@@ -4,19 +4,17 @@ import TwitterIcon from '~/public/img/icons/twitter.svg'
 import { FC } from 'react'
 
 interface Props {
-  messenger: string;
-  className: string;
+  messenger: string
+  className: string
 }
 
-export const SocialIcon:FC<Props> = ({ messenger, className }) => {
+export const SocialIcon: FC<Props> = ({ messenger, className }) => {
   switch (messenger) {
     case 'twitter':
-      return <TwitterIcon className={className}/>;
+      return <TwitterIcon className={className} />
     case 'telegram':
-      return <TelegramIcon className={className}/>
+      return <TelegramIcon className={className} />
     case 'discord':
-      return <DiscordIcon className={className}/>
-
+      return <DiscordIcon className={className} />
   }
 }
-

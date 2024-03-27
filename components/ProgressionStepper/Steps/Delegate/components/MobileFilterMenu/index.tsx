@@ -1,7 +1,7 @@
 import { IconButton, Menu, MenuButton, MenuDivider, MenuItemOption, MenuList, MenuOptionGroup } from '@chakra-ui/react'
 import FilterIcon from '../../../../../../public/img/icons/filter-icon.svg'
 import { FC } from 'react'
-import {  SortOptionsEnum } from '~/types/FilterAndSortingOptions'
+import { SortOptionsEnum } from '~/types/FilterAndSortingOptions'
 
 interface Props {
   selectedArea: string
@@ -25,7 +25,7 @@ export const MobileMilterMenu: FC<Props> = ({
       <MenuButton
         size={'md'}
         variant="secondary"
-        borderRadius='5px'
+        borderRadius="5px"
         as={IconButton}
         icon={<FilterIcon className="size-3" />}
       />

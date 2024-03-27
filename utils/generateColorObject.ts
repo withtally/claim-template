@@ -1,4 +1,4 @@
-const { hexToHsl: convertHexToHsl } = require("./hexToHsl");
+const { hexToHsl: convertHexToHsl } = require('./hexToHsl')
 
 const generateColorObject = (color: string) => {
   return {
@@ -10,10 +10,10 @@ const generateColorObject = (color: string) => {
     600: convertHexToHsl(color),
     700: convertHexToHsl(color, 0.3),
     800: convertHexToHsl(color, 0.2),
-    900: convertHexToHsl(color, 0.1)
+    900: convertHexToHsl(color, 0.1),
   }
 }
 
 module.exports = {
-  generateColorObject
+  generateColorObject,
 }

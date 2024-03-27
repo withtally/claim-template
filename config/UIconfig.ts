@@ -1,10 +1,10 @@
 import config from './ui-config.json'
-const { generateColorObject } = require("../utils/generateColorObject")
+const { generateColorObject } = require('../utils/generateColorObject')
 
 export const UIconfig = {
   ...config,
-  colors:{
+  colors: {
     ...config.colors,
-    gray: generateColorObject(config.colors.subtext)
-  }
+    gray: generateColorObject(config.colors.subtext),
+  },
 }

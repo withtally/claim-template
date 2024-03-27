@@ -44,8 +44,8 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
 
   const defaultConnectHandler = useCallback((connector: Connector) => {
     return (event: MouseEvent) => {
-      event.preventDefault();
-      onCloseConnectPopup();
+      event.preventDefault()
+      onCloseConnectPopup()
       connect(
         { connector },
         {
@@ -59,8 +59,8 @@ export const WalletConnectPopup: FC<Props> = ({ isOpen, onCloseConnectPopup }) =
   }, [])
 
   const connectWithChain = useCallback((chainId: number) => {
-    onCloseConnectPopup();
-    setIsChainsShowed(false);
+    onCloseConnectPopup()
+    setIsChainsShowed(false)
     connect(
       { connector: walletConnectconnector, chainId: chainId },
       {

@@ -2,20 +2,14 @@ import { FC } from 'react'
 import { Select as ChakraSelect } from '@chakra-ui/react'
 
 interface Props {
-  value: string;
-  placeholder?: string;
-  options: { value: string, text: string }[];
-  className?: string;
-  onChange?: (newValue: any) => void;
+  value: string
+  placeholder?: string
+  options: { value: string; text: string }[]
+  className?: string
+  onChange?: (newValue: any) => void
 }
 
-export const Select: FC<Props> = ({
-    value,
-    className,
-    options,
-    placeholder,
-    onChange
-  }) => {
+export const Select: FC<Props> = ({ value, className, options, placeholder, onChange }) => {
   return (
     <ChakraSelect
       className={className}
@@ -25,12 +19,14 @@ export const Select: FC<Props> = ({
       placeholder={placeholder}
       value={value}
     >
-      {
-        options.map(optionItem => (
-          <option key={optionItem.value} value={optionItem.value}>{optionItem.text}</option>
-        ))
-      }
-
+      {options.map((optionItem) => (
+        <option
+          key={optionItem.value}
+          value={optionItem.value}
+        >
+          {optionItem.text}
+        </option>
+      ))}
     </ChakraSelect>
   )
 }
