@@ -9,7 +9,7 @@ import { SEO } from '~/components/SEO'
 
 const HireReactDeveloperPage: FC = () => {
   const [isClaimStepperVisible, setIsClaimStepperVisible] = useState(false)
-  const components = [InitialScreen, ClaimStep, DelegateStep]
+  const components = [InitialScreen, /* ClaimStep, */ DelegateStep]
 
   const handleShowClaimStepper = () => setIsClaimStepperVisible(true)
 

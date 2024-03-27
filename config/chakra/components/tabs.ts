@@ -6,9 +6,9 @@ const { definePartsStyle, defineMultiStyleConfig } =
 
 const baseStyle = definePartsStyle(() => ({
   tab: {
-    color: 'red !important',
+    borderColor: 'transparent',
     _selected: {
-      color: 'primary.600',
+      color: 'primary.600 !important',
     },
   },
 }))

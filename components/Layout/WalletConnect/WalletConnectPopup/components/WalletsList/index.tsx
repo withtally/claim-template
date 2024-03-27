@@ -1,36 +1,38 @@
-import { siteName, WALLLET_CONNECT_ID } from '~/constants/site'
+import { WALLLET_CONNECT_ID } from '~/constants/site'
 import { WalletIcon } from '~/components/Layout/WalletConnect/WalletIcon'
 import { WalletConnectors } from '~/types/wallet-connectors'
-import { Connector, useConnect } from 'wagmi'
+import { Connector } from 'wagmi'
 import { Dispatch, FC, MouseEvent, SetStateAction } from 'react'
-import { useWalletConnectContext } from '../../../../../../contexts/WalletConnectContext'
+import { Button } from '@chakra-ui/react'
+import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
 
 interface Props {
   connectors: readonly Connector[]
-  setIsChainsShowed: Dispatch<SetStateAction<boolean>>
   walletConnectHandler: () => (event: MouseEvent) => void
   defaultConnectHandler: (connector: Connector) => (event: MouseEvent) => void
 }
 
-const WalletsList: FC<Props> = ({ connectors, setIsChainsShowed, defaultConnectHandler, walletConnectHandler }) => {
+const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler, walletConnectHandler }) => {
   return (
     <>
-      <div className="mb-[16px]">Please select a wallet to connect to {siteName}:</div>
+      <div className="mb-[16px]">Please select a wallet to connect to {getTextFromDictionary('site_title')}:</div>
       <div className="flex flex-col gap-y-[16px]">
         {connectors.map((connector) => {
           return (
-            <div
+            <Button
+              variant='connectWallet'
               key={connector.name}
+              rightIcon={
+                <WalletIcon
+                  className="size-10"
+                  walletName={connector.name as WalletConnectors}
+                />
+              }
+              iconSpacing='auto'
               onClick={connector.id === WALLLET_CONNECT_ID ? walletConnectHandler() : defaultConnectHandler(connector)}
-              className="flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-[15px] "
             >
               {connector.name}
-
-              <WalletIcon
-                className="size-10"
-                walletName={connector.name as WalletConnectors}
-              />
-            </div>
+            </Button>
           )
         })}
       </div>

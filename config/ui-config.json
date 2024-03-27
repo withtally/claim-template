@@ -1,0 +1,79 @@
+{
+  "backgroundImage": {
+    "deckstop": "/img/home/background-placeholder.jpg"
+  },
+  "socialMedia": [
+    {
+      "name": "telegram",
+      "url": "https://web.telegram.org/a/"
+    },
+    {
+      "name": "discord",
+      "url": "https://discord.com/"
+    },
+    {
+      "name": "twitter",
+      "url": "https://twitter.com/?lang=uk"
+    }
+  ],
+  "navigation":[
+    {
+      "title": "Link 1",
+      "url": "/link1"
+    },
+    {
+      "title": "Link 2",
+      "url": "/link2"
+    },
+    {
+      "title": "Link 3",
+      "url": "/link3"
+    }
+  ],
+  "logo": {
+    "type": "image",
+    "img": "/img/logo/hedgeylogo.png",
+    "text": "Hedgey Claims"
+  },
+  "site": {
+    "bgColor": "black",
+    "textColor": "white",
+    "borderColor": "#414e61"
+  },
+  "colors": {
+    "primary": "#0099cc",
+    "secondary": "rgb(75 85 99)",
+    "subtext": "#4B5563",
+    "infoBlockBgColor": "#3d424d",
+    "selected": "#4EC272"
+  },
+  "toastBg":{
+    "success": "#9AE6B4",
+    "error": "#FEB2B2",
+    "info": "#90cdf4",
+    "warning": "#FBD38D",
+    "loading": "#90cdf4"
+  },
+  "modal": {
+    "bgColor": "#262b33",
+    "textColor": "black",
+    "overlay": {
+    }
+  },
+  "mobileNavBar": {
+    "bg": "linear-gradient(270deg, #262b33 100%, #262b33cc 100%)"
+  },
+  "fonts": {
+    "main": "Poppins, sans-serif",
+    "caption":"Barlow Semi Condensed, sans-serif"
+  },
+  "focusAreas": [
+    "Public Goods",
+    "Decentralization",
+    "Treasury Management",
+    "Working Groups",
+    "Grants Programs",
+    "Community Outreach",
+    "Protocol"
+  ]
+}
