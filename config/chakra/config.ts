@@ -4,6 +4,7 @@ import { tabsTheme } from '~/config/chakra/components/tabs'
 import { modalTheme } from '~/config/chakra/components/modal'
 import { inputTheme } from '~/config/chakra/components/input'
 import { selectTheme } from '~/config/chakra/components/select'
+import { menuTheme } from '~/config/chakra/components/menu'
 
 const { generateColorObject } = require("../../utils/generateColorObject")
 
@@ -16,7 +17,8 @@ export const themeConfig = {
     Tabs:tabsTheme,
     Modal: modalTheme,
     Input: inputTheme,
-    Select: selectTheme
+    Select: selectTheme,
+    Menu: menuTheme
   },
   breakpoints: {
     xxs: '1px',
