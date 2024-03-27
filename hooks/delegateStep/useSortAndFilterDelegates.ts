@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Delegate } from '~/types/delegate'
 import debounce from 'lodash.debounce'
-import { FocusAreasEnum, SeekingDelegationEnum, SortOptionsEnum } from '~/types/FilterAndSortingOptions'
+import { SortOptionsEnum } from '~/types/FilterAndSortingOptions'
 import { shuffleArray } from '../../libs/helpers/shuffleArray'
+import { UIconfig } from '~/config/UIconfig'
 
 interface IParams {
   delegates: Delegate[] | undefined
@@ -14,7 +15,7 @@ export const useSortAndFilterDelegates = ({ delegates }: IParams) => {
   const [searchValue, setSearchValue] = useState<string>('')
   const [debouncedSearchValue, setDebouncedSearchValue] = useState<string>('')
   // Focus Areas states
-  const [selectedArea, setSelectedArea] = useState<FocusAreasEnum | ''>('')
+  const [selectedArea, setSelectedArea] = useState<string>('')
   // Sort States
   const [sortOptionValue, setSortOptionValue] = useState<SortOptionsEnum>(SortOptionsEnum.VotingPower)
   // Pagination states
@@ -38,11 +39,7 @@ export const useSortAndFilterDelegates = ({ delegates }: IParams) => {
 
   // select options ----
   const focusAreasOptions = useMemo(() => {
-    return Object.values(FocusAreasEnum).map((option) => ({ value: option, text: option }))
-  }, [])
-
-  const seekingDelegatesOptions = useMemo(() => {
-    return Object.values(SeekingDelegationEnum).map((option) => ({ value: option, text: option }))
+    return UIconfig.focusAreas.map((option) => ({ value: option, text: option }))
   }, [])
 
   const sortOptions = useMemo(() => {
@@ -120,7 +117,6 @@ export const useSortAndFilterDelegates = ({ delegates }: IParams) => {
     canLoadMoreDelegates,
     selectedArea,
     focusAreasOptions,
-    seekingDelegatesOptions,
     sortOptionValue,
     sortOptions,
     setSearchValue,

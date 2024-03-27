@@ -1,15 +1,14 @@
 import { IconButton, Menu, MenuButton, MenuDivider, MenuItemOption, MenuList, MenuOptionGroup } from '@chakra-ui/react'
 import FilterIcon from '../../../../../../public/img/icons/filter-icon.svg'
 import { FC } from 'react'
-import { FocusAreasEnum, SeekingDelegationEnum, SortOptionsEnum } from '~/types/FilterAndSortingOptions'
+import {  SortOptionsEnum } from '~/types/FilterAndSortingOptions'
 
 interface Props {
-  selectedArea: FocusAreasEnum | ''
+  selectedArea: string
   setSelectedArea: (value: any) => void
   sortOptionValue: SortOptionsEnum
   setSortOptionValue: (value: any) => void
-  FocusAreasOptions: { value: FocusAreasEnum; text: FocusAreasEnum }[]
-  seekingDelegatesOptions: { value: SeekingDelegationEnum; text: SeekingDelegationEnum }[]
+  FocusAreasOptions: { value: string; text: string }[]
   sortOptions: { value: SortOptionsEnum; text: string }[]
 }
 
@@ -19,7 +18,6 @@ export const MobileMilterMenu: FC<Props> = ({
   sortOptionValue,
   setSortOptionValue,
   FocusAreasOptions,
-  seekingDelegatesOptions,
   sortOptions,
 }) => {
   return (

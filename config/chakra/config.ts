@@ -3,6 +3,8 @@ import { UIconfig } from '~/config/UIconfig'
 import { tabsTheme } from '~/config/chakra/components/tabs'
 import { modalTheme } from '~/config/chakra/components/modal'
 import { inputTheme } from '~/config/chakra/components/input'
+import { selectTheme } from '~/config/chakra/components/select'
+import { menuTheme } from '~/config/chakra/components/menu'
 
 const { generateColorObject } = require("../../utils/generateColorObject")
 
@@ -14,7 +16,9 @@ export const themeConfig = {
     Button,
     Tabs:tabsTheme,
     Modal: modalTheme,
-    Input: inputTheme
+    Input: inputTheme,
+    Select: selectTheme,
+    Menu: menuTheme
   },
   breakpoints: {
     xxs: '1px',
@@ -28,7 +32,7 @@ export const themeConfig = {
   },
   colors:{
     toastBg,
-    primary: generateColorObject(colors.primary)
+    primary: generateColorObject(colors.primary),
   },
   styles: {
     global: () => ({

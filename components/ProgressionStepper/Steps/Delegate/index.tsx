@@ -26,7 +26,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
     canLoadMoreDelegates,
     focusAreasOptions,
     selectedArea,
-    seekingDelegatesOptions,
     sortOptionValue,
     sortOptions,
     setSearchValue,
@@ -61,7 +60,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                 </span>
               </button>
 
-              {/* <div className="mb-10 flex flex-wrap gap-4 xl:flex-nowrap border"> */}
               <div className="mb-10 flex flex-nowrap gap-4 ">
                 <Input
                   inputGroupClassName="xl:max-w-[600px]"
@@ -93,7 +91,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                     setSortOptionValue={setSortOptionValue}
                     sortOptions={sortOptions}
                     FocusAreasOptions={focusAreasOptions}
-                    seekingDelegatesOptions={seekingDelegatesOptions}
                   />
                 </div>
               </div>

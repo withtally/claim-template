@@ -8,63 +8,65 @@ import Link from 'next/link'
 import { UIconfig } from '~/config/UIconfig'
 import { OptimisedImage } from '~/components/Layout/OptimisedImage'
 
-export const renderLinks = () => {
-  return (
-      <>
-        {UIconfig.navigation.map((nav, i) => (
-          <chakra.li
-            key={i}
-            className="cursor-pointer transition-colors"
-            _hover={{
-              color: 'primary.600'
-            }}
-          >
-            <Link href={nav.url}>
-              {nav.title}
-            </Link>
-          </chakra.li>
-        ))}
-      </>
-  )
-}
-
-export const renderSocialButtons = () => {
+export const Links = () => {
   return (
     <>
-      {UIconfig.socialMedia.map((el, i) => (
-        <a key={i} href={el.url} target="_blank">
-          <SocialIcon
-            messenger={el.name}
-            className="size-8 transition-colors hover:text-blue"
-          />
-        </a>
+      {UIconfig.navigation.map((nav, i) => (
+        <chakra.li
+          key={i}
+          className="cursor-pointer transition-colors"
+          _hover={{
+            color: 'primary.600',
+          }}
+        >
+          <Link href={nav.url}>{nav.title}</Link>
+        </chakra.li>
       ))}
     </>
   )
 }
 
+export const SocialButtons = () => {
+  return (
+    <>
+      {UIconfig.socialMedia
+        .filter((el) => el.url)
+        .map((el, i) => (
+          <Link
+            key={i}
+            href={el.url}
+            target="_blank"
+          >
+            <SocialIcon
+              messenger={el.name}
+              className="size-8 transition-colors hover:text-blue"
+            />
+          </Link>
+        ))}
+    </>
+  )
+}
+
 const Navbar: FC = () => {
-  const isLogoImage = UIconfig.logo.type === "text" ;
+  const isLogoImage = UIconfig.logo.type === 'text'
   return (
     <header className="fixed left-0 top-0 z-50 w-full border-b bg-navbar/70 backdrop-blur-lg">
       <nav>
         <Container className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-x-20">
             <button onClick={() => window.location.reload()}>
-              {
-                isLogoImage ? (
-                  <span className="cursor-pointer select-none text-2xl font-bold">{UIconfig.logo.text}</span>
-                ) : (
-                  <OptimisedImage
-                    src={UIconfig.logo.img}
-                    alt="wallet"
-                    className="h-[80px] overflow-hidden"
-                  />
-                )
-              }
+              {isLogoImage ? (
+                <span className="cursor-pointer select-none text-2xl font-bold">{UIconfig.logo.text}</span>
+              ) : (
+                <OptimisedImage
+                  src={UIconfig.logo.img}
+                  alt="wallet"
+                  className="h-[80px] overflow-hidden"
+                />
+              )}
             </button>
             <ul className="flex items-center gap-x-6 max-xmd:hidden">
-              {renderLinks()}
+              <Links />
             </ul>
           </div>
 
@@ -72,10 +74,10 @@ const Navbar: FC = () => {
             <WalletConnector />
 
             <ul className="flex items-center gap-x-6">
-              {renderSocialButtons()}
+              <SocialButtons />
             </ul>
           </div>
-          <MobileNavBar/>
+          <MobileNavBar />
         </Container>
       </nav>
     </header>

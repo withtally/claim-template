@@ -55,14 +55,14 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
       </p>
 
       <div className="flex flex-wrap justify-between">
-        <span className="whitespace-nowrap rounded-full border p-2 text-xs text-gray-300">
+        <span className="flex items-center whitespace-nowrap rounded-full border p-2 text-xs text-gray-300">
           {delegate.delegatorsCount > 0
             ? `Trusted by ${delegate.delegatorsCount} accounts`
             : 'No delegations to this account'}
         </span>
 
         <Tooltip label={delegate?.account?.twitter}>
-          {delegate?.account?.twitter ? (
+          {delegate?.account?.twitter && (
             <Link
               onClick={(e) => e.stopPropagation()}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-600"
@@ -74,16 +74,6 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
                 fill={'#1da1f2'}
               />
             </Link>
-          ) : (
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-600"
-            >
-              <TwitterIcon
-                className="size-5"
-                fill={'rgb(75 85 99)'}
-              />
-            </div>
           )}
         </Tooltip>
       </div>
