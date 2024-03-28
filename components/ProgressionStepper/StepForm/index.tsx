@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import { FC, ReactNode } from 'react'
-import { Button } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react'
 import Container from '~/components/Layout/Container'
 
 interface StepFormProps {
@@ -43,7 +43,7 @@ const StepForm: FC<StepFormProps> = ({
           onSubmit(e)
         }}
         className={cx(
-          'bg-blue-grey/70 relative z-10 mx-auto flex max-h-[calc(100vh-200px)] w-full max-w-[calc(100vw-32px)] flex-col items-center justify-center rounded-2xl p-4 pt-4 backdrop-blur-md md:max-h-[calc(100vh-160px)] md:max-w-[450px] md:p-6 xl:max-h-[calc(100vh-260px)]',
+          'relative z-10 mx-auto flex max-h-[calc(100vh-200px)] w-full max-w-[calc(100vw-32px)] flex-col items-center justify-center rounded-2xl bg-blue-grey/70 p-4 pt-4 backdrop-blur-md md:max-h-[calc(100vh-160px)] md:max-w-[450px] md:p-6 xl:max-h-[calc(100vh-260px)]',
           className,
           {
             'overflow-hidden': !disableOverflow,
