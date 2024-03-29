@@ -1,19 +1,16 @@
 import { ChainIcon } from '~/components/Layout/WalletConnect/ChainIcon/ChainIcon'
 import { Chains } from '~/types/chains'
 import { FC } from 'react'
-import { Config, UseChainsReturnType} from 'wagmi'
+import { Config, UseChainsReturnType } from 'wagmi'
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs'
 import { Button } from '@chakra-ui/react'
 
 interface Props {
-  chains: UseChainsReturnType<Config>;
-  connectWithChain: (chainId: number) => void;
+  chains: UseChainsReturnType<Config>
+  connectWithChain: (chainId: number) => void
 }
 
-const ChainsList: FC<Props> = ({
-  chains,
-  connectWithChain,
-}) => {
+const ChainsList: FC<Props> = ({ chains, connectWithChain }) => {
   return (
     <>
       <div className="mb-[16px]">Please select a network for WalletConnect:</div>
@@ -24,7 +21,7 @@ const ChainsList: FC<Props> = ({
         </TabList>
         <TabPanels>
           <TabPanel>
-            <div className="flex flex-col gap-y-[16px] overflow-y-auto max-h-[50vh]">
+            <div className="flex max-h-[50vh] flex-col gap-y-[16px] overflow-y-auto">
               {chains
                 .filter((chain) => !chain.testnet)
                 .map((chain) => {
@@ -38,7 +35,7 @@ const ChainsList: FC<Props> = ({
                           chainName={chain.name as Chains}
                         />
                       }
-                      iconSpacing='auto'
+                      iconSpacing="auto"
                       variant="connectWallet"
                     >
                       {chain.name}
@@ -48,7 +45,7 @@ const ChainsList: FC<Props> = ({
             </div>
           </TabPanel>
           <TabPanel>
-            <div className="flex flex-col gap-y-[16px] overflow-y-auto max-h-[410px]">
+            <div className="flex max-h-[410px] flex-col gap-y-[16px] overflow-y-auto">
               {chains
                 .filter((chain) => chain.testnet)
                 .map((chain) => {
@@ -62,7 +59,7 @@ const ChainsList: FC<Props> = ({
                           chainName={chain.name as Chains}
                         />
                       }
-                      iconSpacing='auto'
+                      iconSpacing="auto"
                       variant="connectWallet"
                     >
                       {chain.name}
@@ -73,7 +70,6 @@ const ChainsList: FC<Props> = ({
           </TabPanel>
         </TabPanels>
       </Tabs>
-
     </>
   )
 }

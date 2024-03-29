@@ -1,4 +1,3 @@
 export enum SitePages {
   Home = '/',
 }
-

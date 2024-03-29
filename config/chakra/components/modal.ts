@@ -1,21 +1,20 @@
-import { modalAnatomy as parts } from '@chakra-ui/anatomy'
-import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system'
-import { UIconfig } from '~/config/UIconfig'
+import { modalAnatomy as parts } from "@chakra-ui/anatomy";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system";
+import { UIconfig } from "~/config/UIconfig";
 
 const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(parts.keys)
+  createMultiStyleConfigHelpers(parts.keys);
 
-const { bgColor, textColor, overlay} = UIconfig.modal
+const { bgColor, overlay } = UIconfig.modal;
 
 const baseStyle = definePartsStyle({
-
   dialog: {
-    borderRadius: 'md',
+    borderRadius: "md",
     bg: bgColor,
   },
-  overlay
-})
+  overlay,
+});
 
 export const modalTheme = defineMultiStyleConfig({
   baseStyle,
-})
+});

@@ -1,12 +1,12 @@
-import { useCallback, useState } from 'react';
-import { Delegate } from '~/types/delegate';
+import { useCallback, useState } from 'react'
+import { Delegate } from '~/types/delegate'
 
 export const useDelegateSelector = () => {
-  const [selectedDelegate, setSelectedDelegate] = useState<Delegate | null>(null);
+  const [selectedDelegate, setSelectedDelegate] = useState<Delegate | null>(null)
 
   const onDelegateSelect = useCallback((delegate: Delegate) => {
-    setSelectedDelegate(delegate);
-  },[])
+    setSelectedDelegate(delegate)
+  }, [])
 
-  return { selectedDelegate, onDelegateSelect };
+  return { selectedDelegate, onDelegateSelect }
 }

@@ -1,1 +1,1 @@
-export type WalletConnectors = 'MetaMask' | 'Coinbase Wallet' | 'WalletConnect';
+export type WalletConnectors = 'MetaMask' | 'Coinbase Wallet' | 'WalletConnect'

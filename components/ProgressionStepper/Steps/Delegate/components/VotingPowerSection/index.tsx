@@ -40,7 +40,10 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
 
       {selectedDelegate ? (
         <>
-          <Tooltip className='bg-blue-grey-lighter' label={selectedDelegate?.account?.address}>
+          <Tooltip
+            className="bg-blue-grey-lighter"
+            label={selectedDelegate?.account?.address}
+          >
             <div className="mb-6 flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
               <OptimisedImage
                 src={selectedDelegate?.account?.picture || '/img/icons/wallet-placeholder.png'}

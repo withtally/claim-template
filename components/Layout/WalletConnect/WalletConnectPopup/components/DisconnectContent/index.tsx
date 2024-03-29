@@ -30,8 +30,8 @@ export const DisconnectContent: FC<Props> = ({ address, connector }) => {
           <button
             className=" rounded p-2 hover:bg-black hover:bg-opacity-20"
             onClick={() => {
-              navigator.clipboard.writeText(address);
-              successToast({ title: "Copied address", })
+              navigator.clipboard.writeText(address)
+              successToast({ title: 'Copied address' })
             }}
           >
             <Copy className="size-4" />
