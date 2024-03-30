@@ -40,7 +40,7 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit }) => {
             <p className="break-all text-xs text-gray-400">0x7C9Aa8714e50cF4B4497631Fdb2cADC98b4B9a6D</p>
           </div>
         </div>
-        <hr className="my-4 w-full border-1"/>
+        <hr className="border-1 my-4 w-full" />
 
         <div className="mb-6 w-full">
           <span className="text-caption mb-2 block text-xs uppercase">You will receive</span>

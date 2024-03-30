@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import TickIcon from '~/public/img/icons/tick.svg';
+import TickIcon from '~/public/img/icons/tick.svg'
 
 export const SelectedMark: FC = () => {
   return (

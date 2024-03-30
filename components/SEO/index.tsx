@@ -23,7 +23,7 @@ export const SEO: FC<SEOProps> = ({ title, description, image, author, published
 
   const siteUrl = process.env.siteUrl
   const siteDomain = process.env.siteDomain
-  const siteName = getTextFromDictionary('site_title');
+  const siteName = getTextFromDictionary('site_title')
   const metaTitle = title ? `${title} | ${siteName}` : siteName
   // const siteFavicon = favicon
   const imagePreview = _image?.includes('https://') ? _image : `${process.env.siteUrl}${_image}`

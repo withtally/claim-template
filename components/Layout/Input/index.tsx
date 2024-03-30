@@ -4,13 +4,13 @@ import { FC } from 'react'
 interface Props {
   inputLeftElement?: any
   placeholder: string
-  value?: string;
+  value?: string
   onChange?: (newValue: string) => void
-  className?: string;
+  className?: string
   inputGroupClassName?: string
 }
 
-export const Input: FC<Props> = ({ 
+export const Input: FC<Props> = ({
   placeholder,
   inputLeftElement,
   value,

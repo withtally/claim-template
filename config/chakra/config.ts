@@ -6,19 +6,19 @@ import { inputTheme } from '~/config/chakra/components/input'
 import { selectTheme } from '~/config/chakra/components/select'
 import { menuTheme } from '~/config/chakra/components/menu'
 
-const { generateColorObject } = require("../../utils/generateColorObject")
+const { generateColorObject } = require('../../utils/generateColorObject')
 
 const { toastBg, site, fonts, colors } = UIconfig
 
 export const themeConfig = {
-  initialColorMode:"light",
-  components:{
+  initialColorMode: 'light',
+  components: {
     Button,
-    Tabs:tabsTheme,
+    Tabs: tabsTheme,
     Modal: modalTheme,
     Input: inputTheme,
     Select: selectTheme,
-    Menu: menuTheme
+    Menu: menuTheme,
   },
   breakpoints: {
     xxs: '1px',
@@ -30,20 +30,20 @@ export const themeConfig = {
     xl: '1280px',
     '2xl': '1536px',
   },
-  colors:{
+  colors: {
     toastBg,
     primary: generateColorObject(colors.primary),
   },
   styles: {
     global: () => ({
-      "*": {
-        borderColor: site.borderColor
+      '*': {
+        borderColor: site.borderColor,
       },
       body: {
         bg: site.bgColor,
         color: site.textColor,
-        fontFamily: fonts.main
+        fontFamily: fonts.main,
       },
-    })
+    }),
   },
 }

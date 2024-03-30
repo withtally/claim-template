@@ -16,7 +16,7 @@ export const useGetDelegates = () => {
   } = useQuery<Delegate[]>({
     queryKey: ['delegates'],
     queryFn: () => delegatesFetchFunction(),
-    staleTime: Infinity,
+    staleTime: 1000 * 60 * 30, // 30 minutes
   })
 
   return { isPending, error, delegates, isFetched, isLoading, isError }
