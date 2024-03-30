@@ -8,11 +8,10 @@ import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
 
 interface Props {
   connectors: readonly Connector[]
-  walletConnectHandler: () => (event: MouseEvent) => void
   defaultConnectHandler: (connector: Connector) => (event: MouseEvent) => void
 }
 
-const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler, walletConnectHandler }) => {
+const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler }) => {
   return (
     <>
       <div className="mb-[16px]">Please select a wallet to connect to {getTextFromDictionary('site_title')}:</div>
@@ -20,7 +19,7 @@ const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler, walletConne
         {connectors.map((connector) => {
           return (
             <Button
-              variant='connectWallet'
+              variant="connectWallet"
               key={connector.name}
               rightIcon={
                 <WalletIcon
@@ -28,8 +27,8 @@ const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler, walletConne
                   walletName={connector.name as WalletConnectors}
                 />
               }
-              iconSpacing='auto'
-              onClick={connector.id === WALLLET_CONNECT_ID ? walletConnectHandler() : defaultConnectHandler(connector)}
+              iconSpacing="auto"
+              onClick={defaultConnectHandler(connector)}
             >
               {connector.name}
             </Button>
