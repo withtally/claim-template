@@ -1,24 +1,24 @@
-import { FC } from 'react'
-import Container from '~/components/Layout/Container'
-import { useGetDelegates } from '~/hooks/delegateStep/useGetDelegates'
-import { DelegateCard } from '~/components/Layout/DelegateCard'
-import { VotingPowerSection } from './components/VotingPowerSection'
-import { useDelegateSelector } from '~/hooks/delegateStep/useDelegateSelection'
-import { Button, Spinner } from '@chakra-ui/react'
-import SearchIcon from '../../../../public/img/icons/search.svg'
-import { Input } from '~/components/Layout/Input'
-import { useSortAndFilterDelegates } from '~/hooks/delegateStep/useSortAndFilterDelegates'
-import { Select } from '~/components/Layout/Select'
-import { MobileMilterMenu } from './components/MobileFilterMenu'
+import { FC } from "react";
+import Container from "~/components/Layout/Container";
+import { useGetDelegates } from "~/hooks/delegateStep/useGetDelegates";
+import { DelegateCard } from "~/components/Layout/DelegateCard";
+import { VotingPowerSection } from "./components/VotingPowerSection";
+import { useDelegateSelector } from "~/hooks/delegateStep/useDelegateSelection";
+import { Button, Spinner } from "@chakra-ui/react";
+import SearchIcon from "../../../../public/img/icons/search.svg";
+import { Input } from "~/components/Layout/Input";
+import { useSortAndFilterDelegates } from "~/hooks/delegateStep/useSortAndFilterDelegates";
+import { Select } from "~/components/Layout/Select";
+import { MobileMilterMenu } from "./components/MobileFilterMenu";
 
 interface DelegateStepProps {
-  onBack: () => void
-  onSubmit: () => void
+  onBack: () => void;
+  onSubmit: () => void;
 }
 
 const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
-  const { delegates, isError, error, isFetched, isLoading } = useGetDelegates()
-  const { selectedDelegate, onDelegateSelect } = useDelegateSelector()
+  const { delegates, isError, error, isFetched, isLoading } = useGetDelegates();
+  const { selectedDelegate, onDelegateSelect } = useDelegateSelector();
   const {
     processedDelegates,
     searchValue,
@@ -30,10 +30,10 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
     setSearchValue,
     setSelectedArea,
     setSortOptionValue,
-    loadNextChunkOfDelegates,
+    loadNextChunkOfDelegates
   } = useSortAndFilterDelegates({
-    delegates,
-  })
+    delegates
+  });
 
   return (
     <div className="inline snap-start transition-opacity">
@@ -41,7 +41,8 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
         <Container className="relative mb-[55px] mt-[80px] max-w-[1920px]">
           <div className="relative mx-auto flex flex-col-reverse gap-10 lg:flex-row">
             {/* LEFT SIDE */}
-            <div className="h-[auto] min-h-[1000px] w-full overflow-y-auto rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
+            <div
+              className="h-[auto] min-h-[1000px] w-full overflow-y-auto rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
               <h2 className="mb-4 text-xl font-medium md:text-2xl xl:text-3xl">Choose a Delegate</h2>
               <p className="text-md md:text-md mb-4 text-gray-400 xl:text-xl">
                 Pick someone who you believe will be invested in growing the ecosystem.
@@ -55,27 +56,31 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                 </span>
               </button>
 
-              <div className="mb-10 flex flex-nowrap gap-4 ">
-                <Input
-                  inputGroupClassName="xl:max-w-[600px]"
-                  value={searchValue}
-                  onChange={setSearchValue}
-                  placeholder="Exact ENS or address"
-                  inputLeftElement={<SearchIcon className="size-4" />}
-                />
-                <div className="hidden w-[300px] xl:block">
+              <div className="mb-10 flex flex-nowrap gap-4">
+                <div className="flex-1 xl:basis-[40%]">
+                  <Input
+                    inputGroupClassName=""
+                    value={searchValue}
+                    onChange={setSearchValue}
+                    placeholder="Exact ENS or address"
+                    inputLeftElement={<SearchIcon className="size-4" />}
+                  />
+                </div>
+                <div className="hidden xl:block  basis-[30%]">
                   <Select
                     value={selectedArea}
                     onChange={setSelectedArea}
                     options={focusAreasOptions}
                     placeholder="All Focus Areas"
+                    className="truncate"
                   />
                 </div>
-                <div className="hidden w-[300px] xl:block">
+                <div className="hidden xl:block basis-[30%]">
                   <Select
                     value={sortOptionValue}
                     onChange={setSortOptionValue}
                     options={sortOptions}
+                    className="truncate"
                   />
                 </div>
                 <div className="xl:hidden">
@@ -134,7 +139,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
         </Container>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default DelegateStep
+export default DelegateStep;
