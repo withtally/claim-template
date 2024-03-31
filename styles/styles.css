@@ -161,6 +161,6 @@ input[type='number'] {
   @apply xxs:opacity-50;
 }
 
-#wcm-modal{
+#wcm-modal {
   z-index: 2147483647;
 }

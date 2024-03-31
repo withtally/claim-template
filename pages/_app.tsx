@@ -13,9 +13,7 @@ import { WalletConnectContextProvider } from '../contexts/WalletConnectContext'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { themeConfig } from '~/config/chakra/config'
 
-
 const theme = extendTheme(themeConfig)
-
 
 const queryClient = new QueryClient()
 

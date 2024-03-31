@@ -19,11 +19,11 @@ export const Button = defineStyleConfig({
       px: 6,
       py: 4,
     },
-    lg:{
+    lg: {
       fontSize: 'md',
       px: 8,
       py: '25px',
-    }
+    },
   },
   variants: {
     outline: {
@@ -44,17 +44,16 @@ export const Button = defineStyleConfig({
     connectWallet: {
       border: '1px solid',
       borderColor: 'rgb(107 114 128)',
-      paddingX:"15px",
+      paddingX: '15px',
       borderRadius: '10px',
-      _hover:{
-        borderColor:'primary.600'
-      }
+      _hover: {
+        borderColor: 'primary.600',
+      },
       // bg:"#EEE0CB"
-    }
+    },
   },
   defaultProps: {
     size: 'lg',
     variant: 'solid',
   },
-
 })

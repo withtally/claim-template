@@ -28,7 +28,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ stepInView, completedSteps, t
             <button
               key={i}
               onClick={() => {
-                if(i > completedSteps) return
+                if (i > completedSteps) return
                 handleScrollToStep(i)
               }}
               className={cx('group relative h-8 w-8', {

@@ -1,20 +1,21 @@
-import { createConfig, http, cookieStorage, createStorage } from 'wagmi'
-import { metaMask, coinbaseWallet, walletConnect, safe, injected } from 'wagmi/connectors'
+import { cookieStorage, createConfig, createStorage, http } from "wagmi";
 import {
-  mainnet,
-  sepolia,
-  polygon,
-  optimism,
-  avalanche,
-  bsc,
   arbitrum,
-  gnosis,
   arbitrumNova,
-  zkSync,
-  moonbeam,
+  avalanche,
+  avalancheFuji,
+  bsc,
   bscTestnet,
-  polygonMumbai, avalancheFuji,
-} from 'wagmi/chains'
+  gnosis,
+  mainnet,
+  moonbeam,
+  optimism,
+  polygon,
+  polygonMumbai,
+  sepolia,
+  zkSync,
+} from "wagmi/chains";
+import { coinbaseWallet, metaMask, walletConnect } from "wagmi/connectors";
 
 export const config = createConfig({
   chains: [
@@ -31,7 +32,7 @@ export const config = createConfig({
     zkSync,
     moonbeam,
     polygonMumbai,
-    avalancheFuji
+    avalancheFuji,
   ],
   multiInjectedProviderDiscovery: false,
   ssr: true,
@@ -40,13 +41,16 @@ export const config = createConfig({
   }),
   connectors: [
     metaMask(),
-    walletConnect({ projectId: '77804d9f3d662d865161a11b1c286c92',  qrModalOptions:{
-        themeVariables:{
-          "--wcm-z-index": "9999999"
-        }
-      }}),
+    walletConnect({
+      projectId: "77804d9f3d662d865161a11b1c286c92",
+      qrModalOptions: {
+        themeVariables: {
+          "--wcm-z-index": "9999999",
+        },
+      },
+    }),
     coinbaseWallet({
-      appName: 'Tally',
+      appName: "Tally",
       enableMobileWalletLink: true,
     }),
   ],
@@ -66,4 +70,4 @@ export const config = createConfig({
     [polygonMumbai.id]: http(),
     [avalancheFuji.id]: http(),
   },
-})
+});
