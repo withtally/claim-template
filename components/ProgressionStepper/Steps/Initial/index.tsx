@@ -27,8 +27,8 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
     <div className="inline snap-start transition-opacity">
       <StepForm
         isLoading={isSubmitting}
-        title={`${getTextFromDictionary('site_title')} Claim`}
-        buttonText="Sign Message"
+        title={getTextFromDictionary('site_title')}
+        buttonText={getTextFromDictionary('stepper_step1_confirm')}
         onSubmit={_onSubmit}
       >
         <ul className="mb-6">
@@ -53,7 +53,7 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
           ))}
         </ul>
         <p className="w-full text-center">
-          You will need to approve <b>2 actions</b> in your wallet.
+          You will need to approve <b>{getTextFromDictionary('stepper_step1_amountOfActions')} actions</b> in your wallet.
         </p>
         <div
           className={cx('w-full overflow-hidden transition-[max-height,opacity,margin] duration-500', {
@@ -64,8 +64,8 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
           <div className="flex w-full items-center gap-x-2 overflow-hidden rounded-md bg-blue-grey-lighter p-4 text-xs">
             <InfoIcon className="size-4 text-white" />
             <div>
-              <p>Processing transaction</p>
-              <span className="text-gray-400">Updating live...</span>
+              <p>{getTextFromDictionary('stepper_step1_progressInfo')}</p>
+              <span className="text-gray-400">{getTextFromDictionary('stepper_step1_progress')}</span>
             </div>
           </div>
         </div>
