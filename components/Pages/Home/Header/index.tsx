@@ -12,16 +12,16 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ onClick }) => {
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-end pr-40">
+      <div className="absolute inset-0 flex items-center justify-end 2xl:pr-40 max-xsm:hidden">
         <OptimisedImage
           src={UIconfig.backgroundImage.deckstop}
           alt=""
           layout="cover"
-          className="w-[600px] overflow-hidden rounded-md"
+          className="w-[40vw] max-w-[600px] overflow-hidden rounded-md"
         />
       </div>
       <Container className="flex h-svh min-h-[600px] flex-col items-start justify-center pt-16">
-        <header className="flex flex-col items-start gap-y-6">
+        <header className="flex flex-col items-start gap-y-2 lg:gap-y-6">
           <h1 className="text-display-m">
             {getTextFromDictionary("site_title")}{" "}
             {getTextFromDictionary("home_siteType")}
@@ -29,7 +29,9 @@ const Header: FC<HeaderProps> = ({ onClick }) => {
           <p className="text-title text-gray-400">
             {getTextFromDictionary("home_checkEligibility")}
           </p>
-          <Button onClick={onClick}>Check eligibility</Button>
+          <Button onClick={onClick}>
+            {getTextFromDictionary("home_checkEligibilityButton")}
+          </Button>
         </header>
       </Container>
     </section>

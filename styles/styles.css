@@ -13,12 +13,12 @@
     }
 
     .text-display-m {
-        @apply text-[80px] font-semibold leading-[80px] -tracking-[2.4px];
+        @apply leading-[1em] text-[35px] sm:text-[6vw] xl:text-[80px] font-semibold  -tracking-[2.4px];
     }
 
     .text-title,
     .text-title-bold {
-        @apply text-[44px] leading-[44px] -tracking-[0.96px];
+        @apply leading-[1em] text-[19.8px] sm:text-[3.3vw] xl:text-[44px] -tracking-[0.96px];
     }
 
     .text-title-bold {
