@@ -1,32 +1,32 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { FC } from 'react'
-import { Metadata } from '~/types/common'
-import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { FC } from "react";
+import { Metadata } from "~/types/common";
+import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
 
 interface SEOProps {
-  title?: string
-  description?: string
-  image?: string
-  author?: string
-  publishedTime?: string
-  metadata?: Metadata
+  title?: string;
+  description?: string;
+  image?: string;
+  author?: string;
+  publishedTime?: string;
+  metadata?: Metadata;
 }
 
 export const SEO: FC<SEOProps> = ({ title, description, image, author, publishedTime, metadata }) => {
-  const { pathname } = useRouter()
+  const { pathname } = useRouter();
 
   // const favicon = process.env.siteFavicon
   // const titleSuffix = process.env.siteTitle
-  const _image = image || process.env.siteImagePreviewURL
-  const metaDescription = description || process.env.siteDescription
+  const _image = image || process.env.siteImagePreviewURL;
+  const metaDescription = description || process.env.siteDescription;
 
-  const siteUrl = process.env.siteUrl
-  const siteDomain = process.env.siteDomain
-  const siteName = getTextFromDictionary('site_title')
-  const metaTitle = title ? `${title} | ${siteName}` : siteName
+  const siteUrl = process.env.siteUrl;
+  const siteDomain = process.env.siteDomain;
+  const siteName = getTextFromDictionary("site_title");
+  const metaTitle = title ? `${title} | ${siteName}` : siteName;
   // const siteFavicon = favicon
-  const imagePreview = _image?.includes('https://') ? _image : `${process.env.siteUrl}${_image}`
+  const imagePreview = _image?.includes("https://") ? _image : `${process.env.siteUrl}${_image}`;
 
   return (
     <Head>
@@ -133,5 +133,5 @@ export const SEO: FC<SEOProps> = ({ title, description, image, author, published
 
       <title>{metaTitle}</title>
     </Head>
-  )
-}
+  );
+};

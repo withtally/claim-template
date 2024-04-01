@@ -38,7 +38,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
 
   return (
     <div className="inline snap-start transition-opacity">
-      <section className="max-h-[100vh] min-w-[100vw] overflow-auto">
+      <section className="mt-[64px] max-h-[calc(100svh-64px)] min-w-[100vw] overflow-auto">
         <Container className="relative mb-[55px] mt-[80px] max-w-[1920px]">
           <div className="relative mx-auto flex flex-col-reverse gap-10 lg:flex-row">
             {/* LEFT SIDE */}

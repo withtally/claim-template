@@ -1,35 +1,35 @@
-import { Dispatch, FC, SetStateAction, useMemo } from 'react'
-import { OptimisedImage } from '~/components/Layout/OptimisedImage'
-import { Delegate } from '~/types/delegate'
-import { SelectedMark } from './components/SelectedMark'
-import cx from 'classnames'
-import { shortenAddress } from 'libs/helpers/shortenAddress'
-import Link from 'next/link'
-import TwitterIcon from '../../../public/img/icons/twitter-bule.svg'
-import { Tooltip } from '@chakra-ui/react'
+import { Dispatch, FC, SetStateAction, useMemo } from "react";
+import { OptimisedImage } from "~/components/Layout/OptimisedImage";
+import { Delegate } from "~/types/delegate";
+import { SelectedMark } from "./components/SelectedMark";
+import cx from "classnames";
+import { shortenAddress } from "libs/helpers/shortenAddress";
+import Link from "next/link";
+import TwitterIcon from "../../../public/img/icons/twitter-bule.svg";
+import { Tooltip } from "@chakra-ui/react";
 
 interface Props {
-  delegate: Delegate
-  isSelected: boolean
-  setSelectedDelegate: Dispatch<SetStateAction<Delegate>>
+  delegate: Delegate;
+  isSelected: boolean;
+  setSelectedDelegate: Dispatch<SetStateAction<Delegate>>;
 }
 
 export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDelegate }) => {
   const formatedStatementSummaryOrBio = useMemo(() => {
     const statementSummary =
       delegate?.statement?.statementSummary.length > 80
-        ? delegate?.statement?.statementSummary.slice(0, 80) + '…'
-        : delegate?.statement?.statementSummary
+        ? delegate?.statement?.statementSummary.slice(0, 80) + "…"
+        : delegate?.statement?.statementSummary;
 
-    const bio = delegate?.account?.bio?.length > 80 ? delegate?.account?.bio.slice(0, 80) + '…' : delegate?.account?.bio
+    const bio = delegate?.account?.bio?.length > 80 ? delegate?.account?.bio.slice(0, 80) + "…" : delegate?.account?.bio;
 
-    return statementSummary || bio
-  }, [])
+    return statementSummary || bio;
+  }, []);
 
   return (
     <div
-      className={cx('relative cursor-pointer rounded-md border-2 bg-blue-grey p-4 pt-10', {
-        'border-green/80': isSelected,
+      className={cx("relative cursor-pointer rounded-md border-2 bg-blue-grey p-4 pt-10", {
+        "border-green/80": isSelected
       })}
       onClick={() => setSelectedDelegate(delegate)}
     >
@@ -37,9 +37,9 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
       {/* WALLET DETAILS */}
       <div className="mb-6 flex flex-col items-center gap-x-4 md:flex-row">
         <OptimisedImage
-          src={delegate?.account?.picture || '/img/icons/wallet-placeholder.png'}
+          src={delegate?.account?.picture || "/img/icons/wallet-placeholder.png"}
           alt="wallet"
-          className="mt-2 size-12 max-h-12 min-h-12 min-w-12 max-w-12 overflow-hidden rounded-full  "
+          className="mt-2 max-md:mb-2 size-12 max-h-12 min-h-12 min-w-12 max-w-12 overflow-hidden rounded-full  "
           layout="cover"
         />
         <div className="flex max-w-[75%] flex-col">
@@ -50,15 +50,15 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
         </div>
       </div>
 
-      <p className={cx('mb-6 h-[80px] overflow-hidden text-clip', { 'text-gray-400': !formatedStatementSummaryOrBio })}>
-        {formatedStatementSummaryOrBio || 'No bio provided'}
+      <p className={cx("mb-6 h-[80px] overflow-hidden text-clip", { "text-gray-400": !formatedStatementSummaryOrBio })}>
+        {formatedStatementSummaryOrBio || "No bio provided"}
       </p>
 
       <div className="flex flex-wrap justify-between">
         <span className="flex items-center whitespace-nowrap rounded-full border p-2 text-xs text-gray-300">
           {delegate.delegatorsCount > 0
             ? `Trusted by ${delegate.delegatorsCount} accounts`
-            : 'No delegations to this account'}
+            : "No delegations to this account"}
         </span>
 
         <Tooltip label={delegate?.account?.twitter}>
@@ -71,12 +71,12 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
             >
               <TwitterIcon
                 className="size-5"
-                fill={'#1da1f2'}
+                fill={"#1da1f2"}
               />
             </Link>
           )}
         </Tooltip>
       </div>
     </div>
-  )
-}
+  );
+};

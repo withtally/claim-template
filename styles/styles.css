@@ -9,6 +9,7 @@
 @layer base {
     body {
         @apply w-full min-w-[320px] bg-black font-sans text-base leading-6;
+        max-height: 100svh;
     }
 
     .text-display-m {
