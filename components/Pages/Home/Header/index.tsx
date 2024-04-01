@@ -29,7 +29,9 @@ const Header: FC<HeaderProps> = ({ onClick }) => {
           <p className="text-title text-gray-400">
             {getTextFromDictionary("home_checkEligibility")}
           </p>
-          <Button onClick={onClick}>Check eligibility</Button>
+          <Button onClick={onClick}>
+            {getTextFromDictionary("home_checkEligibilityButton")}
+          </Button>
         </header>
       </Container>
     </section>

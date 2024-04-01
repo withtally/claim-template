@@ -19,10 +19,7 @@ const WalletsList: FC<Props> = ({
 }) => {
   return (
     <>
-      <div className="mb-[16px]">
-        Please select a wallet to connect to{" "}
-        {getTextFromDictionary("site_title")}:
-      </div>
+      <div className="mb-[16px]">{getTextFromDictionary('connectModal_description')} {getTextFromDictionary('site_title')}:</div>
       <div className="flex flex-col gap-y-[16px]">
         {connectors.map((connector) => {
           return (
