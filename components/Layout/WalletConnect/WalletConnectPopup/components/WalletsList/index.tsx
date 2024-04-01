@@ -7,22 +7,14 @@ import { WalletConnectors } from "~/types/wallet-connectors";
 import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
 
 interface Props {
-  connectors: readonly Connector[];
-  walletConnectHandler: () => (event: MouseEvent) => void;
-  defaultConnectHandler: (connector: Connector) => (event: MouseEvent) => void;
+  connectors: readonly Connector[]
+  defaultConnectHandler: (connector: Connector) => (event: MouseEvent) => void
 }
 
-const WalletsList: FC<Props> = ({
-  connectors,
-  defaultConnectHandler,
-  walletConnectHandler,
-}) => {
+const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler }) => {
   return (
     <>
-      <div className="mb-[16px]">
-        Please select a wallet to connect to{" "}
-        {getTextFromDictionary("site_title")}:
-      </div>
+      <div className="mb-[16px]">{getTextFromDictionary('connectModal_description')} {getTextFromDictionary('site_title')}:</div>
       <div className="flex flex-col gap-y-[16px]">
         {connectors.map((connector) => {
           return (
@@ -36,11 +28,7 @@ const WalletsList: FC<Props> = ({
                 />
               }
               iconSpacing="auto"
-              onClick={
-                connector.id === WALLLET_CONNECT_ID
-                  ? walletConnectHandler()
-                  : defaultConnectHandler(connector)
-              }
+              onClick={defaultConnectHandler(connector)}
             >
               {connector.name}
             </Button>
