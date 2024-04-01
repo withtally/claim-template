@@ -13,13 +13,13 @@ import { MobileMilterMenu } from './components/MobileFilterMenu'
 import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
 
 interface DelegateStepProps {
-  onBack: () => void
-  onSubmit: () => void
+  onBack: () => void;
+  onSubmit: () => void;
 }
 
 const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
-  const { delegates, isError, error, isFetched, isLoading } = useGetDelegates()
-  const { selectedDelegate, onDelegateSelect } = useDelegateSelector()
+  const { delegates, isError, error, isFetched, isLoading } = useGetDelegates();
+  const { selectedDelegate, onDelegateSelect } = useDelegateSelector();
   const {
     processedDelegates,
     searchValue,
@@ -43,7 +43,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
           <div className="relative mx-auto flex flex-col-reverse gap-10 lg:flex-row">
             {/* LEFT SIDE */}
             <div className="min-h-[1000px] h-[auto] w-full overflow-y-auto rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
-              <h2 className="mb-4 text-xl font-medium md:text-2xl xl:text-3xl">{getTextFromDictionary("stepper_step2_delegate_chooseDelegate")}</h2>
+              <h2 className="mb-4 text-xl font-medium md:text-2xl xl:text-3xl">Choose a Delegate</h2>
               <p className="text-md mb-4 text-gray-400 md:text-md xl:text-xl">
                 {/*Pick someone who you believe will be invested in growing the ecosystem.*/}
                 {/*<br />*/}
@@ -64,27 +64,31 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                 </span>
               </button>
 
-              <div className="mb-10 flex flex-nowrap gap-4 ">
-                <Input
-                  inputGroupClassName="xl:max-w-[600px]"
-                  value={searchValue}
-                  onChange={setSearchValue}
-                  placeholder={getTextFromDictionary("stepper_step2_delegate_searchPlaceholder")}
-                  inputLeftElement={<SearchIcon className="size-4" />}
-                />
-                <div className="hidden w-[300px] xl:block">
+              <div className="mb-10 flex flex-nowrap gap-4">
+                <div className="flex-1 xl:basis-[40%]">
+                  <Input
+                    inputGroupClassName=""
+                    value={searchValue}
+                    onChange={setSearchValue}
+                    placeholder={getTextFromDictionary("stepper_step2_delegate_searchPlaceholder")}
+                    inputLeftElement={<SearchIcon className="size-4" />}
+                  />
+                </div>
+                <div className="hidden xl:block  basis-[30%]">
                   <Select
                     value={selectedArea}
                     onChange={setSelectedArea}
                     options={focusAreasOptions}
                     placeholder="All Focus Areas"
+                    className="truncate"
                   />
                 </div>
-                <div className="hidden w-[300px] xl:block">
+                <div className="hidden xl:block basis-[30%]">
                   <Select
                     value={sortOptionValue}
                     onChange={setSortOptionValue}
                     options={sortOptions}
+                    className="truncate"
                   />
                 </div>
                 <div className="xl:hidden">
@@ -143,7 +147,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
         </Container>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default DelegateStep
+export default DelegateStep;
