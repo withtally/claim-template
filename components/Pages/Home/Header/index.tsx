@@ -12,12 +12,13 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ onClick }) => {
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-end 2xl:pr-40 max-xsm:hidden">
+      <div
+        className="absolute inset-0 flex items-center justify-end 2xl:pr-40 max-xsm:hidden mt-[64px] max-h-[calc(100svh-64px)]">
         <OptimisedImage
           src={UIconfig.backgroundImage.deckstop}
           alt=""
           layout="cover"
-          className="w-[40vw] max-w-[600px] overflow-hidden rounded-md"
+          className="w-[40vw] max-w-[600px] overflow-hidden rounded-md "
         />
       </div>
       <Container className="flex h-svh min-h-[600px] flex-col items-start justify-center pt-16">

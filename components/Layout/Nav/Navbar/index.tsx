@@ -1,12 +1,12 @@
-import { FC } from 'react'
-import Container from '~/components/Layout/Container'
-import { SocialIcon } from '~/components/Layout/Nav/Navbar/presets'
-import { WalletConnector } from '../../WalletConnect/WalletConnectButton'
-import MobileNavBar from '~/components/Layout/MobileNavBar'
-import { chakra } from '@chakra-ui/react'
-import Link from 'next/link'
-import { UIconfig } from '~/config/UIconfig'
-import { OptimisedImage } from '~/components/Layout/OptimisedImage'
+import { FC } from "react";
+import Container from "~/components/Layout/Container";
+import { SocialIcon } from "~/components/Layout/Nav/Navbar/presets";
+import { WalletConnector } from "../../WalletConnect/WalletConnectButton";
+import MobileNavBar from "~/components/Layout/MobileNavBar";
+import { chakra } from "@chakra-ui/react";
+import Link from "next/link";
+import { UIconfig } from "~/config/UIconfig";
+import { OptimisedImage } from "~/components/Layout/OptimisedImage";
 
 export const Links = () => {
   return (
@@ -16,15 +16,15 @@ export const Links = () => {
           key={i}
           className="cursor-pointer transition-colors"
           _hover={{
-            color: 'primary.600',
+            color: "primary.600"
           }}
         >
           <Link href={nav.url}>{nav.title}</Link>
         </chakra.li>
       ))}
     </>
-  )
-}
+  );
+};
 
 export const SocialButtons = () => {
   return (
@@ -44,11 +44,11 @@ export const SocialButtons = () => {
           </Link>
         ))}
     </>
-  )
-}
+  );
+};
 
 const Navbar: FC = () => {
-  const isLogoImage = UIconfig.logo.type === 'text'
+  const isLogoImage = UIconfig.logo.type === "text";
   return (
     <header className="fixed left-0 top-0 z-50 w-full border-b bg-navbar/70 backdrop-blur-lg">
       <nav>
@@ -65,12 +65,12 @@ const Navbar: FC = () => {
                 />
               )}
             </button>
-            <ul className="flex items-center gap-x-6 max-xmd:hidden">
+            <ul className="flex items-center gap-x-6 max-lg:hidden">
               <Links />
             </ul>
           </div>
 
-          <div className="flex items-center gap-x-10 max-xmd:hidden">
+          <div className="flex items-center gap-x-10 max-lg:hidden">
             <WalletConnector />
 
             <ul className="flex items-center gap-x-6">
@@ -81,7 +81,7 @@ const Navbar: FC = () => {
         </Container>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
