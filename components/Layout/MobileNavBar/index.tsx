@@ -31,7 +31,7 @@ const BurgerIcon = ({ setIsActive, isActive }: { isActive: boolean; setIsActive:
       style={{
         zIndex: isActive ? 111 : 0
       }}
-      className={`relative cursor-pointer shadow-md xmd:hidden`}
+      className={`relative cursor-pointer shadow-md lg:hidden`}
     >
       <motion.div
         initial="inactive"
@@ -112,7 +112,7 @@ function MobileNavBar() {
           zIndex: isOpen ? 3 : 100,
           background: UIconfig.mobileNavBar.bg
         }}
-        className="flex-column fixed right-0 top-0 z-20 flex w-full flex-col overflow-hidden pb-8 pl-8 pr-8 pt-6 sm:max-w-sm xmd:hidden"
+        className="flex-column fixed right-0 top-0 z-20 flex w-full flex-col overflow-hidden pb-8 pl-8 pr-8 pt-6 sm:max-w-sm lg:hidden"
       >
         <div className="mb-8"></div>
         <div
