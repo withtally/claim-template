@@ -31,7 +31,7 @@
     }
   ],
   "logo": {
-    "type": "image",
+    "type": "text",
     "img": "/img/logo/hedgeylogo.png",
     "text": "Hedgey Claims"
   },
