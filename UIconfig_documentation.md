@@ -1,6 +1,7 @@
 # UI configuration documentation
 
-Description of UI configuration file. I will describe each key one by one.
+Description of UI configuration file. [Click to open this
+config file](./config/ui-config.json)
 
 ## Relative paths and replacing images
 
