@@ -1,16 +1,16 @@
-import { FC } from "react";
-import Container from "~/components/Layout/Container";
-import { useGetDelegates } from "~/hooks/delegateStep/useGetDelegates";
-import { DelegateCard } from "~/components/Layout/DelegateCard";
-import { VotingPowerSection } from "./components/VotingPowerSection";
-import { useDelegateSelector } from "~/hooks/delegateStep/useDelegateSelection";
-import { Button, Spinner } from "@chakra-ui/react";
-import SearchIcon from "../../../../public/img/icons/search.svg";
-import { Input } from "~/components/Layout/Input";
-import { useSortAndFilterDelegates } from "~/hooks/delegateStep/useSortAndFilterDelegates";
-import { Select } from "~/components/Layout/Select";
-import { MobileMilterMenu } from "./components/MobileFilterMenu";
-import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
+import { FC } from 'react'
+import Container from '~/components/Layout/Container'
+import { useGetDelegates } from '~/hooks/delegateStep/useGetDelegates'
+import { DelegateCard } from '~/components/Layout/DelegateCard'
+import { VotingPowerSection } from './components/VotingPowerSection'
+import { useDelegateSelector } from '~/hooks/delegateStep/useDelegateSelection'
+import { Button, Spinner } from '@chakra-ui/react'
+import SearchIcon from '../../../../public/img/icons/search.svg'
+import { Input } from '~/components/Layout/Input'
+import { useSortAndFilterDelegates } from '~/hooks/delegateStep/useSortAndFilterDelegates'
+import { Select } from '~/components/Layout/Select'
+import { MobileMilterMenu } from './components/MobileFilterMenu'
+import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
 
 interface DelegateStepProps {
   onBack: () => void;
@@ -31,10 +31,10 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
     setSearchValue,
     setSelectedArea,
     setSortOptionValue,
-    loadNextChunkOfDelegates
+    loadNextChunkOfDelegates,
   } = useSortAndFilterDelegates({
-    delegates
-  });
+    delegates,
+  })
 
   return (
     <div className="inline snap-start transition-opacity">
@@ -42,8 +42,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
         <Container className="relative mb-[55px] mt-[80px] max-w-[1920px]">
           <div className="relative mx-auto flex flex-col-reverse gap-10 lg:flex-row">
             {/* LEFT SIDE */}
-            <div
-              className="min-h-[1000px] h-[auto] w-full overflow-y-auto rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
+            <div className="min-h-[1000px] h-[auto] w-full overflow-y-auto rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
               <h2 className="mb-4 text-xl font-medium md:text-2xl xl:text-3xl">Choose a Delegate</h2>
               <p className="text-md mb-4 text-gray-400 md:text-md xl:text-xl">
                 {/*Pick someone who you believe will be invested in growing the ecosystem.*/}
@@ -51,11 +50,13 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                 {/*<b>You will keep all of your tokens.</b> The delegate only gets the voting power alloted to your token*/}
                 {/*value. You can keep voting power for yourself or redelegate at any time.*/}
                 {getTextFromDictionary("stepper_step2_delegate_paragraph1")}
-                <br />
+                <br/>
                 <b>{getTextFromDictionary("stepper_step2_delegate_bold")}</b>
                 {getTextFromDictionary("stepper_step2_delegate_paragraph2")}
                 {getTextFromDictionary("stepper_step2_delegate_paragraph1")}
-                <br />
+                <br/>
+                <b>{getTextFromDictionary("stepper_step2_delegate_bold")}</b>
+                {getTextFromDictionary("stepper_step2_delegate_paragraph2")}
               </p>
               <button className="mb-10 transition-colors hover:text-blue ">
                 <span className="text-sm md:text-md xl:text-base">
