@@ -56,7 +56,6 @@
   },
   "modal": {
     "bgColor": "#262b33",
-    "textColor": "black",
     "overlay": {}
   },
   "mobileNavBar": {
