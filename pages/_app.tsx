@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { FC } from "react";
+import { FC, useState } from 'react'
 import { WagmiProvider } from "wagmi";
 import AnimateLayout from "~/components/Layout/AnimateLayout";
 import ErrorBoundary from "~/components/Layout/ErrorBoundary";
@@ -26,6 +26,13 @@ const DynamicWalletConnectContextProvider = dynamic(() => import('../contexts/Wa
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const { asPath } = useRouter();
   const _asPath = asPath.split("?").shift();
+  const [isClaimStepperVisible, setIsClaimStepperVisible] = useState(false)
+
+  const componentProps = {
+    ...pageProps,
+    isClaimStepperVisible,
+    setIsClaimStepperVisible
+  }
 
   return (
     <>
@@ -34,10 +41,10 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
           <QueryClientProvider client={queryClient}>
             <ChakraProvider theme={theme}>
               <DynamicWalletConnectContextProvider>
-                <Navbar />
+                <Navbar isClaimStepperVisible={isClaimStepperVisible} setIsClaimStepperVisible={setIsClaimStepperVisible}/>
                 <AnimatePresence onExitComplete={() => window.scrollTo(0, 0)}>
                   <AnimateLayout key={_asPath}>
-                    <Component {...pageProps} />
+                    <Component {...componentProps} />
                   </AnimateLayout>
                 </AnimatePresence>
               </DynamicWalletConnectContextProvider>
