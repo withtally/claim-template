@@ -13,10 +13,15 @@ import "~/styles/styles.css";
 import { config as wagmiConfig } from "../config/wagmi/config";
 import { WalletConnectContextProvider } from "../contexts/WalletConnectContext";
 import { Analytics } from '@vercel/analytics/react';
+import dynamic from 'next/dynamic';
 
 const theme = extendTheme(themeConfig);
 
 const queryClient = new QueryClient();
+
+const DynamicWalletConnectContextProvider = dynamic(() => import('../contexts/WalletConnectContext').then(mod => mod.WalletConnectContextProvider), {
+  ssr: false
+});
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const { asPath } = useRouter();
@@ -35,14 +40,14 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         <WagmiProvider config={wagmiConfig}>
           <QueryClientProvider client={queryClient}>
             <ChakraProvider theme={theme}>
-              <WalletConnectContextProvider>
+              <DynamicWalletConnectContextProvider>
                 <Navbar isClaimStepperVisible={isClaimStepperVisible} setIsClaimStepperVisible={setIsClaimStepperVisible}/>
                 <AnimatePresence onExitComplete={() => window.scrollTo(0, 0)}>
                   <AnimateLayout key={_asPath}>
                     <Component {...componentProps} />
                   </AnimateLayout>
                 </AnimatePresence>
-              </WalletConnectContextProvider>
+              </DynamicWalletConnectContextProvider>
             </ChakraProvider>
           </QueryClientProvider>
         </WagmiProvider>
