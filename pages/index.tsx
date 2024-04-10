@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import AnimateOnUpdate from '~/components/Layout/AnimateOnUpdate'
 import Header from '~/components/Pages/Home/Header'
 import ProgessionStepper from '~/components/ProgressionStepper'
@@ -7,8 +7,12 @@ import DelegateStep from '~/components/ProgressionStepper/Steps/Delegate'
 import InitialScreen from '~/components/ProgressionStepper/Steps/Initial'
 import { SEO } from '~/components/SEO'
 
-const HireReactDeveloperPage: FC = () => {
-  const [isClaimStepperVisible, setIsClaimStepperVisible] = useState(false)
+interface Props {
+  isClaimStepperVisible: boolean;
+  setIsClaimStepperVisible: Dispatch<SetStateAction<boolean>>;
+}
+
+const HireReactDeveloperPage: FC<Props> = ({ isClaimStepperVisible, setIsClaimStepperVisible }) => {
   const components = [InitialScreen, /* ClaimStep, */ DelegateStep]
 
   const handleShowClaimStepper = () => setIsClaimStepperVisible(true)
