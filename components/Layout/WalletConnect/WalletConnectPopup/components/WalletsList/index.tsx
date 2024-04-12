@@ -1,10 +1,12 @@
 import { Button } from "@chakra-ui/react";
-import { FC, MouseEvent } from "react";
+import { FC, MouseEvent, useMemo } from 'react'
 import { Connector } from "wagmi";
 import { WalletIcon } from "~/components/Layout/WalletConnect/WalletIcon";
 import { WALLLET_CONNECT_ID } from "~/constants/site";
 import { WalletConnectors } from "~/types/wallet-connectors";
 import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
+import {isMobile} from "~/utils/isMobile";
+import { isInjectedConnector, isInjectedMetaMaskConnector, isMetaMaskConnector } from '~/utils/connectors'
 
 interface Props {
   connectors: readonly Connector[]
@@ -12,11 +14,43 @@ interface Props {
 }
 
 const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler }) => {
+
+  const connectorsToRender = useMemo(() => {
+    const isMetaMaskBrowser = navigator.userAgent.includes("MetaMaskMobile");
+
+    if(!isMobile()){
+      return connectors.filter(connector => !isInjectedConnector(connector))
+    }else{
+      const copyArr = connectors
+        .filter(connector => {
+          if(isMetaMaskBrowser && isInjectedMetaMaskConnector(connector)){
+            return true;
+          }
+
+          if(!isMetaMaskBrowser && isMetaMaskConnector(connector)){
+            return true
+          }
+
+          if(isMetaMaskBrowser && isMetaMaskConnector(connector)){
+            return false;
+          }
+
+          return true;
+        })
+
+      return [
+        copyArr.find(item => item.name === "MetaMask"),
+        ...copyArr.filter(item => item.name !== "MetaMask")
+      ]
+    }
+  },[])
+
   return (
     <>
       <div className="mb-[16px]">{getTextFromDictionary('connectModal_description')} {getTextFromDictionary('site_title')}:</div>
       <div className="flex flex-col gap-y-[16px]">
-        {connectors.map((connector) => {
+        {
+          connectorsToRender.map((connector) => {
           return (
             <Button
               variant="connectWallet"

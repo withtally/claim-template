@@ -8,7 +8,6 @@ const { chain } = getChain(chainToUse);
 
 export const config = createConfig({
   chains: [chain],
-  multiInjectedProviderDiscovery: false,
   ssr: true,
   connectors: [
     metaMask(),

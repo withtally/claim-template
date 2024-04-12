@@ -8,7 +8,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal";
 import { Button } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC } from 'react'
 import { useWalletConnect } from "~/hooks/useWalletConnect";
 import Cross from "../../../../public/img/icons/cross.svg";
 import { DisconnectContent } from "./components/DisconnectContent";
