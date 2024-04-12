@@ -22,7 +22,6 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
     address,
     connector,
     isConnected,
-    chainId: currentChain,
   } = useAccount();
   const { connectors, connect } = useConnect();
   const { disconnect } = useDisconnect();
@@ -38,10 +37,8 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
 
       if (isMetaMaskConnector(connector) && typeof window !== "undefined" && isMobile()) {
         let host = window.location.host
-        const deepLink = `https://metamask.app.link/dapp/${host}/`;
-        alert(deepLink)
 
-        document.location = deepLink;
+        document.location = `https://metamask.app.link/dapp/${host}/`;
       }
       connect(
           { connector, chainId: chain.id },
