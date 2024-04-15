@@ -16,7 +16,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ stepInView, completedSteps, t
     <>
       <div
         className={cx(
-          'fixed bottom-4 left-1/2 z-10 flex w-full max-w-[1000px] -translate-x-1/2 flex-col items-center gap-y-4 rounded-lg transition-all',
+          'fixed bottom-4 left-1/2 z-[11] flex w-full max-w-[1000px] -translate-x-1/2 flex-col items-center gap-y-4 rounded-lg transition-all',
           {
             'pointer-events-none translate-y-4 opacity-0': stepInView > totalSteps || completedSteps === 0,
           }
