@@ -15,7 +15,6 @@ interface Props {
 }
 
 export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDelegate }) => {
-  console.log(delegate)
   const formatedStatementSummaryOrBio = useMemo(() => {
     const statementSummary =
       delegate?.statement?.statementSummary.length > 80
