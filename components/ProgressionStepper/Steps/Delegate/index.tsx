@@ -1,16 +1,17 @@
-import { FC } from "react";
+import { ArrowUpIcon } from "@chakra-ui/icons";
+import { Button, IconButton, Spinner } from "@chakra-ui/react";
+import { FC, useEffect, useRef, useState } from "react";
 import Container from "~/components/Layout/Container";
-import { useGetDelegates } from "~/hooks/delegateStep/useGetDelegates";
 import { DelegateCard } from "~/components/Layout/DelegateCard";
-import { VotingPowerSection } from "./components/VotingPowerSection";
-import { useDelegateSelector } from "~/hooks/delegateStep/useDelegateSelection";
-import { Button, Spinner } from "@chakra-ui/react";
-import SearchIcon from "../../../../public/img/icons/search.svg";
 import { Input } from "~/components/Layout/Input";
-import { useSortAndFilterDelegates } from "~/hooks/delegateStep/useSortAndFilterDelegates";
 import { Select } from "~/components/Layout/Select";
-import { MobileMilterMenu } from "./components/MobileFilterMenu";
+import { useDelegateSelector } from "~/hooks/delegateStep/useDelegateSelection";
+import { useGetDelegates } from "~/hooks/delegateStep/useGetDelegates";
+import { useSortAndFilterDelegates } from "~/hooks/delegateStep/useSortAndFilterDelegates";
 import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
+import SearchIcon from "../../../../public/img/icons/search.svg";
+import { MobileMilterMenu } from "./components/MobileFilterMenu";
+import { VotingPowerSection } from "./components/VotingPowerSection";
 
 interface DelegateStepProps {
   onBack: () => void;
@@ -20,6 +21,9 @@ interface DelegateStepProps {
 const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
   const { delegates, isError, error, isFetched, isLoading } = useGetDelegates();
   const { selectedDelegate, onDelegateSelect } = useDelegateSelector();
+  const [isScrollToTopVisible, setIsScrollToTopVisible] =
+    useState<boolean>(false);
+  const ref = useRef<HTMLDivElement | null>();
   const {
     processedDelegates,
     searchValue,
@@ -31,20 +35,51 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
     setSearchValue,
     setSelectedArea,
     setSortOptionValue,
-    loadNextChunkOfDelegates
+    loadNextChunkOfDelegates,
   } = useSortAndFilterDelegates({
-    delegates
+    delegates,
   });
+
+  useEffect(() => {
+    const scrollToTop = () => {
+      if (ref?.current?.scrollTop > ref.current.scrollHeight/3) {
+        setIsScrollToTopVisible(true);
+      } else {
+        setIsScrollToTopVisible(false);
+      }
+    }
+    ref?.current?.addEventListener("scroll", scrollToTop);
+    return () => {
+      ref?.current?.removeEventListener("scroll", scrollToTop)
+    }
+  }, []);
 
   return (
     <div className="inline snap-start transition-opacity">
-      <section className="mt-[64px] max-h-[calc(100svh-64px)] min-w-[100vw] overflow-auto">
-        <Container className="relative mb-[55px] mt-[80px] max-w-[1920px]">
+      <section
+        ref={ref}
+        className=" mt-[64px] max-h-[calc(100svh-64px)] w-[100svw] overflow-auto"
+      >
+        <Container className="relative mb-[55px] mt-[3svh] max-w-[1920px]">
           <div className="relative mx-auto flex flex-col-reverse gap-10 lg:flex-row">
+            {isScrollToTopVisible && (
+              <IconButton
+                isRound={true}
+                size="sm"
+                aria-label="scroll to top"
+                icon={<ArrowUpIcon />}
+                className="!fixed bottom-4 right-[20px] z-[15]"
+                onClick={() => {
+                  ref.current.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            )}
+
             {/* LEFT SIDE */}
-            <div
-              className="min-h-[1000px] h-[auto] w-full overflow-y-auto rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
-              <h2 className="mb-4 text-xl font-medium md:text-2xl xl:text-3xl">Choose a Delegate</h2>
+            <div className="min-h-[1000px] h-[auto] w-full overflow-y-auto max-md:overflow-x-hidden rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
+              <h2 className="mb-4 text-xl font-medium md:text-2xl xl:text-3xl">
+                Choose a Delegate
+              </h2>
               <p className="text-md mb-4 text-gray-400 md:text-md xl:text-xl">
                 {/*Pick someone who you believe will be invested in growing the ecosystem.*/}
                 {/*<br />*/}
@@ -58,7 +93,11 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               </p>
               <button className="mb-10 transition-colors hover:text-blue ">
                 <span className="text-sm md:text-md xl:text-base">
-                  <u>{getTextFromDictionary("stepper_step2_delegate_delegateMyself")}</u>
+                  <u>
+                    {getTextFromDictionary(
+                      "stepper_step2_delegate_delegateMyself",
+                    )}
+                  </u>
                 </span>
               </button>
 
@@ -68,7 +107,9 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                     inputGroupClassName=""
                     value={searchValue}
                     onChange={setSearchValue}
-                    placeholder={getTextFromDictionary("stepper_step2_delegate_searchPlaceholder")}
+                    placeholder={getTextFromDictionary(
+                      "stepper_step2_delegate_searchPlaceholder",
+                    )}
                     inputLeftElement={<SearchIcon className="size-4" />}
                   />
                 </div>
@@ -117,7 +158,9 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                       ))}
                     </div>
                   ) : (
-                    <p className="rounded-md border p-2 text-center">No results found</p>
+                    <p className="rounded-md border p-2 text-center">
+                      No results found
+                    </p>
                   )}
 
                   {canLoadMoreDelegates && (
@@ -137,7 +180,11 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
                 </div>
               )}
 
-              {isError && <div className="rounded-md border p-2 text-center">Can't fetch delegates</div>}
+              {isError && (
+                <div className="rounded-md border p-2 text-center">
+                  Can't fetch delegates
+                </div>
+              )}
             </div>
             {/* RIGHT SIDE */}
             <VotingPowerSection selectedDelegate={selectedDelegate} />
