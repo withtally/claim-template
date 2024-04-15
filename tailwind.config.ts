@@ -41,7 +41,8 @@ module.exports = {
         'blue-grey-lighter': colors.infoBlockBgColor,
         navbar: site.bgColor,
         maintext: site.textColor,
-        gray: UIconfig.colors.gray
+        gray: UIconfig.colors.gray,
+        errorColor: modal.errorColor
       },
     },
     fontFamily: {
