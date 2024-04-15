@@ -31,11 +31,11 @@ const useCustomToasters = () => {
 }
 
 const CustomToast = (props: RenderProps) => {
-  const { status, title, onClose } = props
+  const { status, title, onClose, description } = props
   return (
     <Box
       bg={`toastBg.${status}`}
-      className="relative rounded-[0.375rem] px-[32px] py-[12px] pl-[16px]"
+      className="flex relative rounded-[0.375rem] px-[32px] py-[12px] pl-[16px]"
     >
       <div
         onClick={onClose}
@@ -43,9 +43,14 @@ const CustomToast = (props: RenderProps) => {
       >
         <CrossIcon className="size-3 text-black" />
       </div>
+      <span className="mr-2" >
+        <ToastIcon status={status}/>
+      </span>
       <div className="flex items-center gap-x-3 font-bold text-black">
-        <ToastIcon status={status} />
-        {title}
+        <div className="flex flex-col">
+          {title}
+          <div className="text-[13px] font-light">{description}</div>
+        </div>
       </div>
     </Box>
   )
