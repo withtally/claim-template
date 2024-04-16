@@ -63,7 +63,6 @@ const Navbar: FC<Props> = ({ isClaimStepperVisible, setIsClaimStepperVisible }) 
             <Link href="/" onClick={() => {
               if(!isClaimStepperVisible) return;
               setIsClaimStepperVisible(false);
-              console.log("clicked")
             }}>
               {isLogoImage ? (
                 <span className="cursor-pointer select-none text-2xl font-bold">{UIconfig.logo.text}</span>

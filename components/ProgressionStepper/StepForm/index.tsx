@@ -43,7 +43,7 @@ const StepForm: FC<StepFormProps> = ({
           onSubmit(e);
         }}
         className={cx(
-          "relative z-10 mx-auto flex w-full max-w-[calc(100vw-32px)] flex-col items-center justify-center rounded-2xl bg-blue-grey/70 p-4 pt-4 backdrop-blur-md md:max-h-[calc(100vh-160px)] md:max-w-[450px] md:p-6 xl:max-h-[calc(100vh-260px)]",
+          "relative z-10 mx-auto flex max-h-[calc(100svh-200px)] w-full max-w-[calc(100vw-32px)] flex-col items-center justify-center rounded-2xl bg-blue-grey/70 p-4 pt-4 backdrop-blur-md md:max-h-[calc(100vh-160px)] md:max-w-[450px] md:p-6 xl:max-h-[calc(100vh-260px)]",
           className,
           {
             "overflow-hidden": !disableOverflow

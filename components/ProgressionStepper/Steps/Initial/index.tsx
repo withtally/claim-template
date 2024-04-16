@@ -58,10 +58,10 @@ const InitialScreen: FC<InitialScreenProps> = ({ onSubmit }) => {
         <div
           className={cx('w-full overflow-hidden transition-[max-height,opacity,margin] duration-500', {
             'max-h-0 opacity-0': !isSubmitting,
-            'my-4 max-h-16': isSubmitting,
+            'my-4 max-h-16 overflow-visible': isSubmitting,
           })}
         >
-          <div className="flex w-full items-center gap-x-2 overflow-hidden rounded-md bg-blue-grey-lighter p-4 text-xs">
+          <div className="flex w-full items-center gap-x-2 rounded-md bg-blue-grey-lighter p-4 text-xs">
             <InfoIcon className="size-4 text-white" />
             <div>
               <p>{getTextFromDictionary('stepper_step1_progressInfo')}</p>
