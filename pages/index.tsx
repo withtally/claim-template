@@ -1,21 +1,37 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
-import AnimateOnUpdate from '~/components/Layout/AnimateOnUpdate'
-import Header from '~/components/Pages/Home/Header'
-import ProgessionStepper from '~/components/ProgressionStepper'
-import ClaimStep from '~/components/ProgressionStepper/Steps/Claim'
-import DelegateStep from '~/components/ProgressionStepper/Steps/Delegate'
-import InitialScreen from '~/components/ProgressionStepper/Steps/Initial'
-import { SEO } from '~/components/SEO'
+import { Dispatch, FC, SetStateAction } from "react";
+import { useAccount } from "wagmi";
+import AnimateOnUpdate from "~/components/Layout/AnimateOnUpdate";
+import Header from "~/components/Pages/Home/Header";
+import ProgessionStepper from "~/components/ProgressionStepper";
+import DelegateStep from "~/components/ProgressionStepper/Steps/Delegate";
+import InitialScreen from "~/components/ProgressionStepper/Steps/Initial";
+import { SEO } from "~/components/SEO";
+import useCustomToasters from "~/hooks/useToasters";
 
 interface Props {
   isClaimStepperVisible: boolean;
   setIsClaimStepperVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-const HireReactDeveloperPage: FC<Props> = ({ isClaimStepperVisible, setIsClaimStepperVisible }) => {
-  const components = [InitialScreen, /* ClaimStep, */ DelegateStep]
+const HireReactDeveloperPage: FC<Props> = ({
+  isClaimStepperVisible,
+  setIsClaimStepperVisible,
+}) => {
+  const components = [InitialScreen, /* ClaimStep, */ DelegateStep];
+  const { isConnected } = useAccount();
 
-  const handleShowClaimStepper = () => setIsClaimStepperVisible(true)
+  const { infoToast } = useCustomToasters();
+
+  const handleShowClaimStepper = () => {
+    if (!isConnected) {
+      infoToast({
+        title: "Wallet is not connected",
+        description: "You need to connect wallet before checking eligibility",
+      });
+      return;
+    }
+    setIsClaimStepperVisible(true);
+  };
 
   return (
     <>
@@ -34,7 +50,7 @@ const HireReactDeveloperPage: FC<Props> = ({ isClaimStepperVisible, setIsClaimSt
         )}
       </AnimateOnUpdate>
     </>
-  )
-}
+  );
+};
 
-export default HireReactDeveloperPage
+export default HireReactDeveloperPage;

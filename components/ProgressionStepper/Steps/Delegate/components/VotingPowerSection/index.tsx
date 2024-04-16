@@ -5,12 +5,26 @@ import { Delegate } from '~/types/delegate'
 import { shortenAddress } from '../../../../../../libs/helpers/shortenAddress'
 import cx from 'classnames'
 import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
+import { useChainMissmatch } from '~/hooks/useChainMissmatch'
+import useCustomToasters from '~/hooks/useToasters'
+import { getChain } from '~/config/wagmi/getChain'
+import { chainToUse } from '~/constants/site'
 
 interface Props {
   selectedDelegate: Delegate | null
 }
 
 export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
+  const isChainMissmatched = useChainMissmatch();
+  const { warningToast } = useCustomToasters()
+  const {chain} = getChain(chainToUse);
+  const onDelegateClick = () => {
+    if(isChainMissmatched){
+      warningToast({title:"Wrong chain", description:`To claim and delegate tokens you have to use ${chain.name}. Please reconnect your wallet with this chain.`})
+      return;
+    }
+  }
+
   const formatedStatementSummaryOrBio = useMemo(() => {
     const statementSummary = selectedDelegate?.statement?.statementSummary
 
@@ -27,7 +41,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
   }, [selectedDelegate])
 
   return (
-    <form className="relative z-10 flex h-fit min-h-[300px] lg:min-h-[600px] w-full flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md lg:sticky lg:top-20 lg:max-w-[450px]">
+    <form className="relative z-10 flex h-fit min-h-[75svh] w-full flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md lg:sticky lg:top-[3svh] lg:max-w-[450px]">
       <h2 className="text-caption text-subheading mb-6 uppercase">Voting Power</h2>
 
       <div className="flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
@@ -64,6 +78,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
             <Button
               isLoading={false}
               className="w-full"
+              onClick={onDelegateClick}
             >
               {getTextFromDictionary("stepper_step2_votingPowerSection_confirm")}
             </Button>
