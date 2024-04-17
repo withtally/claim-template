@@ -7,6 +7,7 @@ import { chakra } from "@chakra-ui/react";
 import Link from "next/link";
 import { UIconfig } from "~/config/UIconfig";
 import { OptimisedImage } from "~/components/Layout/OptimisedImage";
+import { TreeCreator } from "./TreeCreator";
 
 export const Links = () => {
   return (
@@ -69,6 +70,8 @@ const Navbar: FC = () => {
               <Links />
             </ul>
           </div>
+
+          <TreeCreator />
 
           <div className="flex items-center gap-x-10 max-lg:hidden">
             <WalletConnector />
