@@ -11,7 +11,6 @@ const { generateColorObject } = require('../../utils/generateColorObject')
 const { toastBg, site, fonts, colors } = UIconfig
 
 export const themeConfig = {
-  initialColorMode: 'light',
   components: {
     Button,
     Tabs: tabsTheme,
@@ -40,9 +39,9 @@ export const themeConfig = {
         borderColor: site.borderColor,
       },
       body: {
-        bg: site.bgColor,
-        color: site.textColor,
-        fontFamily: fonts.main,
+        bg: `${site.bgColor} !important`,
+        color: `${site.textColor} !important`,
+        fontFamily: `${fonts.main} !important`,
       },
     }),
   },

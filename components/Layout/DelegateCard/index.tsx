@@ -43,18 +43,23 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
           layout="cover"
         />
         <div className="flex max-w-[75%] flex-col">
-          <h3 className="text-subheading mb-1 flex-grow truncate">
-            {delegate?.account?.name || shortenAddress(delegate?.account?.address)}
-          </h3>
-          <p className="break-all text-xs text-gray-400">{delegate?.account?.address}</p>
+          <Tooltip
+            className="bg-blue-grey-lighter"
+            label={delegate?.account?.address}
+          >
+            <h3 className="text-subheading mb-1 flex-grow truncate">
+              {delegate?.account?.name || shortenAddress(delegate?.account?.address)}
+            </h3>
+          </Tooltip>
+          <p className="break-all text-xs text-gray-400">{delegate?.votesCount}</p>
         </div>
       </div>
 
-      <p className={cx("mb-6 h-[80px] overflow-hidden text-clip", { "text-gray-400": !formatedStatementSummaryOrBio })}>
+      <p className={cx("mb-6 h-[70px] overflow-hidden text-clip line-clamp-3", { "text-gray-400": !formatedStatementSummaryOrBio })}>
         {formatedStatementSummaryOrBio || "No bio provided"}
       </p>
 
-      <div className="flex flex-wrap justify-between">
+      <div className="flex flex-wrap justify-between gap-y-[10px]">
         <span className="flex items-center whitespace-nowrap rounded-full border p-2 text-xs text-gray-300">
           {delegate.delegatorsCount > 0
             ? `Trusted by ${delegate.delegatorsCount} accounts`

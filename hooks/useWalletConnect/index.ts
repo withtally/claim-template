@@ -10,6 +10,8 @@ import { getChain } from "~/config/wagmi/getChain";
 import { chainToUse } from "~/constants/site";
 import useCustomToasters from "~/hooks/useToasters";
 import { showErrorMessage } from "~/utils/getErrorMessage";
+import {isMobile} from "~/utils/isMobile";
+import { isMetaMaskConnector } from '~/utils/connectors'
 
 interface Props {
   onCloseConnectPopup: () => void;
@@ -20,7 +22,6 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
     address,
     connector,
     isConnected,
-    chainId: currentChain,
   } = useAccount();
   const { connectors, connect } = useConnect();
   const { disconnect } = useDisconnect();
@@ -33,23 +34,29 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
     return (event: MouseEvent) => {
       event.preventDefault();
       onCloseConnectPopup();
+
+      if (isMetaMaskConnector(connector) && typeof window !== "undefined" && isMobile()) {
+        let host = window.location.host
+
+        document.location = `https://metamask.app.link/dapp/${host}/`;
+      }
       connect(
-        { connector, chainId: chain.id },
-        {
-          onSuccess: async (data) => {
-            if (connector.id === "walletConnect" && data.chainId !== chain.id) {
-              switchChain({ chainId: chain.id });
-            }
-            onCloseConnectPopup();
+          { connector, chainId: chain.id },
+          {
+            onSuccess: async (data) => {
+              if (connector.id === "walletConnect" && data.chainId !== chain.id) {
+                switchChain({ chainId: chain.id });
+              }
+              onCloseConnectPopup();
+            },
+            onError: (error: any) => {
+              showErrorMessage({
+                errorCode: error?.cause?.code,
+                message: error.message,
+                toast: errorToast,
+              });
+            },
           },
-          onError: (error: any) => {
-            showErrorMessage({
-              errorCode: error?.cause?.code,
-              message: error.message,
-              toast: errorToast,
-            });
-          },
-        },
       );
     };
   }, []);

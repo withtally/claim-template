@@ -96,7 +96,7 @@ function MobileNavBar() {
       ) : null}
       <motion.div
         exit={{ opacity: 0, x: -20 }}
-        transition={{ duration: 0.1 }}
+        transition={{ duration: 0.2 }}
         key={"mobile-nav-2"}
         initial={{
           opacity: 0,
@@ -126,7 +126,12 @@ function MobileNavBar() {
         </div>
         <nav
           className="flex h-full w-full flex-col items-center justify-items-start gap-4 pt-4 text-white sm:items-end">
-          <WalletConnector />
+          <span onClick={() => {
+            toggleOpen();
+            closeMenu();
+          }}>
+            <WalletConnector />
+          </span>
           <ul className="flex flex-1 flex-col items-center gap-y-6 text-[20px]">
             <Links />
           </ul>

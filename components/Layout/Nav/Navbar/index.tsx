@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from 'react'
 import Container from "~/components/Layout/Container";
 import { SocialIcon } from "~/components/Layout/Nav/Navbar/presets";
 import { WalletConnector } from "../../WalletConnect/WalletConnectButton";
@@ -48,14 +48,23 @@ export const SocialButtons = () => {
   );
 };
 
-const Navbar: FC = () => {
+interface Props {
+  isClaimStepperVisible: boolean;
+  setIsClaimStepperVisible: Dispatch<SetStateAction<boolean>>;
+}
+
+const Navbar: FC<Props> = ({ isClaimStepperVisible, setIsClaimStepperVisible }) => {
+
   const isLogoImage = UIconfig.logo.type === "text";
   return (
     <header className="fixed left-0 top-0 z-50 w-full border-b bg-navbar/70 backdrop-blur-lg">
       <nav>
         <Container className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-x-20">
-            <button onClick={() => window.location.reload()}>
+            <Link href="/" onClick={() => {
+              if(!isClaimStepperVisible) return;
+              setIsClaimStepperVisible(false);
+            }}>
               {isLogoImage ? (
                 <span className="cursor-pointer select-none text-2xl font-bold">{UIconfig.logo.text}</span>
               ) : (
@@ -65,7 +74,7 @@ const Navbar: FC = () => {
                   className="h-[80px] overflow-hidden"
                 />
               )}
-            </button>
+            </Link>
             <ul className="flex items-center gap-x-6 max-lg:hidden">
               <Links />
             </ul>
