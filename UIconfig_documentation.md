@@ -127,6 +127,8 @@ Here iis an exapmple of link object:
 
 - **bgColor**
   Background color of wallet connect modal and
+- **errorColor**
+  Background color of button when chain is missmatched
 - ~~**overlay**
   Not supported for now~~
 
