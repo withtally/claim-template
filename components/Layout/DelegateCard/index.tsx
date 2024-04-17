@@ -7,12 +7,17 @@ import { shortenAddress } from "libs/helpers/shortenAddress";
 import Link from "next/link";
 import TwitterIcon from "../../../public/img/icons/twitter-bule.svg";
 import { Tooltip } from "@chakra-ui/react";
+import { formatUnits } from 'ethers'
+import { convertNumberToHumanReadableFormat } from '~/utils/convertNumberToHumanReadableFormat'
 
 interface Props {
   delegate: Delegate;
   isSelected: boolean;
   setSelectedDelegate: Dispatch<SetStateAction<Delegate>>;
 }
+
+const tokenSymbol = "ARB";
+const decimals = 18;
 
 export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDelegate }) => {
   const formatedStatementSummaryOrBio = useMemo(() => {
@@ -51,7 +56,7 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
               {delegate?.account?.name || shortenAddress(delegate?.account?.address)}
             </h3>
           </Tooltip>
-          <p className="break-all text-xs text-gray-400">{delegate?.votesCount}</p>
+          <p className="break-all text-xs text-gray-400">{convertNumberToHumanReadableFormat(+formatUnits(delegate?.votesCount, decimals))} {tokenSymbol}</p>
         </div>
       </div>
 
