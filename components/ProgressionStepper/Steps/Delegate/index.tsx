@@ -78,7 +78,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
             {/* LEFT SIDE */}
             <div className="min-h-[1000px] h-[auto] w-full overflow-y-auto max-md:overflow-x-hidden rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
               <h2 className="mb-4 text-xl font-medium md:text-2xl xl:text-3xl">
-                Choose a Delegate
+                {getTextFromDictionary('stepper_step2_delegate_chooseDelegate')}
               </h2>
               <p className="text-md mb-4 text-gray-400 md:text-md xl:text-xl">
                 {/*Pick someone who you believe will be invested in growing the ecosystem.*/}

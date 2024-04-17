@@ -42,7 +42,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
 
   return (
     <form className="relative z-10 flex h-fit min-h-[75svh] w-full flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md lg:sticky lg:top-[3svh] lg:max-w-[450px]">
-      <h2 className="text-caption text-subheading mb-6 uppercase">Voting Power</h2>
+      <h2 className="text-caption text-subheading mb-6 uppercase">{getTextFromDictionary('stepper_step2_votingPowerSection_title')}</h2>
 
       <div className="flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
         <div className="inline-flex size-10 items-center justify-center rounded-full bg-blue-grey">
