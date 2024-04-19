@@ -1,16 +1,30 @@
 export interface Metadata {
   favicon: {
-    url: string
-  }
+    url: string;
+  };
   globalSeo: {
-    siteName: string
-    titleSuffix: string
+    siteName: string;
+    titleSuffix: string;
     fallbackSeo: {
-      title: string
+      title: string;
       image: {
-        url: string
-      }
-      description: string
-    }
-  }
+        url: string;
+      };
+      description: string;
+    };
+  };
+}
+
+export type Address = `0x${string}`;
+
+export interface Proof {
+  proof: string[];
+  amount: any;
+}
+
+export enum ClaimStatusEnum {
+  ELIGIBLE = "Eligible",
+  NOT_ELIGIBLE = "Not eligible",
+  ALREADY_CLAIMED = "Already claimed",
+  UNKNOWN = "Unknown",
 }

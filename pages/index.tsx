@@ -8,11 +8,10 @@ import InitialScreen from "~/components/ProgressionStepper/Steps/Initial";
 import { SEO } from "~/components/SEO";
 
 const HireReactDeveloperPage: FC = () => {
-  const {
-    isClaimStepperVisible,
-    handleShowClaimStepper,
-  } = useClaimContext();
   const components = [InitialScreen, /* ClaimStep, */ DelegateStep];
+
+  const { isMerkleTreeFetched, isClaimStepperVisible, handleCheckEligibility } =
+    useClaimContext();
 
   return (
     <>
@@ -22,7 +21,10 @@ const HireReactDeveloperPage: FC = () => {
         className="flex max-h-svh flex-col"
       >
         {!isClaimStepperVisible ? (
-          <Header onClick={handleShowClaimStepper} />
+          <Header
+            onClick={handleCheckEligibility}
+            isMerkleTreeFetched={isMerkleTreeFetched}
+          />
         ) : (
           <ProgessionStepper
             components={components}

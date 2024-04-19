@@ -1,21 +1,22 @@
-import { FC } from 'react'
-import { Connector } from 'wagmi'
-import Copy from '../../../../../../public/img/icons/copy.svg'
-import { WalletIcon } from '../../../WalletIcon'
-import { WalletConnectors } from '~/types/wallet-connectors'
-import { shortenAddress } from '../../../../../../libs/helpers/shortenAddress'
-import useCustomToasters from '~/hooks/useToasters'
+import { FC } from "react";
+import { Connector } from "wagmi";
+import useCustomToasters from "~/hooks/useToasters";
+import { Address } from "~/types/common";
+import { WalletConnectors } from "~/types/wallet-connectors";
+import { shortenAddress } from "../../../../../../libs/helpers/shortenAddress";
+import Copy from "../../../../../../public/img/icons/copy.svg";
+import { WalletIcon } from "../../../WalletIcon";
 
 interface Props {
-  onDisconnect: () => void
-  address: `0x${string}`
-  connector: Connector
-  onClose: () => void
+  onDisconnect: () => void;
+  address: Address;
+  connector: Connector;
+  onClose: () => void;
 }
 
 export const DisconnectContent: FC<Props> = ({ address, connector }) => {
-  const connectorName = connector?.name
-  const { successToast } = useCustomToasters()
+  const connectorName = connector?.name;
+  const { successToast } = useCustomToasters();
 
   return (
     <>
@@ -30,8 +31,8 @@ export const DisconnectContent: FC<Props> = ({ address, connector }) => {
           <button
             className=" rounded p-2 hover:bg-black hover:bg-opacity-20"
             onClick={() => {
-              navigator.clipboard.writeText(address)
-              successToast({ title: 'Copied address' })
+              navigator.clipboard.writeText(address);
+              successToast({ title: "Copied address" });
             }}
           >
             <Copy className="size-4" />
@@ -39,5 +40,5 @@ export const DisconnectContent: FC<Props> = ({ address, connector }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};

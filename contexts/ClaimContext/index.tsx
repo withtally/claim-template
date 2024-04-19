@@ -1,10 +1,14 @@
 import React, { ReactNode, createContext, useContext } from "react";
 import { useCheckEligibility } from "~/hooks/ClaimHooks/useCheckEligibility";
+import { ClaimStatusEnum, Proof } from "~/types/common";
 
 type ClaimContextType = {
+  proofs: Proof | undefined;
+  isMerkleTreeFetched: boolean;
+  claimStatus: ClaimStatusEnum;
   isClaimStepperVisible: boolean;
   setIsClaimStepperVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  handleShowClaimStepper: () => void
+  handleCheckEligibility: () => void;
 };
 
 const ClaimContext = createContext<ClaimContextType | undefined>(undefined);
@@ -21,15 +25,21 @@ const ClaimContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const {
+    proofs,
+    isMerkleTreeFetched,
     isClaimStepperVisible,
+    claimStatus,
     setIsClaimStepperVisible,
-    handleShowClaimStepper,
+    handleCheckEligibility,
   } = useCheckEligibility();
 
   const contextValues: ClaimContextType = {
+    proofs,
+    isMerkleTreeFetched,
+    claimStatus,
     isClaimStepperVisible,
     setIsClaimStepperVisible,
-    handleShowClaimStepper,
+    handleCheckEligibility,
   };
 
   return (
