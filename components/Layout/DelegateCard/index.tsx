@@ -9,6 +9,7 @@ import TwitterIcon from "../../../public/img/icons/twitter-bule.svg";
 import { Tooltip } from "@chakra-ui/react";
 import { formatUnits } from 'ethers'
 import { convertNumberToHumanReadableFormat } from '~/utils/convertNumberToHumanReadableFormat'
+import CustomTooltip from '~/components/Layout/Tooltip'
 
 interface Props {
   delegate: Delegate;
@@ -48,14 +49,13 @@ export const DelegateCard: FC<Props> = ({ delegate, isSelected, setSelectedDeleg
           layout="cover"
         />
         <div className="flex max-w-[75%] flex-col">
-          <Tooltip
-            className="bg-blue-grey-lighter"
+          <CustomTooltip
             label={delegate?.account?.address}
           >
             <h3 className="text-subheading mb-1 flex-grow truncate">
               {delegate?.account?.name || shortenAddress(delegate?.account?.address)}
             </h3>
-          </Tooltip>
+          </CustomTooltip>
           <p className="break-all text-xs text-gray-400">{convertNumberToHumanReadableFormat(+formatUnits(delegate?.votesCount, decimals))} {tokenSymbol}</p>
         </div>
       </div>
