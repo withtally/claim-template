@@ -7,10 +7,17 @@ import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
 
 interface HeaderProps {
   onClick: () => void;
-  isMerkleTreeFetched: boolean;
+  areDataFetched: boolean;
+  isCheckingEligibility: boolean;
 }
 
-const Header: FC<HeaderProps> = ({ onClick, isMerkleTreeFetched }) => {
+const Header: FC<HeaderProps> = ({
+  onClick,
+  areDataFetched,
+  isCheckingEligibility,
+}) => {
+  const isLoading = !areDataFetched || isCheckingEligibility;
+
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-end 2xl:pr-40 max-xsm:hidden mt-[64px] max-h-[calc(100svh-64px)]">
@@ -32,13 +39,13 @@ const Header: FC<HeaderProps> = ({ onClick, isMerkleTreeFetched }) => {
           </p>
           <Button
             onClick={onClick}
-            isDisabled={!isMerkleTreeFetched}
+            isDisabled={isLoading}
             className="!min-w-[200px]"
           >
-            {isMerkleTreeFetched ? (
-              <>{getTextFromDictionary("home_checkEligibilityButton")}</>
-            ) : (
+            {isLoading ? (
               <Spinner />
+            ) : (
+              <>{getTextFromDictionary("home_checkEligibilityButton")}</>
             )}
           </Button>
         </header>

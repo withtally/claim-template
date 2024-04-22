@@ -10,8 +10,12 @@ import { SEO } from "~/components/SEO";
 const HireReactDeveloperPage: FC = () => {
   const components = [InitialScreen, /* ClaimStep, */ DelegateStep];
 
-  const { isMerkleTreeFetched, isClaimStepperVisible, handleCheckEligibility } =
-    useClaimContext();
+  const {
+    areDataFetched,
+    isClaimStepperVisible,
+    isCheckingEligibility,
+    handleCheckEligibility,
+  } = useClaimContext();
 
   return (
     <>
@@ -23,7 +27,8 @@ const HireReactDeveloperPage: FC = () => {
         {!isClaimStepperVisible ? (
           <Header
             onClick={handleCheckEligibility}
-            isMerkleTreeFetched={isMerkleTreeFetched}
+            areDataFetched={areDataFetched}
+            isCheckingEligibility={isCheckingEligibility}
           />
         ) : (
           <ProgessionStepper
