@@ -11,10 +11,11 @@ import { getChain } from '~/config/wagmi/getChain'
 import { chainToUse } from '~/constants/site'
 
 interface Props {
-  selectedDelegate: Delegate | null
+  selectedDelegate: Delegate | null;
+  onSubmit: () => void;
 }
 
-export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
+export const VotingPowerSection: FC<Props> = ({ selectedDelegate, onSubmit }) => {
   const isChainMissmatched = useChainMissmatch();
   const { warningToast } = useCustomToasters()
   const {chain} = getChain(chainToUse);
@@ -23,6 +24,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
       warningToast({title:"Wrong chain", description:`To claim and delegate tokens you have to use ${chain.name}. Please reconnect your wallet with this chain.`})
       return;
     }
+    onSubmit();
   }
 
   const formatedStatementSummaryOrBio = useMemo(() => {
