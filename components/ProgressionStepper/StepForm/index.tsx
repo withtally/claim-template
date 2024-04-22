@@ -43,7 +43,7 @@ const StepForm: FC<StepFormProps> = ({
           onSubmit(e);
         }}
         className={cx(
-          "relative z-10 mx-auto flex max-h-[calc(100svh-200px)] w-full max-w-[calc(100vw-32px)] flex-col items-center justify-center rounded-2xl bg-blue-grey/70 p-4 pt-4 backdrop-blur-md md:max-h-[calc(100vh-160px)] md:max-w-[450px] md:p-6 xl:max-h-[calc(100vh-260px)]",
+          "relative z-10 mx-auto flex max-h-[calc(100svh-150px)] w-full max-w-[calc(100vw-32px)] flex-col items-center justify-center rounded-2xl bg-blue-grey/70 p-4 pt-4 backdrop-blur-md md:max-h-[calc(100vh-160px)] md:max-w-[450px] md:p-6 xl:max-h-[calc(100vh-260px)]",
           className,
           {
             "overflow-hidden": !disableOverflow
@@ -65,7 +65,7 @@ const StepForm: FC<StepFormProps> = ({
         {errorText && <p className="mb-4 text-center text-[red]/60">{errorText}</p>}
         <div
           className={cx("grid w-full gap-x-4 gap-y-2", {
-            "md:grid-cols-2": onBack
+            "grid-cols-1 md:grid-cols-2": onBack
           })}
         >
           {onBack && (
