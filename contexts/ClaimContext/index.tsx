@@ -1,6 +1,8 @@
 import React, { ReactNode, createContext, useContext } from "react";
 import { useCheckEligibility } from "~/hooks/ClaimHooks/useCheckEligibility";
 import { ClaimStatusEnum, Proof } from "~/types/common";
+import { useDelegateSelector } from '~/hooks/delegateStep/useDelegateSelection'
+import { Delegate } from '~/types/delegate'
 
 type ClaimContextType = {
   proofs: Proof | undefined;
@@ -9,6 +11,8 @@ type ClaimContextType = {
   isClaimStepperVisible: boolean;
   setIsClaimStepperVisible: React.Dispatch<React.SetStateAction<boolean>>;
   handleCheckEligibility: () => void;
+  selectedDelegate: Delegate;
+  onDelegateSelect: (delegate: Delegate) => void;
 };
 
 const ClaimContext = createContext<ClaimContextType | undefined>(undefined);
@@ -33,6 +37,8 @@ const ClaimContextProvider: React.FC<{ children: ReactNode }> = ({
     handleCheckEligibility,
   } = useCheckEligibility();
 
+  const { selectedDelegate, onDelegateSelect } = useDelegateSelector();
+
   const contextValues: ClaimContextType = {
     proofs,
     isMerkleTreeFetched,
@@ -40,6 +46,8 @@ const ClaimContextProvider: React.FC<{ children: ReactNode }> = ({
     isClaimStepperVisible,
     setIsClaimStepperVisible,
     handleCheckEligibility,
+    selectedDelegate,
+    onDelegateSelect,
   };
 
   return (
