@@ -6,9 +6,9 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 
 const baseStyle = definePartsStyle({
   field: {
-    _focusVisible: {
-      'border-color': `${UIconfig.colors.primary} !important`,
-      'box-shadow': `0 0 0 1px ${UIconfig.colors.primary} !important`,
+    _focus: {
+      borderColor: `${UIconfig.colors.primary} !important`,
+      boxShadow: `0 0 0 1px ${UIconfig.colors.primary} !important`,
     },
   },
 })

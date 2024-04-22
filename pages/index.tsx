@@ -1,5 +1,5 @@
 import { useClaimContext } from "contexts/ClaimContext";
-import { FC, useMemo } from 'react'
+import { FC } from "react";
 import AnimateOnUpdate from "~/components/Layout/AnimateOnUpdate";
 import Header from "~/components/Pages/Home/Header";
 import ProgessionStepper from "~/components/ProgressionStepper";
@@ -10,8 +10,12 @@ import ClaimStep from "~/components/ProgressionStepper/Steps/Claim";
 
 const HireReactDeveloperPage: FC = () => {
 
-  const { isMerkleTreeFetched, isClaimStepperVisible, handleCheckEligibility, claimStatus } =
-    useClaimContext();
+  const {
+    areDataFetched,
+    isClaimStepperVisible,
+    isCheckingEligibility,
+    handleCheckEligibility,
+  } = useClaimContext();
 
   const components = [InitialScreen, DelegateStep, ClaimStep];
   return (
@@ -24,7 +28,8 @@ const HireReactDeveloperPage: FC = () => {
         {!isClaimStepperVisible ? (
           <Header
             onClick={handleCheckEligibility}
-            isMerkleTreeFetched={isMerkleTreeFetched}
+            areDataFetched={areDataFetched}
+            isCheckingEligibility={isCheckingEligibility}
           />
         ) : (
           <ProgessionStepper
