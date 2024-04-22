@@ -1,18 +1,19 @@
 import { useClaimContext } from "contexts/ClaimContext";
-import { FC } from "react";
+import { FC, useMemo } from 'react'
 import AnimateOnUpdate from "~/components/Layout/AnimateOnUpdate";
 import Header from "~/components/Pages/Home/Header";
 import ProgessionStepper from "~/components/ProgressionStepper";
 import DelegateStep from "~/components/ProgressionStepper/Steps/Delegate";
 import InitialScreen from "~/components/ProgressionStepper/Steps/Initial";
 import { SEO } from "~/components/SEO";
+import ClaimStep from "~/components/ProgressionStepper/Steps/Claim";
 
 const HireReactDeveloperPage: FC = () => {
-  const components = [InitialScreen, /* ClaimStep, */ DelegateStep];
 
-  const { isMerkleTreeFetched, isClaimStepperVisible, handleCheckEligibility } =
+  const { isMerkleTreeFetched, isClaimStepperVisible, handleCheckEligibility, claimStatus } =
     useClaimContext();
 
+  const components = [InitialScreen, DelegateStep, ClaimStep];
   return (
     <>
       <SEO title="Home" />
