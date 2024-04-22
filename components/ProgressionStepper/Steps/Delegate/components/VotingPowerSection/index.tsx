@@ -9,6 +9,7 @@ import { useChainMissmatch } from '~/hooks/useChainMissmatch'
 import useCustomToasters from '~/hooks/useToasters'
 import { getChain } from '~/config/wagmi/getChain'
 import { chainToUse } from '~/constants/site'
+import CustomTooltip from '~/components/Layout/Tooltip'
 
 interface Props {
   selectedDelegate: Delegate | null;
@@ -57,8 +58,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate, onSubmit }) =>
 
       {selectedDelegate ? (
         <>
-          <Tooltip
-            className="bg-blue-grey-lighter"
+          <CustomTooltip
             label={selectedDelegate?.account?.address}
           >
             <div className="mb-6 flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
@@ -70,7 +70,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate, onSubmit }) =>
               />
               <span className="text-caption truncate">{displayName}</span>
             </div>
-          </Tooltip>
+          </CustomTooltip>
 
           <p className={cx('mb-6', { 'text-gray-400': !formatedStatementSummaryOrBio })}>
             {formatedStatementSummaryOrBio || 'No bio provided'}
