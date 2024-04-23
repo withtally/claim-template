@@ -60,7 +60,7 @@ export const useCheckEligibility = () => {
       }
 
       setProofs(proofsAndAmount);
-      setClaimStatus(ClaimStatusEnum.ALREADY_CLAIMED);
+      setClaimStatus(ClaimStatusEnum.ELIGIBLE);
       setIsClaimStepperVisible(true);
     } catch (error) {
       setProofs(null);
