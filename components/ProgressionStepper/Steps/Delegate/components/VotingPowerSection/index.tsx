@@ -9,12 +9,14 @@ import { useChainMissmatch } from '~/hooks/useChainMissmatch'
 import useCustomToasters from '~/hooks/useToasters'
 import { getChain } from '~/config/wagmi/getChain'
 import { chainToUse } from '~/constants/site'
+import CustomTooltip from '~/components/Layout/Tooltip'
 
 interface Props {
-  selectedDelegate: Delegate | null
+  selectedDelegate: Delegate | null;
+  onSubmit: () => void;
 }
 
-export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
+export const VotingPowerSection: FC<Props> = ({ selectedDelegate, onSubmit }) => {
   const isChainMissmatched = useChainMissmatch();
   const { warningToast } = useCustomToasters()
   const {chain} = getChain(chainToUse);
@@ -23,6 +25,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
       warningToast({title:"Wrong chain", description:`To claim and delegate tokens you have to use ${chain.name}. Please reconnect your wallet with this chain.`})
       return;
     }
+    onSubmit();
   }
 
   const formatedStatementSummaryOrBio = useMemo(() => {
@@ -55,8 +58,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
 
       {selectedDelegate ? (
         <>
-          <Tooltip
-            className="bg-blue-grey-lighter"
+          <CustomTooltip
             label={selectedDelegate?.account?.address}
           >
             <div className="mb-6 flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
@@ -68,7 +70,7 @@ export const VotingPowerSection: FC<Props> = ({ selectedDelegate }) => {
               />
               <span className="text-caption truncate">{displayName}</span>
             </div>
-          </Tooltip>
+          </CustomTooltip>
 
           <p className={cx('mb-6', { 'text-gray-400': !formatedStatementSummaryOrBio })}>
             {formatedStatementSummaryOrBio || 'No bio provided'}

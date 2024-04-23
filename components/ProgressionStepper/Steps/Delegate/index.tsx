@@ -12,6 +12,7 @@ import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
 import SearchIcon from "../../../../public/img/icons/search.svg";
 import { MobileMilterMenu } from "./components/MobileFilterMenu";
 import { VotingPowerSection } from "./components/VotingPowerSection";
+import { useClaimContext } from '../../../../contexts/ClaimContext'
 
 interface DelegateStepProps {
   onBack: () => void;
@@ -20,7 +21,7 @@ interface DelegateStepProps {
 
 const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
   const { delegates, isError, error, isFetched, isLoading } = useGetDelegates();
-  const { selectedDelegate, onDelegateSelect } = useDelegateSelector();
+  const { selectedDelegate, onDelegateSelect } = useClaimContext()
   const [isScrollToTopVisible, setIsScrollToTopVisible] =
     useState<boolean>(false);
   const ref = useRef<HTMLDivElement | null>();
@@ -187,7 +188,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               )}
             </div>
             {/* RIGHT SIDE */}
-            <VotingPowerSection selectedDelegate={selectedDelegate} />
+            <VotingPowerSection selectedDelegate={selectedDelegate} onSubmit={onSubmit}/>
           </div>
         </Container>
       </section>

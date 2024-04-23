@@ -28,9 +28,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ stepInView, completedSteps, t
             <button
               key={i}
               onClick={() => {
-                if (i > completedSteps) return
                 handleScrollToStep(i)
               }}
+              disabled={i > completedSteps}
               className={cx('group relative h-8 w-8', {
                 'cursor-not-allowed': i > completedSteps,
               })}

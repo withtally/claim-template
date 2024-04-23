@@ -64,7 +64,12 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
   return (
     <div
       ref={stepperContainerRef}
-      className="scrollbar-hidden relative flex max-h-screen max-w-[100vw] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth"
+      className={cx(
+        "scrollbar-hidden relative flex max-h-screen max-w-[100vw] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth",
+        {
+          'overflow-x-hidden': completedSteps === 0
+        }
+      )}
     >
       <ProgressBar
         stepInView={stepInView}
@@ -89,7 +94,7 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
         </div>
       </div>
 
-      {components.map(
+      {components.slice(0,completedSteps + 1).map(
         (Component, i) => (
           // i >= step && (
           <InView

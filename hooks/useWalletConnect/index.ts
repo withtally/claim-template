@@ -12,6 +12,7 @@ import useCustomToasters from "~/hooks/useToasters";
 import { showErrorMessage } from "~/utils/getErrorMessage";
 import {isMobile} from "~/utils/isMobile";
 import { isMetaMaskConnector } from '~/utils/connectors'
+import { useClaimContext } from '../../contexts/ClaimContext'
 
 interface Props {
   onCloseConnectPopup: () => void;
@@ -29,6 +30,8 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
   const { switchChain } = useSwitchChain();
 
   const { chain } = getChain(chainToUse);
+
+  const {setIsClaimStepperVisible} = useClaimContext()
 
   const defaultConnectHandler = useCallback((connector: Connector) => {
     return (event: MouseEvent) => {
@@ -67,6 +70,7 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
       {
         onSuccess: () => {
           onCloseConnectPopup();
+          setIsClaimStepperVisible(false);
         },
       },
     );

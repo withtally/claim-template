@@ -39,16 +39,16 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         <WagmiProvider config={wagmiConfig}>
           <QueryClientProvider client={queryClient}>
             <ChakraProvider theme={theme}>
-              <DynamicWalletConnectContextProvider>
-                <ClaimContextProvider>
+              <ClaimContextProvider>
+                <DynamicWalletConnectContextProvider>
                   <Navbar />
                   <AnimatePresence onExitComplete={() => window.scrollTo(0, 0)}>
                     <AnimateLayout key={_asPath}>
                       <Component {...pageProps} />
                     </AnimateLayout>
                   </AnimatePresence>
-                </ClaimContextProvider>
-              </DynamicWalletConnectContextProvider>
+                </DynamicWalletConnectContextProvider>
+              </ClaimContextProvider>
             </ChakraProvider>
           </QueryClientProvider>
         </WagmiProvider>

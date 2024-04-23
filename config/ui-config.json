@@ -77,5 +77,19 @@
     "Grants Programs",
     "Community Outreach",
     "Protocol"
+  ],
+  "eligibilityCriterias": [
+    {
+      "name": "Criteria 1",
+      "description": "Some info"
+    },
+    {
+      "name": "Criteria 2",
+      "description": "Some info"
+    },
+    {
+      "name": "Criteria 3",
+      "description": "Some info"
+    }
   ]
 }

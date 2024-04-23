@@ -39,14 +39,10 @@ const Header: FC<HeaderProps> = ({
           </p>
           <Button
             onClick={onClick}
-            isDisabled={isLoading}
+            isLoading={isLoading}
             className="!min-w-[200px]"
           >
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              <>{getTextFromDictionary("home_checkEligibilityButton")}</>
-            )}
+            {getTextFromDictionary("home_checkEligibilityButton")}
           </Button>
         </header>
       </Container>
