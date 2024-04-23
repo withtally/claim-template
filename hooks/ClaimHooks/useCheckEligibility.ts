@@ -39,12 +39,9 @@ export const useCheckEligibility = () => {
       const proofsAndAmount = getProofs(merkleTree, address);
 
       if (!proofsAndAmount) {
-        errorToast({
-          title: "Wallet is not eligible",
-          description: "You need to connect eligible wallet to make a claim",
-        });
         setProofs(null);
         setClaimStatus(ClaimStatusEnum.NOT_ELIGIBLE);
+        setIsClaimStepperVisible(true);
         return;
       }
 
@@ -57,12 +54,8 @@ export const useCheckEligibility = () => {
       });
 
       if (walletAlreadyClaimed) {
-        errorToast({
-          title: "wallet Already Claimed",
-          description:
-            "You have to connect a wallet that hasn't already claimed tokens",
-        });
         setClaimStatus(ClaimStatusEnum.ALREADY_CLAIMED);
+        setIsClaimStepperVisible(true);
         return;
       }
 
@@ -78,7 +71,7 @@ export const useCheckEligibility = () => {
   }, [isDisconnected, merkleTree, address]);
 
   const checkEligibilityOfAnotherWallet = useCallback(
-    async (address: Address) => {
+    async (address: Address): Promise<ClaimStatusEnum> => {
       setIsCheckingEligibility(true);
       try {
         const proofs = getProofs(merkleTree, address);
@@ -90,15 +83,22 @@ export const useCheckEligibility = () => {
           functionName: "claimed",
         });
 
-        if (proofs && !walletAlreadyClaimed) {
-          return true;
+        if (walletAlreadyClaimed) {
+          return ClaimStatusEnum.ALREADY_CLAIMED;
         }
 
-        return false;
+        if (!proofs) {
+          return ClaimStatusEnum.NOT_ELIGIBLE;
+        }
+
+        return ClaimStatusEnum.ELIGIBLE;
       } catch (error) {
         console.error(error);
+        if(error.name === 'InvalidAddressError'){
+          infoToast({title: 'Please enter a valid ETH address'})
+        }
       } finally {
-        setIsCheckingEligibility(true);
+          setIsCheckingEligibility(false);
       }
     },
     [merkleTree],
