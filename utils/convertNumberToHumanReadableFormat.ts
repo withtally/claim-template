@@ -1,9 +1,13 @@
 export function convertNumberToHumanReadableFormat(number: number) {
+  if (number === 0) {
+    return '0.0'
+  }
   // Define the suffixes for each magnitude
   const suffixes = ['', 'K', 'M', 'B', 'T'];
 
   // Find the appropriate suffix based on the magnitude of the number
   const magnitude = Math.floor(Math.log10(Math.abs(number)) / 3);
+  
   const suffix = suffixes[magnitude];
 
   // Convert the number to a string with one decimal place
