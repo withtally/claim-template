@@ -19,7 +19,7 @@ export type Address = `0x${string}`;
 
 export interface Proof {
   proof: string[];
-  amount: any;
+  amount: string;
 }
 
 export enum ClaimStatusEnum {

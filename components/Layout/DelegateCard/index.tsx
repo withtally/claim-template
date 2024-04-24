@@ -1,13 +1,12 @@
 import { Tooltip } from "@chakra-ui/react";
 import cx from "classnames";
-import { formatUnits } from "ethers";
+import { convertTokensAmount } from "libs/helpers/convertTokensAmount";
 import { shortenAddress } from "libs/helpers/shortenAddress";
 import Link from "next/link";
 import { Dispatch, FC, SetStateAction, useMemo } from "react";
 import { OptimisedImage } from "~/components/Layout/OptimisedImage";
 import CustomTooltip from "~/components/Layout/Tooltip";
 import { Delegate } from "~/types/delegate";
-import { convertNumberToHumanReadableFormat } from "~/utils/convertNumberToHumanReadableFormat";
 import TwitterIcon from "../../../public/img/icons/twitter-bule.svg";
 import { SelectedMark } from "./components/SelectedMark";
 
@@ -16,9 +15,6 @@ interface Props {
   isSelected: boolean;
   setSelectedDelegate: Dispatch<SetStateAction<Delegate>>;
 }
-
-const tokenSymbol = "CGEEKS";
-const decimals = 18;
 
 export const DelegateCard: FC<Props> = ({
   delegate,
@@ -68,10 +64,7 @@ export const DelegateCard: FC<Props> = ({
             </h3>
           </CustomTooltip>
           <p className="break-all text-xs text-gray-400">
-            {convertNumberToHumanReadableFormat(
-              +formatUnits(delegate?.votesCount, decimals),
-            )}{" "}
-            {tokenSymbol}
+            {convertTokensAmount(delegate?.votesCount)}
           </p>
         </div>
       </div>

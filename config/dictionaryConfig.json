@@ -18,7 +18,7 @@
       "header2": "claim token & delegate voting rights",
       "paragraph2": "Submit the transaction to claim and delegate your tokens on-chain.",
       "amountOfActions": "2",
-      "confirm":"Sign Message",
+      "confirm":"Continue",
       "progressInfo": "Processing transaction",
       "progress": "Updating live..."
     },

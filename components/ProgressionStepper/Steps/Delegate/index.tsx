@@ -5,23 +5,24 @@ import Container from "~/components/Layout/Container";
 import { DelegateCard } from "~/components/Layout/DelegateCard";
 import { Input } from "~/components/Layout/Input";
 import { Select } from "~/components/Layout/Select";
-import { useDelegateSelector } from "~/hooks/delegateStep/useDelegateSelection";
 import { useGetDelegates } from "~/hooks/delegateStep/useGetDelegates";
 import { useSortAndFilterDelegates } from "~/hooks/delegateStep/useSortAndFilterDelegates";
+import { Proof } from "~/types/common";
 import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
+import { useClaimContext } from "../../../../contexts/ClaimContext";
 import SearchIcon from "../../../../public/img/icons/search.svg";
 import { MobileMilterMenu } from "./components/MobileFilterMenu";
 import { VotingPowerSection } from "./components/VotingPowerSection";
-import { useClaimContext } from '../../../../contexts/ClaimContext'
 
 interface DelegateStepProps {
   onBack: () => void;
   onSubmit: () => void;
+  proof: Proof | undefined;
 }
 
-const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
+const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
   const { delegates, isError, error, isFetched, isLoading } = useGetDelegates();
-  const { selectedDelegate, onDelegateSelect } = useClaimContext()
+  const { selectedDelegate, onDelegateSelect } = useClaimContext();
   const [isScrollToTopVisible, setIsScrollToTopVisible] =
     useState<boolean>(false);
   const ref = useRef<HTMLDivElement | null>();
@@ -43,16 +44,16 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
 
   useEffect(() => {
     const scrollToTop = () => {
-      if (ref?.current?.scrollTop > ref.current.scrollHeight/3) {
+      if (ref?.current?.scrollTop > ref.current.scrollHeight / 3) {
         setIsScrollToTopVisible(true);
       } else {
         setIsScrollToTopVisible(false);
       }
-    }
+    };
     ref?.current?.addEventListener("scroll", scrollToTop);
     return () => {
-      ref?.current?.removeEventListener("scroll", scrollToTop)
-    }
+      ref?.current?.removeEventListener("scroll", scrollToTop);
+    };
   }, []);
 
   return (
@@ -79,7 +80,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
             {/* LEFT SIDE */}
             <div className="min-h-[1000px] h-[auto] w-full overflow-y-auto max-md:overflow-x-hidden rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
               <h2 className="mb-4 text-xl font-medium md:text-2xl xl:text-3xl">
-                {getTextFromDictionary('stepper_step2_delegate_chooseDelegate')}
+                {getTextFromDictionary("stepper_step2_delegate_chooseDelegate")}
               </h2>
               <p className="text-md mb-4 text-gray-400 md:text-md xl:text-xl">
                 {/*Pick someone who you believe will be invested in growing the ecosystem.*/}
@@ -188,7 +189,11 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
               )}
             </div>
             {/* RIGHT SIDE */}
-            <VotingPowerSection selectedDelegate={selectedDelegate} onSubmit={onSubmit}/>
+            <VotingPowerSection
+              selectedDelegate={selectedDelegate}
+              onSubmit={onSubmit}
+              proof={proof}
+            />
           </div>
         </Container>
       </section>
