@@ -31,11 +31,15 @@ const ClaimDeniedScreen: FC<InitialScreenProps> = () => {
     );
     setInfoBlock(isAbleToClaim);
   };
-  const { claimStatus, checkEligibilityOfAnotherWallet, isCheckingEligibility } = useClaimContext();
+  const {
+    claimStatus,
+    checkEligibilityOfAnotherWallet,
+    isCheckingEligibility,
+  } = useClaimContext();
 
   return (
-    <div className="inline snap-start transition-opacity ">
-      <section className="mt-[64px]  h-[calc(100svh-64px)] w-[100svw] overflow-auto flex flex-col">
+    <div className="inline snap-start transition-opacity">
+      <section className="mt-[64px] h-[calc(100svh-64px)] w-[100svw] overflow-auto flex flex-col">
         <Container
           className={cx(
             "relative mt-[3svh] mb-[10px] max-w-[1920px] flex flex-col flex-1",
@@ -44,13 +48,13 @@ const ClaimDeniedScreen: FC<InitialScreenProps> = () => {
           <div className="flex flex-1 items-center justify-center">
             <div
               className={cx(
-                "flex flex-col relative z-10 mx-auto items-center justify-center rounded-2xl bg-blue-grey/70 p-4 backdrop-blur-md  md:p-6 md:max-w-[450px] max-w-[calc(100vw-32px)]",
+                "flex flex-col relative z-10 mx-auto items-center justify-center rounded-2xl bg-blue-grey/70 p-4 backdrop-blur-md md:p-6 md:max-w-[500px] max-w-[calc(100vw-32px)]",
               )}
             >
               <h3 className="flex-1 w-full text-subheading mb-1 text-center">
                 {claimStatus === ClaimStatusEnum.NOT_ELIGIBLE
                   ? "Sorry you aren’t eligible"
-                  : "Sorry you already claimed tokens"}
+                  : "Sorry you have already claimed tokens"}
               </h3>
               <hr className="border-1 my-4 w-full" />
               <div className={cx("flex w-full flex-grow flex-col items-start")}>
@@ -78,17 +82,19 @@ const ClaimDeniedScreen: FC<InitialScreenProps> = () => {
                     <p className="mb-4">
                       You may try another wallet to claim and delegate tokens.
                     </p>
-                    {/*<hr className="border-1 my-4 w-full" />*/}
                   </>
                 )}
                 <h2 className="text-caption text-[18px] mb-3 ">
                   Check another wallet for eligibility:
                 </h2>
-                <div className="flex flex-col sm:flex-row gap-y-3">
+                <div className="flex flex-col sm:flex-row gap-y-3  w-full">
                   <Input
                     placeholder="Enter wallet address"
                     onChange={setAddress}
-                    isInvalid={infoBlock === ClaimStatusEnum.NOT_ELIGIBLE || infoBlock === ClaimStatusEnum.ALREADY_CLAIMED}
+                    isInvalid={
+                      infoBlock === ClaimStatusEnum.NOT_ELIGIBLE ||
+                      infoBlock === ClaimStatusEnum.ALREADY_CLAIMED
+                    }
                     isSuccess={infoBlock === ClaimStatusEnum.ELIGIBLE}
                     className="mr-2"
                   />
@@ -128,10 +134,17 @@ const InfoBlockBody: FC<{ eligibleStatus: ClaimStatusEnum }> = ({
   eligibleStatus,
 }) => {
   const info = {
-    [ClaimStatusEnum.ALREADY_CLAIMED]:
-      <p className="text-errorColor">Sorry, you already claimed tokens via this wallet</p>,
-    [ClaimStatusEnum.NOT_ELIGIBLE]: <p className="text-errorColor">Sorry this wallet is not eligible</p>,
-    [ClaimStatusEnum.ELIGIBLE]: <p className="text-green">This wallet is eligible. </p>,
+    [ClaimStatusEnum.ALREADY_CLAIMED]: (
+      <p className="text-errorColor">
+        Sorry, you already claimed tokens via this wallet
+      </p>
+    ),
+    [ClaimStatusEnum.NOT_ELIGIBLE]: (
+      <p className="text-errorColor">Sorry this wallet is not eligible</p>
+    ),
+    [ClaimStatusEnum.ELIGIBLE]: (
+      <p className="text-green">This wallet is eligible. </p>
+    ),
   };
 
   return info[eligibleStatus];
