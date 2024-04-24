@@ -91,5 +91,9 @@
       "name": "Criteria 3",
       "description": "Some info"
     }
-  ]
+  ],
+  "tokenConversionData": {
+    "tokenSymbol": "CGEEKS",
+    "decimals": 0
+  }
 }

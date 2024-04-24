@@ -1,65 +1,78 @@
-import cx from 'classnames'
-import { ComponentType, FC, useEffect, useRef, useState } from 'react'
-import InView from '~/components/ProgressionStepper/InView'
-import ProgressBar from '~/components/ProgressionStepper/ProgressBar'
-import { SCROLL_DELAY } from '~/components/ProgressionStepper/presets'
-import { disableScroll, enableScroll, hideScrollbars, showScrollbars } from '~/utils/common'
+import cx from "classnames";
+import { ComponentType, FC, useEffect, useRef, useState } from "react";
+import InView from "~/components/ProgressionStepper/InView";
+import ProgressBar from "~/components/ProgressionStepper/ProgressBar";
+import { SCROLL_DELAY } from "~/components/ProgressionStepper/presets";
+import { Proof } from "~/types/common";
+import {
+  disableScroll,
+  enableScroll,
+  hideScrollbars,
+  showScrollbars,
+} from "~/utils/common";
 
-let scrollTimeout: NodeJS.Timeout | null = null
+let scrollTimeout: NodeJS.Timeout | null = null;
 
 interface ProgessionStepperProps {
-  totalSteps: number
-  components: ComponentType<any>[]
-  onComplete?: () => void
+  totalSteps: number;
+  components: ComponentType<any>[];
+  onComplete?: () => void;
+  proof: Proof | undefined;
 }
 
-const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components, onComplete }) => {
-  const [step, setStep] = useState(0)
-  const [completedSteps, setCompletedSteps] = useState(0)
-  const [stepInView, setStepInView] = useState(0)
+const ProgessionStepper: FC<ProgessionStepperProps> = ({
+  totalSteps,
+  components,
+  onComplete,
+  proof,
+}) => {
+  const [step, setStep] = useState(0);
+  const [completedSteps, setCompletedSteps] = useState(0);
+  const [stepInView, setStepInView] = useState(0);
 
-  const stepperContainerRef = useRef<HTMLDivElement>(null)
+  const stepperContainerRef = useRef<HTMLDivElement>(null);
 
   const updateStepInView = (step: number) => {
-    setStep(step)
-    setStepInView(step)
-  }
+    setStep(step);
+    setStepInView(step);
+  };
 
   const handleUpdateStep = (newStep: number) => {
-    setStep(newStep)
+    setStep(newStep);
     if (newStep > totalSteps) {
-      onComplete && onComplete()
+      onComplete && onComplete();
     } else if (step < newStep) {
-      setCompletedSteps(newStep)
-      handleScrollToStep(newStep)
+      setCompletedSteps(newStep);
+      handleScrollToStep(newStep);
     } else {
-      handleScrollToStep(newStep)
+      handleScrollToStep(newStep);
     }
-  }
+  };
 
   const handleScrollToStep = (step: number) => {
-    if (!stepperContainerRef.current) return
-    clearTimeout(scrollTimeout)
-    setStep(step)
+    if (!stepperContainerRef.current) return;
+    clearTimeout(scrollTimeout);
+    setStep(step);
     scrollTimeout = setTimeout(() => {
-      stepperContainerRef.current.scrollTo(window.innerWidth * step, 0)
-    }, SCROLL_DELAY)
-  }
+      stepperContainerRef.current.scrollTo(window.innerWidth * step, 0);
+    }, SCROLL_DELAY);
+  };
 
-  const handleGoBack = () => stepInView - 1 >= 0 && handleScrollToStep(stepInView - 1)
+  const handleGoBack = () =>
+    stepInView - 1 >= 0 && handleScrollToStep(stepInView - 1);
 
   useEffect(() => {
-    hideScrollbars()
-    disableScroll() // disables vertical scroll
+    hideScrollbars();
+    disableScroll(); // disables vertical scroll
     if (step > 0) {
-      handleScrollToStep(step)
+      handleScrollToStep(step);
     }
 
     return () => {
-      showScrollbars()
-      enableScroll()
-    }
-  }, [])
+      showScrollbars();
+      enableScroll();
+    };
+  }, []);
 
   return (
     <div
@@ -67,8 +80,8 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
       className={cx(
         "scrollbar-hidden relative flex max-h-screen max-w-[100vw] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth",
         {
-          'overflow-x-hidden': completedSteps === 0
-        }
+          "overflow-x-hidden": completedSteps === 0,
+        },
       )}
     >
       <ProgressBar
@@ -83,34 +96,33 @@ const ProgessionStepper: FC<ProgessionStepperProps> = ({ totalSteps, components,
           {Array.from({ length: totalSteps }).map((_, i) => (
             <div
               key={i}
-              className={cx('gradient-background size-full', {
-                'xxs:opacity-0': i !== step,
-                'blue-purple-gradient': i === 0,
-                'light-blue-gradient': i === 1,
-                'orange-blue-gradient': i === 2,
+              className={cx("gradient-background size-full", {
+                "xxs:opacity-0": i !== step,
+                "blue-purple-gradient": i === 0,
+                "light-blue-gradient": i === 1,
+                "orange-blue-gradient": i === 2,
               })}
             />
           ))}
         </div>
       </div>
 
-      {components.slice(0,completedSteps + 1).map(
+      {components.slice(0, completedSteps + 1).map(
         (Component, i) => (
           // i >= step && (
-          <InView
-            key={i}
-            handleUpdateInView={() => updateStepInView(i)}
-          >
+          <InView key={i} handleUpdateInView={() => updateStepInView(i)}>
             <Component
               onBack={handleGoBack}
               onSubmit={() => handleUpdateStep(i + 1)}
+              amount={1000}
+              proof={proof}
             />
           </InView>
-        )
+        ),
         // )
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ProgessionStepper
+export default ProgessionStepper;

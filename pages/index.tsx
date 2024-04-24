@@ -3,30 +3,31 @@ import { FC, useMemo } from "react";
 import AnimateOnUpdate from "~/components/Layout/AnimateOnUpdate";
 import Header from "~/components/Pages/Home/Header";
 import ProgessionStepper from "~/components/ProgressionStepper";
+import ClaimStep from "~/components/ProgressionStepper/Steps/Claim";
+import ClaimDenied from "~/components/ProgressionStepper/Steps/ClaimDenied";
 import DelegateStep from "~/components/ProgressionStepper/Steps/Delegate";
 import InitialScreen from "~/components/ProgressionStepper/Steps/Initial";
 import { SEO } from "~/components/SEO";
-import ClaimStep from "~/components/ProgressionStepper/Steps/Claim";
-import { ClaimStatusEnum } from "~/types/common"
-import ClaimDenied from "~/components/ProgressionStepper/Steps/ClaimDenied"
+import { ClaimStatusEnum } from "~/types/common";
 
 const HireReactDeveloperPage: FC = () => {
-
   const {
     areDataFetched,
     isClaimStepperVisible,
     isCheckingEligibility,
     handleCheckEligibility,
-    claimStatus
+    claimStatus,
+    proofs,
   } = useClaimContext();
 
   const components = useMemo(() => {
-    if(claimStatus === ClaimStatusEnum.ELIGIBLE){
-      return [InitialScreen, DelegateStep, ClaimStep]
-    }else{
-      return [ClaimDenied]
+    if (claimStatus === ClaimStatusEnum.ELIGIBLE) {
+      return [InitialScreen, DelegateStep, ClaimStep];
+    } else {
+      return [ClaimDenied];
     }
-  },[claimStatus]);
+  }, [claimStatus]);
+
   return (
     <>
       <SEO title="Home" />
@@ -44,6 +45,7 @@ const HireReactDeveloperPage: FC = () => {
           <ProgessionStepper
             components={components}
             totalSteps={components.length}
+            proof={proofs}
           />
         )}
       </AnimateOnUpdate>
