@@ -1,5 +1,5 @@
 import { useClaimContext } from "contexts/ClaimContext";
-import { FC, useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import AnimateOnUpdate from "~/components/Layout/AnimateOnUpdate";
 import Header from "~/components/Pages/Home/Header";
 import ProgessionStepper from "~/components/ProgressionStepper";
@@ -9,16 +9,18 @@ import DelegateStep from "~/components/ProgressionStepper/Steps/Delegate";
 import InitialScreen from "~/components/ProgressionStepper/Steps/Initial";
 import { SEO } from "~/components/SEO";
 import { ClaimStatusEnum } from "~/types/common";
+import { useWalletConnectContext } from '../contexts/WalletConnectContext'
 
 const HireReactDeveloperPage: FC = () => {
   const {
     areDataFetched,
     isClaimStepperVisible,
     isCheckingEligibility,
-    handleCheckEligibility,
     claimStatus,
     proofs,
   } = useClaimContext();
+
+  const { onOpenAndCheckEligibility } = useWalletConnectContext();
 
   const components = useMemo(() => {
     if (claimStatus === ClaimStatusEnum.ELIGIBLE) {
@@ -37,14 +39,14 @@ const HireReactDeveloperPage: FC = () => {
       >
         {!isClaimStepperVisible ? (
           <Header
-            onClick={handleCheckEligibility}
+            onClick={onOpenAndCheckEligibility}
             areDataFetched={areDataFetched}
             isCheckingEligibility={isCheckingEligibility}
           />
         ) : (
           <ProgessionStepper
             components={components}
-            totalSteps={components.length}
+            totalSteps={components.length - 1}
             proof={proofs}
           />
         )}
