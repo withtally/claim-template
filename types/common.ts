@@ -27,4 +27,5 @@ export enum ClaimStatusEnum {
   NOT_ELIGIBLE = "Not eligible",
   ALREADY_CLAIMED = "Already claimed",
   UNKNOWN = "Unknown",
+  INVALID_ADDRESS = 'Invalid address'
 }

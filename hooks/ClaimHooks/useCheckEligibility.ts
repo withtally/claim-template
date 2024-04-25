@@ -96,6 +96,7 @@ export const useCheckEligibility = () => {
         console.error(error);
         if(error.name === 'InvalidAddressError'){
           infoToast({title: 'Please enter a valid ETH address'})
+          return ClaimStatusEnum.INVALID_ADDRESS
         }
       } finally {
           setIsCheckingEligibility(false);

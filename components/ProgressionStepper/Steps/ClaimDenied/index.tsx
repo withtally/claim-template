@@ -1,10 +1,8 @@
-import { InfoOutlineIcon } from "@chakra-ui/icons";
-import { Button } from "@chakra-ui/react";
+import { Button, ListItem, UnorderedList } from "@chakra-ui/react";
 import cx from "classnames";
 import { FC, useState } from "react";
 import Container from "~/components/Layout/Container";
 import { Input } from "~/components/Layout/Input";
-import CustomTooltip from "~/components/Layout/Tooltip";
 import { UIconfig } from "~/config/UIconfig";
 import useCustomToasters from "~/hooks/useToasters";
 import { Address, ClaimStatusEnum } from "~/types/common";
@@ -24,6 +22,7 @@ const ClaimDeniedScreen: FC<InitialScreenProps> = () => {
     setInfoBlock(ClaimStatusEnum.UNKNOWN);
     if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
       infoToast({ title: "Please enter a valid ETH address" });
+      setInfoBlock(ClaimStatusEnum.INVALID_ADDRESS);
       return;
     }
     const isAbleToClaim = await checkEligibilityOfAnotherWallet(
@@ -31,6 +30,7 @@ const ClaimDeniedScreen: FC<InitialScreenProps> = () => {
     );
     setInfoBlock(isAbleToClaim);
   };
+
   const {
     claimStatus,
     checkEligibilityOfAnotherWallet,
@@ -48,7 +48,7 @@ const ClaimDeniedScreen: FC<InitialScreenProps> = () => {
           <div className="flex flex-1 items-center justify-center">
             <div
               className={cx(
-                "flex flex-col relative z-10 mx-auto items-center justify-center rounded-2xl bg-blue-grey/70 p-4 backdrop-blur-md md:p-6 md:max-w-[500px] max-w-[calc(100vw-32px)]",
+                "flex flex-col relative z-10 mx-auto items-center justify-center rounded-2xl bg-blue-grey/70 p-4 backdrop-blur-md md:p-6 w-full max-w-[800px] mb-10",
               )}
             >
               <h3 className="flex-1 w-full text-subheading mb-1 text-center">
@@ -61,25 +61,23 @@ const ClaimDeniedScreen: FC<InitialScreenProps> = () => {
                 {claimStatus === ClaimStatusEnum.NOT_ELIGIBLE && (
                   <h3 className="text-caption">Eligibility Criteria:</h3>
                 )}
+
                 {claimStatus === ClaimStatusEnum.NOT_ELIGIBLE && (
-                  <ul className="mb-6 text-caption inline-flex flex-col items-center uppercase">
+                  <UnorderedList className="mb-6 text-caption inline-flex flex-col items-start gap-y-2 list-disc marker:text-blue">
                     {UIconfig.eligibilityCriterias.map((criteria, i) => (
-                      <li
+                      <ListItem
                         key={i}
-                        className="flex gap-x-4 first:mt-2 items-center"
+                        className="gap-x-4 first:mt-2 items-center"
                       >
-                        {/*<span>0{i + 1}</span>*/}
                         <span>{criteria.name}</span>
-                        <CustomTooltip label={criteria.description}>
-                          <InfoOutlineIcon />
-                        </CustomTooltip>
-                      </li>
+                      </ListItem>
                     ))}
-                  </ul>
+                  </UnorderedList>
                 )}
+
                 {claimStatus === ClaimStatusEnum.ALREADY_CLAIMED && (
                   <>
-                    <p className="mb-4">
+                    <p className="mb-4 text-caption">
                       You may try another wallet to claim and delegate tokens.
                     </p>
                   </>
@@ -87,39 +85,44 @@ const ClaimDeniedScreen: FC<InitialScreenProps> = () => {
                 <h2 className="text-caption text-[18px] mb-3 ">
                   Check another wallet for eligibility:
                 </h2>
-                <div className="flex flex-col sm:flex-row gap-y-3  w-full">
+                <div className="flex flex-col gap-y-3 w-[500px]">
                   <Input
+                    showCross
                     placeholder="Enter wallet address"
+                    value={address}
                     onChange={setAddress}
                     isInvalid={
                       infoBlock === ClaimStatusEnum.NOT_ELIGIBLE ||
-                      infoBlock === ClaimStatusEnum.ALREADY_CLAIMED
+                      infoBlock === ClaimStatusEnum.ALREADY_CLAIMED ||
+                      infoBlock === ClaimStatusEnum.INVALID_ADDRESS
                     }
                     isSuccess={infoBlock === ClaimStatusEnum.ELIGIBLE}
-                    className="mr-2"
                   />
+
+                  <div
+                    className={cx(
+                      "w-full overflow-hidden transition-[max-height,opacity,margin] duration-300",
+                      {
+                        "max-h-0 opacity-0":
+                          infoBlock === ClaimStatusEnum.UNKNOWN,
+                        "max-h-16 overflow-visible":
+                          infoBlock !== ClaimStatusEnum.UNKNOWN,
+                      },
+                    )}
+                  >
+                    <InfoBlockBody eligibleStatus={infoBlock} />
+                  </div>
+
                   <Button
                     size="md"
-                    className="px-2"
+                    className="px-2 w-full"
                     px={8}
                     isLoading={isCheckingEligibility}
                     onClick={handleCheckButtonClick}
+                    isDisabled={!address}
                   >
                     Check eligibility
                   </Button>
-                </div>
-                <div
-                  className={cx(
-                    "w-full overflow-hidden transition-[max-height,opacity,margin] duration-300",
-                    {
-                      "max-h-0 opacity-0":
-                        infoBlock === ClaimStatusEnum.UNKNOWN,
-                      "mt-4 max-h-16 overflow-visible":
-                        infoBlock !== ClaimStatusEnum.UNKNOWN,
-                    },
-                  )}
-                >
-                  <InfoBlockBody eligibleStatus={infoBlock} />
                 </div>
               </div>
             </div>
@@ -144,6 +147,9 @@ const InfoBlockBody: FC<{ eligibleStatus: ClaimStatusEnum }> = ({
     ),
     [ClaimStatusEnum.ELIGIBLE]: (
       <p className="text-green">This wallet is eligible. </p>
+    ),
+    [ClaimStatusEnum.INVALID_ADDRESS]: (
+      <p className="text-errorColor">Please enter a valid ETH address. </p>
     ),
   };
 
