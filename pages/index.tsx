@@ -1,5 +1,5 @@
 import { useClaimContext } from "contexts/ClaimContext";
-import React, { FC, useMemo } from "react";
+import React, { FC, useMemo } from 'react'
 import AnimateOnUpdate from "~/components/Layout/AnimateOnUpdate";
 import Header from "~/components/Pages/Home/Header";
 import ProgessionStepper from "~/components/ProgressionStepper";
@@ -10,21 +10,26 @@ import InitialScreen from "~/components/ProgressionStepper/Steps/Initial";
 import { SEO } from "~/components/SEO";
 import { ClaimStatusEnum } from "~/types/common";
 import { useWalletConnectContext } from '../contexts/WalletConnectContext'
+import ClaimSuccess from '~/components/ProgressionStepper/Steps/ClaimSuccess'
+import { useAccount } from 'wagmi'
 
 const HireReactDeveloperPage: FC = () => {
   const {
     areDataFetched,
     isClaimStepperVisible,
     isCheckingEligibility,
+    handleCheckEligibility,
     claimStatus,
     proofs,
   } = useClaimContext();
+
+  const { isConnected } = useAccount();
 
   const { onOpenAndCheckEligibility } = useWalletConnectContext();
 
   const components = useMemo(() => {
     if (claimStatus === ClaimStatusEnum.ELIGIBLE) {
-      return [InitialScreen, DelegateStep, ClaimStep];
+      return [InitialScreen, DelegateStep, ClaimStep, ClaimSuccess];
     } else {
       return [ClaimDenied];
     }
@@ -39,7 +44,7 @@ const HireReactDeveloperPage: FC = () => {
       >
         {!isClaimStepperVisible ? (
           <Header
-            onClick={onOpenAndCheckEligibility}
+            onClick={isConnected ? handleCheckEligibility : onOpenAndCheckEligibility}
             areDataFetched={areDataFetched}
             isCheckingEligibility={isCheckingEligibility}
           />
