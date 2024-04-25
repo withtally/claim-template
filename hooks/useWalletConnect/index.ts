@@ -25,8 +25,6 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
   const { disconnect } = useDisconnect();
   const { errorToast } = useCustomToasters();
   const { switchChain } = useSwitchChain();
-  const { isCheckEligibility, setIsCheckEligibility } =
-    useWalletConnectContext();
 
   const { chain } = getChain(chainToUse);
 
@@ -50,19 +48,16 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
       connect(
         { connector, chainId: chain.id },
         {
-          onSuccess: async (data) => {
+          onSuccess: (data) => {
             if (connector.id === "walletConnect" && data.chainId !== chain.id) {
               switchChain({ chainId: chain.id });
             }
             onCloseConnectPopup();
-            console.log(isCheckEligibility)
+            const isCheckEligibility = JSON.parse(localStorage.getItem("isCheckEligibility"));
+
             if (isCheckEligibility) {
-              console.log(1)
-
-              handleCheckEligibility().finally(() => {
-                console.log(2)
-
-                setIsCheckEligibility(false);
+              handleCheckEligibility(data.accounts[0]).finally(() => {
+                localStorage.setItem("isCheckEligibility","false");
               });
             }
           },

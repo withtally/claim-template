@@ -11,7 +11,7 @@ type ClaimContextType = {
   isClaimStepperVisible: boolean;
   isCheckingEligibility: boolean;
   setIsClaimStepperVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  handleCheckEligibility: () => Promise<void>;
+  handleCheckEligibility: (passedAddress?: Address) => Promise<void>;
   checkEligibilityOfAnotherWallet: (
     address: Address,
   ) => Promise<ClaimStatusEnum>;
