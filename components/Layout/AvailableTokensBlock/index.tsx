@@ -10,6 +10,7 @@ interface Props {
 
 export const AvailableTokensBlock: FC<Props> = memo(
   ({ title, amount, useXsTitle }) => {
+    amount = '1000'
     return (
       <div className="w-full">
         {title && (
@@ -18,7 +19,7 @@ export const AvailableTokensBlock: FC<Props> = memo(
               "text-xs": useXsTitle,
             })}
           >
-            You will receive
+            {title}
           </span>
         )}
 
