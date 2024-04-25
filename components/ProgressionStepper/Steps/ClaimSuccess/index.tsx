@@ -5,6 +5,10 @@ import StepForm from "~/components/ProgressionStepper/StepForm";
 import { Proof } from "~/types/common";
 import { useClaimContext } from "../../../../contexts/ClaimContext";
 import { Button } from '@chakra-ui/react'
+import { UIconfig } from '~/config/UIconfig'
+import Link from 'next/link'
+import { getTransactionReceipt } from '@wagmi/core'
+import { config } from '~/config/wagmi/config'
 
 interface ClaimSuccessProps {
   proof: Proof | undefined;
@@ -19,6 +23,40 @@ const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
     setIsClaimStepperVisible(false);
   };
 
+  const addToken = async() => {
+    await getTransactionReceipt(config, {
+      hash: "0xed894dcc6fef52e67fbccf07150a87abf0706e6dcb765da89bc0d355e47225ed"
+    }).then(data => console.log(data, "receipt"))
+
+    // await window.ethereum.request({ method: 'eth_requestAccounts', params: [] })
+    // try{
+    //   const wasAdded = await window.ethereum.request({
+    //     method: "wallet_watchAsset",
+    //     params: {
+    //       type: "ERC20",
+    //       options: {
+    //         // The address of the token.
+    //         address: "0x11aF999d883730a268cF71481D1028DAd8334534",
+    //         // A ticker symbol or shorthand, up to 5 characters.
+    //         symbol: UIconfig.tokenConversionData.tokenSymbol,
+    //         // The number of decimals in the token.
+    //         decimals: +UIconfig.tokenConversionData.decimals,
+    //         // A string URL of the token logo.
+    //         // image: tokenImage,
+    //       },
+    //     },
+    //   });
+    //
+    //   if (wasAdded) {
+    //     console.log("Thanks for your interest!");
+    //   } else {
+    //     console.log("Your loss!");
+    //   }
+    // }catch (e) {
+    //   console.log(e)
+    // }
+  }
+
   return (
     <div className="inline snap-start transition-opacity">
       <StepForm
@@ -26,6 +64,7 @@ const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
         buttonText="Go back to homepage"
         onSubmit={_onSubmit}
         scrollContainerClassName="mt-0"
+        className="md:max-w-[60svw] xl:max-w-[40svw] 2xl:max-w-[720px]"
       >
         <h2 className="w-full text-center text-xl font-bold xs:text-2xl">
           <span>Claim initiated</span>
@@ -56,8 +95,13 @@ const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
             </span>
           </div>
         </div>
-        <div className="w-full">
-          <Button variant="outline" w="full">See on the block explorer</Button>
+        <div className="w-full flex gap-4 flex-wrap">
+          <Link href="https://v2.chakra-ui.com/docs/components/button/usage" target="_blank" passHref className="block flex-1">
+            <Button as="a" variant="outline" w="full" px="20px">View transaction</Button>
+          </Link>
+          <div className="flex-1 min-w-[138px]">
+            <Button variant="outline" w="full" onClick={addToken}>Add token</Button>
+          </div>
         </div>
       </StepForm>
     </div>
