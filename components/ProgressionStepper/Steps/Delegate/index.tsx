@@ -168,7 +168,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                   {canLoadMoreDelegates && (
                     <Button
                       onClick={loadNextChunkOfDelegates}
-                      className="mx-auto mt-10 w-full"
+                      className="mx-auto mt-10 w-[200px]"
                     >
                       Load more
                     </Button>
