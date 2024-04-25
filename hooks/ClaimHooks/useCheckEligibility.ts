@@ -25,8 +25,9 @@ export const useCheckEligibility = () => {
   const contractAddress = "0x923b523b8ca37c5ea7bd990d1a98293495812be6";
   const campaignUUID = "e59423ae-e725-4dd6-8211-0d09216ef28f";
 
-  const handleCheckEligibility = useCallback(async () => {
+  const handleCheckEligibility = useCallback(async (passedAddress?: Address) => {
     try {
+      const adressToUse = passedAddress || address;
       setIsCheckingEligibility(true);
       if (isDisconnected) {
         infoToast({
@@ -36,7 +37,7 @@ export const useCheckEligibility = () => {
         return;
       }
 
-      const proofsAndAmount = getProofs(merkleTree, address);
+      const proofsAndAmount = getProofs(merkleTree, adressToUse);
 
       if (!proofsAndAmount) {
         setProofs(null);
@@ -49,7 +50,7 @@ export const useCheckEligibility = () => {
       const walletAlreadyClaimed = await readContract(config, {
         abi,
         address: contractAddress,
-        args: [hexId, address],
+        args: [hexId, adressToUse],
         functionName: "claimed",
       });
 
