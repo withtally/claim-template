@@ -166,7 +166,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                     </p>
                   )}
 
-                  {/* {canLoadMoreDelegates && ( */}
+                  {canLoadMoreDelegates && (
                     <Button
                       size='md'
                       onClick={loadNextChunkOfDelegates}
@@ -174,7 +174,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                     >
                       Load more
                     </Button>
-                  {/* )} */}
+                  )} 
                 </div>
               )}
 
