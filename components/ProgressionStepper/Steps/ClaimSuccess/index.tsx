@@ -7,8 +7,6 @@ import { useClaimContext } from "../../../../contexts/ClaimContext";
 import { Button } from '@chakra-ui/react'
 import { UIconfig } from '~/config/UIconfig'
 import Link from 'next/link'
-import { getTransactionReceipt } from '@wagmi/core'
-import { config } from '~/config/wagmi/config'
 
 interface ClaimSuccessProps {
   proof: Proof | undefined;
@@ -24,37 +22,30 @@ const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
   };
 
   const addToken = async() => {
-    await getTransactionReceipt(config, {
-      hash: "0xed894dcc6fef52e67fbccf07150a87abf0706e6dcb765da89bc0d355e47225ed"
-    }).then(data => console.log(data, "receipt"))
+    try{
+      await window.ethereum.request({ method: 'eth_requestAccounts', params: [] })
+      const wasAdded = await window.ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC20",
+          options: {
+            address: "0x11aF999d883730a268cF71481D1028DAd8334534",
+            symbol: UIconfig.tokenConversionData.tokenSymbol,
+            decimals: 18,
+            // A string URL of the token logo.
+            // image: tokenImage,
+          },
+        },
+      });
 
-    // await window.ethereum.request({ method: 'eth_requestAccounts', params: [] })
-    // try{
-    //   const wasAdded = await window.ethereum.request({
-    //     method: "wallet_watchAsset",
-    //     params: {
-    //       type: "ERC20",
-    //       options: {
-    //         // The address of the token.
-    //         address: "0x11aF999d883730a268cF71481D1028DAd8334534",
-    //         // A ticker symbol or shorthand, up to 5 characters.
-    //         symbol: UIconfig.tokenConversionData.tokenSymbol,
-    //         // The number of decimals in the token.
-    //         decimals: +UIconfig.tokenConversionData.decimals,
-    //         // A string URL of the token logo.
-    //         // image: tokenImage,
-    //       },
-    //     },
-    //   });
-    //
-    //   if (wasAdded) {
-    //     console.log("Thanks for your interest!");
-    //   } else {
-    //     console.log("Your loss!");
-    //   }
-    // }catch (e) {
-    //   console.log(e)
-    // }
+      if (wasAdded) {
+        console.log("Thanks for your interest!");
+      } else {
+        console.log("Your loss!");
+      }
+    }catch (e) {
+      console.log(e)
+    }
   }
 
   return (
