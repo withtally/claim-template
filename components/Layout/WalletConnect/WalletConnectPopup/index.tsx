@@ -8,11 +8,12 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal";
 import { Button } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC } from 'react'
 import { useWalletConnect } from "~/hooks/useWalletConnect";
 import Cross from "../../../../public/img/icons/cross.svg";
 import { DisconnectContent } from "./components/DisconnectContent";
 import WalletsList from "./components/WalletsList";
+import { getTextFromDictionary } from '~/utils/getTextFromDictionary'
 
 interface Props {
   isOpen: boolean;
@@ -38,7 +39,7 @@ export const WalletConnectPopup: FC<Props> = ({
       <ModalContent className="max-md:mx-[20px]">
         <ModalHeader>
           <h1 className="text-xl font-semibold">
-            {isConnected ? "Connected" : "Connect Wallet"}
+            {isConnected ? "Connected" : getTextFromDictionary("connectModal_title")}
           </h1>
         </ModalHeader>
         <ModalCloseButton>

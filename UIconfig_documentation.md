@@ -127,6 +127,8 @@ Here iis an exapmple of link object:
 
 - **bgColor**
   Background color of wallet connect modal and
+- **errorColor**
+  Background color of button when chain is missmatched
 - ~~**overlay**
   Not supported for now~~
 
@@ -151,3 +153,15 @@ To remove area follow this steps:
 
 - Delete area you want
 - Remove any trailing coma
+
+## tokenConversionData
+
+Contains the information to convert your token to human readable format
+
+To remove area follow this steps:
+
+- **tokenSymbol**
+  Short name of your token like (Arbitrum: ARB)
+
+- **decimals**
+  Decimals of the token

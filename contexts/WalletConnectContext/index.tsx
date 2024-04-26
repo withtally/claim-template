@@ -1,11 +1,14 @@
 import { useDisclosure } from "@chakra-ui/hooks";
-import React, { ReactNode, createContext, useContext } from "react";
+import React, { ReactNode, createContext, useContext, useState, Dispatch, SetStateAction } from 'react'
 import { WalletConnectPopup } from "~/components/Layout/WalletConnect/WalletConnectPopup";
 
 type WalletConnectContextType = {
   isConnectPopupVisible: boolean;
   onOpenConnectPopup: () => void;
   onCloseConnectPopup: () => void;
+  onOpenAndCheckEligibility: () => void;
+  isCheckEligibility: boolean;
+  setIsCheckEligibility: Dispatch<SetStateAction<boolean>>;
 };
 
 const WalletConnectContext = createContext<
@@ -31,9 +34,23 @@ const WalletConnectContextProvider: React.FC<{ children: ReactNode }> = ({
     onClose: onCloseConnectPopup,
   } = useDisclosure();
 
+  const [isCheckEligibility, setIsCheckEligibility] = useState<boolean>(false);
+
+  const onOpenAndCheckEligibility = () => {
+    setIsCheckEligibility(true);
+    onOpenConnectPopup();
+  };
+
   return (
     <WalletConnectContext.Provider
-      value={{ isConnectPopupVisible, onOpenConnectPopup, onCloseConnectPopup }}
+      value={{
+        isConnectPopupVisible,
+        onOpenConnectPopup,
+        onCloseConnectPopup,
+        onOpenAndCheckEligibility,
+        setIsCheckEligibility,
+        isCheckEligibility
+      }}
     >
       {children}
       <WalletConnectPopup

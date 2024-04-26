@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Spinner } from "@chakra-ui/react";
 import { FC } from "react";
 import Container from "~/components/Layout/Container";
 import { OptimisedImage } from "~/components/Layout/OptimisedImage";
@@ -7,13 +7,20 @@ import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
 
 interface HeaderProps {
   onClick: () => void;
+  areDataFetched: boolean;
+  isCheckingEligibility: boolean;
 }
 
-const Header: FC<HeaderProps> = ({ onClick }) => {
+const Header: FC<HeaderProps> = ({
+  onClick,
+  areDataFetched,
+  isCheckingEligibility,
+}) => {
+  const isLoading = !areDataFetched || isCheckingEligibility;
+
   return (
     <section className="relative overflow-hidden">
-      <div
-        className="absolute inset-0 flex items-center justify-end 2xl:pr-40 max-xsm:hidden mt-[64px] max-h-[calc(100svh-64px)]">
+      <div className="absolute inset-0 flex items-center justify-end 2xl:pr-40 max-xsm:hidden mt-[64px] max-h-[calc(100svh-64px)]">
         <OptimisedImage
           src={UIconfig.backgroundImage.deckstop}
           alt=""
@@ -30,7 +37,11 @@ const Header: FC<HeaderProps> = ({ onClick }) => {
           <p className="text-title text-gray-400">
             {getTextFromDictionary("home_checkEligibility")}
           </p>
-          <Button onClick={onClick}>
+          <Button
+            onClick={onClick}
+            isLoading={isLoading}
+            className="!min-w-[200px]"
+          >
             {getTextFromDictionary("home_checkEligibilityButton")}
           </Button>
         </header>

@@ -18,14 +18,14 @@
       "header2": "claim token & delegate voting rights",
       "paragraph2": "Submit the transaction to claim and delegate your tokens on-chain.",
       "amountOfActions": "2",
-      "confirm":"Sign Message",
+      "confirm":"Continue",
       "progressInfo": "Processing transaction",
       "progress": "Updating live..."
     },
     "step2": {
       "votingPowerSection": {
         "title": "voting power",
-        "confirm": "Claim and Delegate"
+        "confirm": "Continue"
       },
       "delegate": {
         "paragraph1": "Pick someone who you believe will be invested in growing the ecosystem.",

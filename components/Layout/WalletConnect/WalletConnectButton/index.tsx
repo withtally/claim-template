@@ -6,24 +6,34 @@ import { useWalletConnectContext } from '../../../../contexts/WalletConnectConte
 import { WalletIcon } from '../WalletIcon'
 import { WalletConnectors } from '~/types/wallet-connectors'
 import { shortenAddress } from '../../../../libs/helpers/shortenAddress'
+import { useChainMissmatch } from '~/hooks/useChainMissmatch'
 
 export const WalletConnector: FC = () => {
   const { address, isConnected, connector } = useAccount()
   const connectorName = connector?.name
 
   const { onOpenConnectPopup } = useWalletConnectContext()
+  const isChainMissmatched = useChainMissmatch();
   return (
     <>
       {isConnected ? (
         <button
           onClick={() => onOpenConnectPopup()}
-          className="inline-flex h-10 items-center justify-center gap-x-4 rounded-full bg-white/20 p-2 px-2"
+          className={`inline-flex h-10 items-center justify-center gap-x-4 rounded-full  p-2 px-2 ${isChainMissmatched ? "bg-errorColor" : "bg-white/20"}`}
         >
-          <WalletIcon
-            className="size-7"
-            walletName={connectorName as WalletConnectors}
-          />
-          <span>{shortenAddress(address)}</span>
+          {
+            isChainMissmatched ? (
+                <span className="pl-2">Wrong chain</span>
+              ) : (
+              <>
+                <WalletIcon
+                  className="size-7"
+                  walletName={connectorName as WalletConnectors}
+                />
+                <span>{shortenAddress(address)}</span>
+              </>
+            )
+          }
           <ChevronDownIcon className="mr-1 size-3.5" />
         </button>
       ) : (

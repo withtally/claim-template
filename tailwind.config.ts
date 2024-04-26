@@ -3,6 +3,9 @@ import { UIconfig } from './config/UIconfig'
 const { colors, site, modal } = UIconfig;
 
 module.exports = {
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -38,7 +41,8 @@ module.exports = {
         'blue-grey-lighter': colors.infoBlockBgColor,
         navbar: site.bgColor,
         maintext: site.textColor,
-        gray: UIconfig.colors.gray
+        gray: UIconfig.colors.gray,
+        errorColor: modal.errorColor
       },
     },
     fontFamily: {
