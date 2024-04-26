@@ -41,13 +41,14 @@ const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
         },
       });
 
+      // TODO: conect it to ui
       if (wasAdded) {
         console.log("Thanks for your interest!");
       } else {
         console.log("Your loss!");
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
