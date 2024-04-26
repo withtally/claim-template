@@ -13,7 +13,7 @@ import { SelectedMark } from "./components/SelectedMark";
 interface Props {
   delegate: Delegate;
   isSelected: boolean;
-  setSelectedDelegate: Dispatch<SetStateAction<Delegate>>;
+  setSelectedDelegate: Dispatch<SetStateAction<Delegate | null>>;
 }
 
 export const DelegateCard: FC<Props> = ({
@@ -35,15 +35,19 @@ export const DelegateCard: FC<Props> = ({
     return statementSummary || bio;
   }, []);
 
+  const handleSelect = () => {
+    isSelected ? setSelectedDelegate(null) : setSelectedDelegate(delegate);
+  };
+
   return (
     <div
       className={cx(
-        "relative cursor-pointer rounded-md border-2 bg-blue-grey p-4 pt-10",
+        "relative cursor-pointer rounded-md border-2 bg-blue-grey p-4",
         {
           "border-green/80": isSelected,
         },
       )}
-      onClick={() => setSelectedDelegate(delegate)}
+      onClick={handleSelect}
     >
       {isSelected && <SelectedMark />}
       {/* WALLET DETAILS */}

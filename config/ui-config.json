@@ -80,20 +80,20 @@
   ],
   "eligibilityCriterias": [
     {
-      "name": "Criteria 1",
+      "name": "Minted RAI and deposited to Aave",
       "description": "Some info"
     },
     {
-      "name": "Criteria 2",
+      "name": "Provided LP on Uni V2 RAI/ETH",
       "description": "Some info"
     },
     {
-      "name": "Criteria 3",
+      "name": "Voted on an OP DAO proposal with at least 50 OP",
       "description": "Some info"
     }
   ],
   "tokenConversionData": {
     "tokenSymbol": "CGEEKS",
-    "decimals": 0
+    "decimals": 18
   }
 }
