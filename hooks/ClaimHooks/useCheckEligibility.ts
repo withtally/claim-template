@@ -1,5 +1,5 @@
 import { readContract } from "@wagmi/core";
-import { useCallback, useMemo, useState } from "react";
+import { SyntheticEvent, useCallback, useMemo, useState } from 'react'
 import { useAccount } from "wagmi";
 import { Address, ClaimStatusEnum, Proof } from "~/types/common";
 import { config } from "../../config/wagmi/config";
@@ -25,10 +25,11 @@ export const useCheckEligibility = () => {
   const contractAddress = "0x923b523b8ca37c5ea7bd990d1a98293495812be6";
   const campaignUUID = "e59423ae-e725-4dd6-8211-0d09216ef28f";
 
-  const handleCheckEligibility = useCallback(async () => {
+  const handleCheckEligibility = useCallback(async (_event: SyntheticEvent, passedAddress?: Address) => {
     try {
+      const addressToUse = passedAddress || address;
       setIsCheckingEligibility(true);
-      if (isDisconnected) {
+      if (isDisconnected && !passedAddress) {
         infoToast({
           title: "Wallet is not connected",
           description: "You need to connect wallet before checking eligibility",
@@ -36,7 +37,7 @@ export const useCheckEligibility = () => {
         return;
       }
 
-      const proofsAndAmount = getProofs(merkleTree, address);
+      const proofsAndAmount = getProofs(merkleTree, addressToUse);
 
       if (!proofsAndAmount) {
         setProofs(null);
@@ -50,7 +51,7 @@ export const useCheckEligibility = () => {
       const walletAlreadyClaimed = await readContract(config, {
         abi,
         address: contractAddress,
-        args: [hexId, address],
+        args: [hexId, addressToUse],
         functionName: "claimed",
       });
 
@@ -68,7 +69,7 @@ export const useCheckEligibility = () => {
     } finally {
       setIsCheckingEligibility(false);
     }
-  }, [isDisconnected, merkleTree, address]);
+  }, [isDisconnected, merkleTree, address, isMerkleTreeFetched]);
 
   const checkEligibilityOfAnotherWallet = useCallback(
     async (address: Address): Promise<ClaimStatusEnum> => {

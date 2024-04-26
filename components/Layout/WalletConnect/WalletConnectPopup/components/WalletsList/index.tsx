@@ -19,9 +19,15 @@ const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler }) => {
     const isMetaMaskBrowser = navigator.userAgent.includes("MetaMaskMobile");
 
     if(!isMobile()){
-      return connectors.filter(connector => !isInjectedConnector(connector))
+      return connectors.filter(connector => {
+        if(isInjectedMetaMaskConnector(connector)){
+          return true;
+        }
+        return !isInjectedConnector(connector) && !isMetaMaskConnector(connector);
+      })
+
     }else{
-      const copyArr = connectors
+      return connectors
         .filter(connector => {
           if(isMetaMaskBrowser && isInjectedMetaMaskConnector(connector)){
             return true;
@@ -38,10 +44,6 @@ const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler }) => {
           return true;
         })
 
-      return [
-        copyArr.find(item => item.name === "MetaMask"),
-        ...copyArr.filter(item => item.name !== "MetaMask")
-      ]
     }
   },[])
 

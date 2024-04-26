@@ -29,6 +29,10 @@ export const Button = defineStyleConfig({
     outline: {
       border: "2px solid",
       borderColor: UIconfig.colors.primary,
+      color: UIconfig.site.textColor,
+      _hover: {
+        bg: 'rgba(0,0,0,.15)',
+      },
     },
     solid: {
       bg: "primary.600",

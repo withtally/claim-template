@@ -45,7 +45,7 @@
 
 html,
 body {
-    @apply h-svh w-screen;
+    @apply h-svh min-w-[100svw];
 }
 
 body {
