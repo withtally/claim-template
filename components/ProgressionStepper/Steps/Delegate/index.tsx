@@ -113,6 +113,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                       "stepper_step2_delegate_searchPlaceholder",
                     )}
                     inputLeftElement={<SearchIcon className="size-4" />}
+                    showCross
                   />
                 </div>
                 <div className="hidden xl:block  basis-[30%]">
@@ -167,12 +168,13 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
 
                   {canLoadMoreDelegates && (
                     <Button
+                      size='md'
                       onClick={loadNextChunkOfDelegates}
-                      className="mx-auto mt-10 w-full"
+                      className="mx-auto mt-10 w-[200px]"
                     >
                       Load more
                     </Button>
-                  )}
+                  )} 
                 </div>
               )}
 

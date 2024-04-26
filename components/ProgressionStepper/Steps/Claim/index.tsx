@@ -29,7 +29,7 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit, proof }) => {
     <div className="inline snap-start transition-opacity">
       <StepForm
         isLoading={isSubmitting}
-        buttonText="Claim your tokens"
+        buttonText="Claim and Delegate"
         onBack={onBack}
         onSubmit={_onSubmit}
         scrollContainerClassName="mt-0"

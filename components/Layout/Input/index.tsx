@@ -2,9 +2,11 @@ import {
   Input as ChakraInput,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { FC } from "react";
 import { UIconfig } from "~/config/UIconfig";
+import Cross from "../../../public/img/icons/cross.svg";
 
 interface Props {
   inputLeftElement?: any;
@@ -15,7 +17,7 @@ interface Props {
   inputGroupClassName?: string;
   isInvalid?: boolean;
   isSuccess?: boolean;
-
+  showCross?: boolean;
 }
 
 export const Input: FC<Props> = ({
@@ -26,9 +28,9 @@ export const Input: FC<Props> = ({
   className,
   inputGroupClassName,
   isInvalid,
-  isSuccess
+  isSuccess,
+  showCross,
 }) => {
-
   const successStyles = {
     borderColor: `${UIconfig.colors.selected} !important`,
     boxShadow: `0 0 0 1px ${UIconfig.colors.selected} !important`,
@@ -36,7 +38,8 @@ export const Input: FC<Props> = ({
       borderColor: `${UIconfig.colors.selected} !important`,
       boxShadow: `0 0 0 1px ${UIconfig.colors.selected} !important`,
     },
-  }
+  };
+
   return (
     <InputGroup className={inputGroupClassName}>
       {inputLeftElement && (
@@ -51,9 +54,19 @@ export const Input: FC<Props> = ({
         onChange={(e) => {
           onChange && onChange(e.target.value);
         }}
-        // TODO: change to error color
-        errorBorderColor="crimson"
+        errorBorderColor={UIconfig.modal.errorColor}
       />
+
+      {showCross && value && (
+        <InputRightElement>
+          <button
+            onClick={() => onChange("")}
+            className=" rounded p-2 hover:bg-black hover:bg-opacity-20"
+          >
+            <Cross className="size-3" />
+          </button>
+        </InputRightElement>
+      )}
     </InputGroup>
   );
 };

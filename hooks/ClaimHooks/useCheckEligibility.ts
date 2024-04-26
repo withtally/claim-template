@@ -44,6 +44,7 @@ export const useCheckEligibility = () => {
         setIsClaimStepperVisible(true);
         return;
       }
+      setProofs(proofsAndAmount);
 
       const hexId = parseUuidToHex(campaignUUID);
       const walletAlreadyClaimed = await readContract(config, {
@@ -59,7 +60,6 @@ export const useCheckEligibility = () => {
         return;
       }
 
-      setProofs(proofsAndAmount);
       setClaimStatus(ClaimStatusEnum.ELIGIBLE);
       setIsClaimStepperVisible(true);
     } catch (error) {
@@ -96,6 +96,7 @@ export const useCheckEligibility = () => {
         console.error(error);
         if(error.name === 'InvalidAddressError'){
           infoToast({title: 'Please enter a valid ETH address'})
+          return ClaimStatusEnum.INVALID_ADDRESS
         }
       } finally {
           setIsCheckingEligibility(false);

@@ -27,6 +27,7 @@ export const VotingPowerSection: FC<Props> = ({
   const isChainMissmatched = useChainMissmatch();
   const { warningToast } = useCustomToasters();
   const { chain } = getChain(chainToUse);
+
   const onDelegateClick = () => {
     if (isChainMissmatched) {
       warningToast({
@@ -90,24 +91,25 @@ export const VotingPowerSection: FC<Props> = ({
           >
             {formatedStatementSummaryOrBio || "No bio provided"}
           </p>
-
-          <div className="flex w-full flex-1 items-end">
-            <Button
-              isLoading={false}
-              className="w-full"
-              onClick={onDelegateClick}
-            >
-              {getTextFromDictionary(
-                "stepper_step2_votingPowerSection_confirm",
-              )}
-            </Button>
-          </div>
         </>
       ) : (
-        <p className="m-auto text-gray-400">
-          {getTextFromDictionary("stepper_step2_delegate_chooseDelegate")}
-        </p>
+        <>
+          <p className="m-auto flex-1 text-gray-400">
+            {getTextFromDictionary("stepper_step2_delegate_chooseDelegate")}
+          </p>
+        </>
       )}
+
+      <div className="flex w-full flex-1 items-end">
+        <Button
+          isLoading={false}
+          className="w-full"
+          onClick={onDelegateClick}
+          isDisabled={selectedDelegate === null}
+        >
+          {getTextFromDictionary("stepper_step2_votingPowerSection_confirm")}
+        </Button>
+      </div>
     </form>
   );
 };
