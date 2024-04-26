@@ -1,12 +1,12 @@
+import { Button } from "@chakra-ui/react";
+import Link from "next/link";
 import { FC, useState } from "react";
 import { AvailableTokensBlock } from "~/components/Layout/AvailableTokensBlock";
 import { OptimisedImage } from "~/components/Layout/OptimisedImage";
 import StepForm from "~/components/ProgressionStepper/StepForm";
+import { UIconfig } from "~/config/UIconfig";
 import { Proof } from "~/types/common";
 import { useClaimContext } from "../../../../contexts/ClaimContext";
-import { Button } from '@chakra-ui/react'
-import { UIconfig } from '~/config/UIconfig'
-import Link from 'next/link'
 
 interface ClaimSuccessProps {
   proof: Proof | undefined;
@@ -21,9 +21,12 @@ const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
     setIsClaimStepperVisible(false);
   };
 
-  const addToken = async() => {
-    try{
-      await window.ethereum.request({ method: 'eth_requestAccounts', params: [] })
+  const addToken = async () => {
+    try {
+      await window.ethereum.request({
+        method: "eth_requestAccounts",
+        params: [],
+      });
       const wasAdded = await window.ethereum.request({
         method: "wallet_watchAsset",
         params: {
@@ -43,10 +46,10 @@ const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
       } else {
         console.log("Your loss!");
       }
-    }catch (e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   return (
     <div className="inline snap-start transition-opacity">
@@ -87,11 +90,20 @@ const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
           </div>
         </div>
         <div className="w-full flex gap-4 flex-wrap">
-          <Link href="https://v2.chakra-ui.com/docs/components/button/usage" target="_blank" passHref className="block flex-1">
-            <Button as="a" variant="outline" w="full" px="20px">View transaction</Button>
+          <Link
+            href="https://v2.chakra-ui.com/docs/components/button/usage"
+            target="_blank"
+            passHref
+            className="block flex-1"
+          >
+            <Button as="a" variant="outline" w="full" px="20px">
+              View transaction
+            </Button>
           </Link>
           <div className="flex-1 min-w-[138px]">
-            <Button variant="outline" w="full" onClick={addToken}>Add token</Button>
+            <Button variant="outline" w="full" onClick={addToken}>
+              Add token
+            </Button>
           </div>
         </div>
       </StepForm>
