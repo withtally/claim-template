@@ -18,7 +18,7 @@ export const AvailableTokensBlock: FC<Props> = memo(
               "text-xs": useXsTitle,
             })}
           >
-            You will receive
+            {title}
           </span>
         )}
 

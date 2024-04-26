@@ -44,6 +44,7 @@ export const useCheckEligibility = () => {
         setIsClaimStepperVisible(true);
         return;
       }
+      setProofs(proofsAndAmount);
 
       const hexId = parseUuidToHex(campaignUUID);
       const walletAlreadyClaimed = await readContract(config, {
@@ -59,7 +60,6 @@ export const useCheckEligibility = () => {
         return;
       }
 
-      setProofs(proofsAndAmount);
       setClaimStatus(ClaimStatusEnum.ELIGIBLE);
       setIsClaimStepperVisible(true);
     } catch (error) {
