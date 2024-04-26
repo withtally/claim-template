@@ -13,6 +13,7 @@ import { useWalletConnectContext } from '../contexts/WalletConnectContext'
 import ClaimSuccess from '~/components/ProgressionStepper/Steps/ClaimSuccess'
 import { useAccount } from 'wagmi'
 
+// TODO: Rename component
 const HireReactDeveloperPage: FC = () => {
   const {
     areDataFetched,
@@ -35,6 +36,10 @@ const HireReactDeveloperPage: FC = () => {
     }
   }, [claimStatus]);
 
+  const checkEligibility = () => {
+    isConnected ? handleCheckEligibility(null) : onOpenAndCheckEligibility()
+  }
+
   return (
     <>
       <SEO title="Home" />
@@ -44,7 +49,7 @@ const HireReactDeveloperPage: FC = () => {
       >
         {!isClaimStepperVisible ? (
           <Header
-            onClick={isConnected ? handleCheckEligibility : onOpenAndCheckEligibility}
+            onClick={checkEligibility}
             areDataFetched={areDataFetched}
             isCheckingEligibility={isCheckingEligibility}
           />
