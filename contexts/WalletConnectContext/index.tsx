@@ -7,6 +7,8 @@ type WalletConnectContextType = {
   onOpenConnectPopup: () => void;
   onCloseConnectPopup: () => void;
   onOpenAndCheckEligibility: () => void;
+  isCheckEligibility: boolean;
+  setIsCheckEligibility: Dispatch<SetStateAction<boolean>>;
 };
 
 const WalletConnectContext = createContext<
@@ -32,9 +34,10 @@ const WalletConnectContextProvider: React.FC<{ children: ReactNode }> = ({
     onClose: onCloseConnectPopup,
   } = useDisclosure();
 
+  const [isCheckEligibility, setIsCheckEligibility] = useState<boolean>(false);
 
   const onOpenAndCheckEligibility = () => {
-    localStorage.setItem("isCheckEligibility","true");
+    setIsCheckEligibility(true);
     onOpenConnectPopup();
   };
 
@@ -45,6 +48,8 @@ const WalletConnectContextProvider: React.FC<{ children: ReactNode }> = ({
         onOpenConnectPopup,
         onCloseConnectPopup,
         onOpenAndCheckEligibility,
+        setIsCheckEligibility,
+        isCheckEligibility
       }}
     >
       {children}

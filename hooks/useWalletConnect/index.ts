@@ -24,12 +24,13 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
   const { connectors, connect } = useConnect();
   const { disconnect } = useDisconnect();
   const { errorToast } = useCustomToasters();
-  const { switchChain } = useSwitchChain();
 
   const { chain } = getChain(chainToUse);
 
-  const { setIsClaimStepperVisible, handleCheckEligibility } =
+  const { setIsClaimStepperVisible, handleCheckEligibility,  } =
     useClaimContext();
+
+  const {isCheckEligibility, setIsCheckEligibility} = useWalletConnectContext()
 
   const defaultConnectHandler = useCallback((connector: Connector) => {
     return (event: MouseEvent) => {
@@ -49,15 +50,10 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
         { connector, chainId: chain.id },
         {
           onSuccess: (data) => {
-            if (connector.id === "walletConnect" && data.chainId !== chain.id) {
-              switchChain({ chainId: chain.id });
-            }
             onCloseConnectPopup();
-            const isCheckEligibility = JSON.parse(localStorage.getItem("isCheckEligibility"));
-
             if (isCheckEligibility) {
-              handleCheckEligibility(data.accounts[0]).finally(() => {
-                localStorage.setItem("isCheckEligibility","false");
+              handleCheckEligibility(null, data.accounts[0]).finally(() => {
+                setIsCheckEligibility(false);
               });
             }
           },
@@ -71,7 +67,7 @@ export const useWalletConnect = ({ onCloseConnectPopup }: Props) => {
         },
       );
     };
-  }, []);
+  }, [handleCheckEligibility, isCheckEligibility]);
 
   const doDisconnect = useCallback(() => {
     disconnect(
