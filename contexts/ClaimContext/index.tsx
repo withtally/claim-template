@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useContext } from "react";
+import React, { ReactNode, createContext, useContext, SyntheticEvent } from 'react'
 import { useCheckEligibility } from "~/hooks/ClaimHooks/useCheckEligibility";
 import { useDelegateSelector } from "~/hooks/delegateStep/useDelegateSelection";
 import { Address, ClaimStatusEnum, Proof } from "~/types/common";
@@ -11,7 +11,7 @@ type ClaimContextType = {
   isClaimStepperVisible: boolean;
   isCheckingEligibility: boolean;
   setIsClaimStepperVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  handleCheckEligibility: (passedAddress?: Address) => Promise<void>;
+  handleCheckEligibility: (event: SyntheticEvent, passedAddress?: Address) => Promise<void>;
   checkEligibilityOfAnotherWallet: (
     address: Address,
   ) => Promise<ClaimStatusEnum>;
