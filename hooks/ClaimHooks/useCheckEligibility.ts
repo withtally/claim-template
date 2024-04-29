@@ -1,5 +1,5 @@
 import { readContract } from "@wagmi/core";
-import { SyntheticEvent, useCallback, useMemo, useState } from 'react'
+import { SyntheticEvent, useCallback, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import { Address, ClaimStatusEnum, Proof } from "~/types/common";
 import { config } from "../../config/wagmi/config";
@@ -23,53 +23,57 @@ export const useCheckEligibility = () => {
 
   // TODO: use values from config
   const contractAddress = "0x923b523b8ca37c5ea7bd990d1a98293495812be6";
-  const campaignUUID = "e59423ae-e725-4dd6-8211-0d09216ef28f";
+  const campaignUUID = "ea623f96-3806-4393-b995-aae93b6d3d55";
 
-  const handleCheckEligibility = useCallback(async (_event: SyntheticEvent, passedAddress?: Address) => {
-    try {
-      const addressToUse = passedAddress || address;
-      setIsCheckingEligibility(true);
-      if (isDisconnected && !passedAddress) {
-        infoToast({
-          title: "Wallet is not connected",
-          description: "You need to connect wallet before checking eligibility",
+  const handleCheckEligibility = useCallback(
+    async (_event: SyntheticEvent, passedAddress?: Address) => {
+      try {
+        const addressToUse = passedAddress || address;
+        setIsCheckingEligibility(true);
+        if (isDisconnected && !passedAddress) {
+          infoToast({
+            title: "Wallet is not connected",
+            description:
+              "You need to connect wallet before checking eligibility",
+          });
+          return;
+        }
+
+        const proofsAndAmount = getProofs(merkleTree, addressToUse);
+
+        if (!proofsAndAmount) {
+          setProofs(null);
+          setClaimStatus(ClaimStatusEnum.NOT_ELIGIBLE);
+          setIsClaimStepperVisible(true);
+          return;
+        }
+        setProofs(proofsAndAmount);
+
+        const hexId = parseUuidToHex(campaignUUID);
+        const walletAlreadyClaimed = await readContract(config, {
+          abi,
+          address: contractAddress,
+          args: [hexId, addressToUse],
+          functionName: "claimed",
         });
-        return;
-      }
 
-      const proofsAndAmount = getProofs(merkleTree, addressToUse);
+        if (walletAlreadyClaimed) {
+          setClaimStatus(ClaimStatusEnum.ALREADY_CLAIMED);
+          setIsClaimStepperVisible(true);
+          return;
+        }
 
-      if (!proofsAndAmount) {
+        setClaimStatus(ClaimStatusEnum.ELIGIBLE);
+        setIsClaimStepperVisible(true);
+      } catch (error) {
         setProofs(null);
         setClaimStatus(ClaimStatusEnum.NOT_ELIGIBLE);
-        setIsClaimStepperVisible(true);
-        return;
+      } finally {
+        setIsCheckingEligibility(false);
       }
-      setProofs(proofsAndAmount);
-
-      const hexId = parseUuidToHex(campaignUUID);
-      const walletAlreadyClaimed = await readContract(config, {
-        abi,
-        address: contractAddress,
-        args: [hexId, addressToUse],
-        functionName: "claimed",
-      });
-
-      if (walletAlreadyClaimed) {
-        setClaimStatus(ClaimStatusEnum.ALREADY_CLAIMED);
-        setIsClaimStepperVisible(true);
-        return;
-      }
-
-      setClaimStatus(ClaimStatusEnum.ELIGIBLE);
-      setIsClaimStepperVisible(true);
-    } catch (error) {
-      setProofs(null);
-      setClaimStatus(ClaimStatusEnum.NOT_ELIGIBLE);
-    } finally {
-      setIsCheckingEligibility(false);
-    }
-  }, [isDisconnected, merkleTree, address, isMerkleTreeFetched]);
+    },
+    [isDisconnected, merkleTree, address, isMerkleTreeFetched],
+  );
 
   const checkEligibilityOfAnotherWallet = useCallback(
     async (address: Address): Promise<ClaimStatusEnum> => {
@@ -95,12 +99,12 @@ export const useCheckEligibility = () => {
         return ClaimStatusEnum.ELIGIBLE;
       } catch (error) {
         console.error(error);
-        if(error.name === 'InvalidAddressError'){
-          infoToast({title: 'Please enter a valid ETH address'})
-          return ClaimStatusEnum.INVALID_ADDRESS
+        if (error.name === "InvalidAddressError") {
+          infoToast({ title: "Please enter a valid ETH address" });
+          return ClaimStatusEnum.INVALID_ADDRESS;
         }
       } finally {
-          setIsCheckingEligibility(false);
+        setIsCheckingEligibility(false);
       }
     },
     [merkleTree],
