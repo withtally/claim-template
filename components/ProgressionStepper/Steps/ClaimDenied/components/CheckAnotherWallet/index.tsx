@@ -1,34 +1,19 @@
 import { Button } from "@chakra-ui/react";
 import cx from "classnames";
-import { useClaimContext } from "contexts/ClaimContext";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Input } from "~/components/Layout/Input";
-import useCustomToasters from "~/hooks/useToasters";
-import { Address, ClaimStatusEnum } from "~/types/common";
+import { useCheckAnotherWalletLogic } from "hooks/useCheckAnotherWalletLogic";
+import { ClaimStatusEnum } from "~/types/common";
 import { InfoBlockBody } from "../InfoBlockBody";
 
 export const CheckAnotherWallet: FC = () => {
-  const [address, setAddress] = useState("");
-  const [infoBlock, setInfoBlock] = useState<ClaimStatusEnum>(
-    ClaimStatusEnum.UNKNOWN,
-  );
-  const { infoToast } = useCustomToasters();
-
-  const { checkEligibilityOfAnotherWallet, isCheckingEligibility } =
-    useClaimContext();
-
-  const handleCheckButtonClick = async () => {
-    setInfoBlock(ClaimStatusEnum.UNKNOWN);
-    if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
-      infoToast({ title: "Please enter a valid ETH address" });
-      setInfoBlock(ClaimStatusEnum.INVALID_ADDRESS);
-      return;
-    }
-    const isAbleToClaim = await checkEligibilityOfAnotherWallet(
-      address as Address,
-    );
-    setInfoBlock(isAbleToClaim);
-  };
+  const {
+    address,
+    setAddress,
+    infoBlock,
+    isCheckingEligibility,
+    handleCheckButtonClick,
+  } = useCheckAnotherWalletLogic();
 
   return (
     <div className="flex flex-col gap-y-3 w-full ">
