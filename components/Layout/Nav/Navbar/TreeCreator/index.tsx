@@ -14,17 +14,19 @@ export const TreeCreator: FC = () => {
 
   const token = "0xdF0A43D15B036c065f6895734B878fD31269Bfa3";
   const contractAddress = "0x923b523b8ca37c5ea7bd990d1a98293495812be6";
-  const campaignUUID = "e59423ae-e725-4dd6-8211-0d09216ef28f";
+  // const campaignUUID = "e59423ae-e725-4dd6-8211-0d09216ef28f";
+  const campaignUUID = "ea623f96-3806-4393-b995-aae93b6d3d55";
   const addressOfThePersonIDelegateTo =
-    "0x301a09CaDB9c682aEd7f7BaB0e83B660bb223F81";
+    "0x8e2e990538712829caFDb232a194e50D82708070";
+    const amount = '28000';
 
-  const { data, refetch } = useReadContract({
-    abi: claimCampaignAbi,
-    address: token,
-    functionName: "eip712Domain",
-  });
+  // const { data, refetch } = useReadContract({
+  //   abi: claimCampaignAbi,
+  //   address: token,
+  //   functionName: "eip712Domain",
+  // });
 
-  console.log(data);
+  // console.log(data);
   
 
   const getUnixTimeThirtyMinutesFromNow = () => {
@@ -38,7 +40,7 @@ export const TreeCreator: FC = () => {
       address: token,
       functionName: "approve",
       abi: erc20Abi,
-      args: [contractAddress, BigInt("10000")],
+      args: [contractAddress, BigInt(amount)],
       account: address as `0x${string}`,
       chain: chainId,
     });
@@ -49,7 +51,7 @@ export const TreeCreator: FC = () => {
       const bytesArray = parse(campaignUUID);
       const hexId = bytesToHex(bytesArray);
       const response = await fetch(
-        "https://d2ydy7et7ob3l7.cloudfront.net/e59423ae-e725-4dd6-8211-0d09216ef28f/tree.json",
+        "https://d2ydy7et7ob3l7.cloudfront.net/ea623f96-3806-4393-b995-aae93b6d3d55/tree.json",
       );
 
       const merkleTree = await response.json();
@@ -71,7 +73,7 @@ export const TreeCreator: FC = () => {
         contractAddress: contractAddress, // the token claim campaign address (Sepolia)
         manager: "0x301a09CaDB9c682aEd7f7BaB0e83B660bb223F81", // the wallet address for the token claim manager (can cancel)
         token: token,
-        amount: "10000", // amount of tokens
+        amount: amount, // amount of tokens
         start: "1712707200", // start date of the campaign in unix time
         end: "1715126400", // end date of the campaign in unix time
         tokenLockup: 0, // 0 unlocked, 1 locked, 2 vesting
@@ -79,7 +81,7 @@ export const TreeCreator: FC = () => {
         delegating: true, // if delegation is possible
       };
 
-      const totalClaimers = 10;
+      const totalClaimers = 28;
 
       const result = await writeContract(config, {
         abi: claimCampaignAbi,
@@ -112,7 +114,7 @@ export const TreeCreator: FC = () => {
   const getProof = async () => {
     try {
       const response = await fetch(
-        "https://d2ydy7et7ob3l7.cloudfront.net/e59423ae-e725-4dd6-8211-0d09216ef28f/tree.json",
+        "https://d2ydy7et7ob3l7.cloudfront.net/ea623f96-3806-4393-b995-aae93b6d3d55/tree.json",
       );
 
       const merkleTree = await response.json();
@@ -149,7 +151,7 @@ export const TreeCreator: FC = () => {
       // const nonce = await getTransactionCount(config, {
       //   address: addressOfThePersonIDelegateTo,
       // });
-      const nonce = 0;
+      const nonce = 1;
       const signature = await signTypedData(config, {
         account: address,
         domain: {
@@ -226,10 +228,6 @@ export const TreeCreator: FC = () => {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const getDomain = async () => {
-    refetch();
   };
 
   return (
