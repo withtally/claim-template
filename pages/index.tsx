@@ -12,33 +12,19 @@ import { ClaimStatusEnum } from "~/types/common";
 import { useWalletConnectContext } from '../contexts/WalletConnectContext'
 import ClaimSuccess from '~/components/ProgressionStepper/Steps/ClaimSuccess'
 import { useAccount } from 'wagmi'
+import { useHomePageLogic } from '~/hooks/useHomePageLogic'
 
 // TODO: Rename component
-const HireReactDeveloperPage: FC = () => {
+const HomePage: FC = () => {
+
   const {
     areDataFetched,
     isClaimStepperVisible,
     isCheckingEligibility,
-    handleCheckEligibility,
-    claimStatus,
     proofs,
-  } = useClaimContext();
-
-  const { isConnected } = useAccount();
-
-  const { onOpenAndCheckEligibility } = useWalletConnectContext();
-
-  const components = useMemo(() => {
-    if (claimStatus === ClaimStatusEnum.ELIGIBLE) {
-      return [InitialScreen, DelegateStep, ClaimStep, ClaimSuccess];
-    } else {
-      return [ClaimDenied];
-    }
-  }, [claimStatus]);
-
-  const checkEligibility = () => {
-    isConnected ? handleCheckEligibility(null) : onOpenAndCheckEligibility()
-  }
+    components,
+    checkEligibility
+  } = useHomePageLogic();
 
   return (
     <>
@@ -65,4 +51,4 @@ const HireReactDeveloperPage: FC = () => {
   );
 };
 
-export default HireReactDeveloperPage;
+export default HomePage;

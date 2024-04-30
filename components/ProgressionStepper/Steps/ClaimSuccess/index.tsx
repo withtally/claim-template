@@ -7,50 +7,19 @@ import StepForm from "~/components/ProgressionStepper/StepForm";
 import { UIconfig } from "~/config/UIconfig";
 import { Proof } from "~/types/common";
 import { useClaimContext } from "../../../../contexts/ClaimContext";
+import { useClaimSuccessLogic } from '~/hooks/useClaimSuccessLogic'
 
 interface ClaimSuccessProps {
   proof: Proof | undefined;
 }
 
 const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { setIsClaimStepperVisible } = useClaimContext();
-  const { selectedDelegate } = useClaimContext();
-
-  const _onSubmit = () => {
-    setIsClaimStepperVisible(false);
-  };
-
-  const addToken = async () => {
-    try {
-      await window.ethereum.request({
-        method: "eth_requestAccounts",
-        params: [],
-      });
-      const wasAdded = await window.ethereum.request({
-        method: "wallet_watchAsset",
-        params: {
-          type: "ERC20",
-          options: {
-            address: "0x11aF999d883730a268cF71481D1028DAd8334534",
-            symbol: UIconfig.tokenConversionData.tokenSymbol,
-            decimals: 18,
-            // A string URL of the token logo.
-            // image: tokenImage,
-          },
-        },
-      });
-
-      // TODO: conect it to ui
-      if (wasAdded) {
-        console.log("Thanks for your interest!");
-      } else {
-        console.log("Your loss!");
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const {
+    isSubmitting,
+    _onSubmit,
+    addToken,
+    selectedDelegate
+  } = useClaimSuccessLogic();
 
   return (
     <div className="inline snap-start transition-opacity">
