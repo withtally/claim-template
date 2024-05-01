@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { AvailableTokensBlock } from "~/components/Layout/AvailableTokensBlock";
 import { OptimisedImage } from "~/components/Layout/OptimisedImage";
 import StepForm from "~/components/ProgressionStepper/StepForm";
+import { useClaimAndDelegate } from "~/hooks/ClaimHooks/useClaimAndDelegate";
 import { Proof } from "~/types/common";
-import { useClaimContext } from "../../../../contexts/ClaimContext";
 
 interface ClaimStepProps {
   onBack: () => void;
@@ -12,18 +12,8 @@ interface ClaimStepProps {
 }
 
 const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit, proof }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { selectedDelegate } = useClaimContext();
-
-  const _onSubmit = () => {
-    setIsSubmitting(true);
-    setTimeout(() => {
-      onSubmit();
-    }, 3000);
-    setTimeout(() => {
-      setIsSubmitting(false);
-    }, 4000);
-  };
+  const { onClaim, claimError, isSubmitting, selectedDelegate } =
+    useClaimAndDelegate();
 
   return (
     <div className="inline snap-start transition-opacity">
@@ -31,7 +21,7 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit, proof }) => {
         isLoading={isSubmitting}
         buttonText="Claim and Delegate"
         onBack={onBack}
-        onSubmit={_onSubmit}
+        onSubmit={() => onClaim({ onSubmit, usersProof: proof })}
         scrollContainerClassName="mt-0"
       >
         <h2 className="w-full text-center text-xl font-bold xs:text-2xl">
@@ -63,6 +53,11 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit, proof }) => {
             </span>
           </div>
         </div>
+        {claimError && (
+          <div className="text-errorColor">
+            An error has occurred, try again.
+          </div>
+        )}
       </StepForm>
     </div>
   );

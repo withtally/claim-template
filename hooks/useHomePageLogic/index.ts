@@ -33,7 +33,7 @@ export const useHomePageLogic = () => {
 
   const checkEligibility = useCallback(() => {
       isConnected ? handleCheckEligibility(null) : onOpenAndCheckEligibility()
-  }, [isConnected])
+  }, [isConnected, handleCheckEligibility, onOpenAndCheckEligibility])
 
   return {
     areDataFetched,
