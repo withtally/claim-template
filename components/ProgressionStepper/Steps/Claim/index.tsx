@@ -42,15 +42,23 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit, proof }) => {
           <span className="text-caption mb-2 block text-xs uppercase">
             You're giving voting rights to
           </span>
-          <div className="flex h-14 items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
+          <div
+            className="grid grid-cols-[40px_minmax(9px,_1fr)] gap-x-4 h-14 w-full rounded-full bg-blue-grey-lighter px-2 items-center">
             <OptimisedImage
-              src={selectedDelegate?.account?.picture || ""}
+              src={
+                selectedDelegate?.account?.picture ||
+                "/img/icons/wallet-placeholder.png"
+              }
               alt="wallet"
               className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
+              layout="cover"
             />
-            <span className="text-caption">
-              {selectedDelegate?.account?.name}
-            </span>
+            <div className="shrink flex-grow">
+              <div className="text-caption truncate">{selectedDelegate?.account?.name}</div>
+              <div className="text-gray-300 truncate text-[12px]">
+                {selectedDelegate?.account?.address}
+              </div>
+            </div>
           </div>
         </div>
         {claimError && (
