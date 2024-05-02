@@ -1,11 +1,23 @@
-import { useState } from 'react'
-import { useClaimContext } from '../../contexts/ClaimContext'
-import { UIconfig } from '~/config/UIconfig'
+import { useState } from "react";
+import { useWaitForTransactionReceipt } from "wagmi";
+import { UIconfig } from "~/config/UIconfig";
+import { getChain } from "~/config/wagmi/getChain";
+import { chainToUse } from "~/constants/site";
+import { useClaimContext } from "../../contexts/ClaimContext";
 
 export const useClaimSuccessLogic = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setIsClaimStepperVisible } = useClaimContext();
-  const { selectedDelegate } = useClaimContext();
+  const { selectedDelegate, transactionHash } = useClaimContext();
+  const chain = getChain(chainToUse);
+
+  console.log("chain2", getChain(chainToUse).chain);
+
+  const { isLoading, isError, isSuccess, isPending, isFetching } =
+    useWaitForTransactionReceipt({
+      hash: transactionHash,
+      chainId: chain.chainId,
+    });
 
   const _onSubmit = () => {
     setIsClaimStepperVisible(false);
@@ -46,6 +58,13 @@ export const useClaimSuccessLogic = () => {
     isSubmitting,
     _onSubmit,
     addToken,
-    selectedDelegate
-  }
-}
+    selectedDelegate,
+    transactionHash,
+    isLoading,
+    isError,
+    isSuccess,
+    isPending,
+    isFetching,
+    chain
+  };
+};

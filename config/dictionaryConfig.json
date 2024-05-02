@@ -35,6 +35,10 @@
         "searchPlaceholder": "Exact ENS or address",
         "chooseDelegate": "Choose a Delegate"
       }
+    },
+
+    "step4": {
+      "errorText": "An error has happened while processing your transaction"
     }
   }
 }
