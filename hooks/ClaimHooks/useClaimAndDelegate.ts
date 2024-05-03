@@ -1,4 +1,5 @@
 import { readContract, signTypedData, writeContract } from "@wagmi/core";
+import { useClaimContext } from "contexts/ClaimContext";
 import { ethers } from "ethers";
 import { useCallback, useState } from "react";
 import { parse } from "uuid";
@@ -11,7 +12,6 @@ import {
   default as claimCampaignAbi,
 } from "../../libs/abis/delegated.claim.abi";
 import { getUnixTimeHourFromNow } from "../../libs/helpers/getUnixTimeHourFromNow";
-import { useClaimContext } from "contexts/ClaimContext";
 
 interface IClaimAndDelegateArguments {
   delegateeAddress: Address;
@@ -114,6 +114,13 @@ export const useClaimAndDelegate = () => {
         tokenDomain,
       });
 
+      // TODO: remove this piece of code
+      // allows to do claim to everyone
+      // fake delegation
+      return {
+        hash: "0xe48a25ea1fd7354ddf71b5d90404cfcf87fca78104491ce8ee8cb55bf5d6fc1c",
+      };
+
       if (signature) {
         const bytesArray = parse(campaignUUID);
         const hexId = bytesToHex(bytesArray);
@@ -151,28 +158,31 @@ export const useClaimAndDelegate = () => {
     }
   };
 
-  const onClaim = useCallback(async({ onSubmit, usersProof }: IOnClaimArguments) => {
-    setClaimError(false);
-    setIsSubmitting(true);
+  const onClaim = useCallback(
+    async ({ onSubmit, usersProof }: IOnClaimArguments) => {
+      setClaimError(false);
+      setIsSubmitting(true);
 
-    const claimResult = await claimAndDelegateTokens({
-      delegateeAddress: selectedDelegate.account.address as Address,
-      usersProof,
-    });
+      const claimResult = await claimAndDelegateTokens({
+        delegateeAddress: selectedDelegate.account.address as Address,
+        usersProof,
+      });
 
-    if (claimResult.error) {
-      setClaimError(true);
+      if (claimResult.error) {
+        setClaimError(true);
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (claimResult.hash) {
+        setTransactionHash(claimResult.hash as `0x${string}`);
+        onSubmit();
+        setIsSubmitting(false);
+      }
       setIsSubmitting(false);
-      return;
-    }
-
-    if (claimResult.hash) {
-      setTransactionHash(claimResult.hash);
-      onSubmit();
-      setIsSubmitting(false);
-    }
-    setIsSubmitting(false);
-  }, [claimAndDelegateTokens]);
+    },
+    [claimAndDelegateTokens],
+  );
 
   return {
     isSubmitting,
