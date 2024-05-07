@@ -60,7 +60,6 @@ export const OptimisedImage: FC<OptimisedImageProps> = ({
             imgClassName,
             LAYOUT[layout],
             {
-              // 'opacity-100': hasLoaded && hasLoadAnimation,
               "opacity-0 blur-sm": !hasLoaded && hasLoadAnimation,
             },
           )}
