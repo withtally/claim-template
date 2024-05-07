@@ -1,13 +1,22 @@
-import { DetailedHTMLProps, ReactNode, FC, AnchorHTMLAttributes } from 'react'
-import cx from 'classnames'
+import cx from "classnames";
+import { AnchorHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from "react";
 
-interface OutgoingLinkProps extends DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {
-  href: string
-  className?: string
-  children: string | ReactNode
+interface OutgoingLinkProps
+  extends DetailedHTMLProps<
+    AnchorHTMLAttributes<HTMLAnchorElement>,
+    HTMLAnchorElement
+  > {
+  href: string;
+  className?: string;
+  children: string | ReactNode;
 }
 
-export const OutgoingLink: FC<OutgoingLinkProps> = ({ href, className, children, ...props }) => (
+export const OutgoingLink: FC<OutgoingLinkProps> = ({
+  href,
+  className,
+  children,
+  ...props
+}) => (
   <a
     href={href}
     target="_blank"
@@ -17,4 +26,4 @@ export const OutgoingLink: FC<OutgoingLinkProps> = ({ href, className, children,
   >
     {children}
   </a>
-)
+);

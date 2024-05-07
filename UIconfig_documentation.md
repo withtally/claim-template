@@ -154,6 +154,19 @@ To remove area follow this steps:
 - Delete area you want
 - Remove any trailing coma
 
+## eligibilityCriterias
+Contains list of eligibility criterias.
+
+To remove eligibility criteria follow this steps:
+
+- Delete criteria you want
+- Remove any trailing coma
+- 
+To add eligibility criteria follow this steps:
+
+- Add trailing coma after last criteria
+- Add criteria you want
+
 ## tokenConversionData
 
 Contains the information to convert your token to human readable format
