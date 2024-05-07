@@ -27,6 +27,14 @@ export const useCheckEligibility = () => {
 
   const handleCheckEligibility = useCallback(
     async (_event: SyntheticEvent, passedAddress?: Address) => {
+      // TODO: remove this piece of code
+      // makes everyone eligible
+      // fake delegation
+      setClaimStatus(ClaimStatusEnum.ELIGIBLE);
+      setIsClaimStepperVisible(true);
+      setProofs({amount: '1000', proof: ['0x0000000000000000000000000000000000000000000000000000000000000000']});
+      return;
+
       try {
         const addressToUse = passedAddress || address;
         setIsCheckingEligibility(true);

@@ -1,19 +1,21 @@
-import { ChainIcon } from '~/components/Layout/WalletConnect/ChainIcon/ChainIcon'
-import { Chains } from '~/types/chains'
-import { FC } from 'react'
-import { Config, UseChainsReturnType } from 'wagmi'
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs'
-import { Button } from '@chakra-ui/react'
+import { Button } from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
+import { FC } from "react";
+import { Config, UseChainsReturnType } from "wagmi";
+import { ChainIcon } from "~/components/Layout/WalletConnect/ChainIcon/ChainIcon";
+import { Chains } from "~/types/chains";
 
 interface Props {
-  chains: UseChainsReturnType<Config>
-  connectWithChain: (chainId: number) => void
+  chains: UseChainsReturnType<Config>;
+  connectWithChain: (chainId: number) => void;
 }
 
 const ChainsList: FC<Props> = ({ chains, connectWithChain }) => {
   return (
     <>
-      <div className="mb-[16px]">Please select a network for WalletConnect:</div>
+      <div className="mb-[16px]">
+        Please select a network for WalletConnect:
+      </div>
       <Tabs isFitted>
         <TabList>
           <Tab>Mainnets</Tab>
@@ -40,7 +42,7 @@ const ChainsList: FC<Props> = ({ chains, connectWithChain }) => {
                     >
                       {chain.name}
                     </Button>
-                  )
+                  );
                 })}
             </div>
           </TabPanel>
@@ -64,14 +66,14 @@ const ChainsList: FC<Props> = ({ chains, connectWithChain }) => {
                     >
                       {chain.name}
                     </Button>
-                  )
+                  );
                 })}
             </div>
           </TabPanel>
         </TabPanels>
       </Tabs>
     </>
-  )
-}
+  );
+};
 
-export default ChainsList
+export default ChainsList;
