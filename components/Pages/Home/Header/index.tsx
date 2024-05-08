@@ -29,7 +29,7 @@ const Header: FC<HeaderProps> = ({
         />
       </div>
       <Container className="flex h-svh min-h-[600px] flex-col items-start justify-center pt-16">
-        <header className="flex flex-col items-start gap-y-3 md:gap-y-4 lg:gap-y-6">
+        <header className="min-w-full flex flex-col items-center xsm:items-start gap-y-3 md:gap-y-4 lg:gap-y-6 ">
           <h1 className="text-display-m">
             {getTextFromDictionary("site_title")}{" "}
             {getTextFromDictionary("home_siteType")}
