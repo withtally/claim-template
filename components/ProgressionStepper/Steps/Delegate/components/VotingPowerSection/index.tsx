@@ -1,9 +1,9 @@
 import { Button } from "@chakra-ui/react";
 import cx from "classnames";
+import { marked } from "marked";
 import { FC, useMemo } from "react";
 import { AvailableTokensBlock } from "~/components/Layout/AvailableTokensBlock";
 import { OptimisedImage } from "~/components/Layout/OptimisedImage";
-import CustomTooltip from "~/components/Layout/Tooltip";
 import { getChain } from "~/config/wagmi/getChain";
 import { chainToUse } from "~/constants/site";
 import { useChainMissmatch } from "~/hooks/useChainMissmatch";
@@ -87,13 +87,15 @@ export const VotingPowerSection: FC<Props> = ({
             </div>
           </div>
 
-          <p
-            className={cx("mb-6", {
+          <div
+            dangerouslySetInnerHTML={{__html: marked.parse(selectedDelegate.statement.statement) as string, }}
+            className={cx("mb-6 border border-red-700 max-w-full flex flex-col gap-y-2", {
               "text-gray-400": !formatedStatementSummaryOrBio,
             })}
           >
-            {formatedStatementSummaryOrBio || "No bio provided"}
-          </p>
+            {/* {formatedStatementSummaryOrBio || "No bio provided"} */}
+            {/* {marked.parse(selectedDelegate.statement.statement)} */}
+          </div>
         </>
       ) : (
         <>

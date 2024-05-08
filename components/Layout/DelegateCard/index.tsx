@@ -21,6 +21,7 @@ export const DelegateCard: FC<Props> = ({
   isSelected,
   setSelectedDelegate,
 }) => {
+  
   const formatedStatementSummaryOrBio = useMemo(() => {
     const statementSummary =
       delegate?.statement?.statementSummary.length > 80
