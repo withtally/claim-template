@@ -1,44 +1,25 @@
-import { useClaimContext } from "contexts/ClaimContext";
-import React, { FC, useMemo } from 'react'
+import { FC } from "react";
 import AnimateOnUpdate from "~/components/Layout/AnimateOnUpdate";
 import Header from "~/components/Pages/Home/Header";
 import ProgessionStepper from "~/components/ProgressionStepper";
-import ClaimStep from "~/components/ProgressionStepper/Steps/Claim";
-import ClaimDenied from "~/components/ProgressionStepper/Steps/ClaimDenied";
-import DelegateStep from "~/components/ProgressionStepper/Steps/Delegate";
-import InitialScreen from "~/components/ProgressionStepper/Steps/Initial";
 import { SEO } from "~/components/SEO";
-import { ClaimStatusEnum } from "~/types/common";
-import { useWalletConnectContext } from '../contexts/WalletConnectContext'
-import ClaimSuccess from '~/components/ProgressionStepper/Steps/ClaimSuccess'
-import { useAccount } from 'wagmi'
+import { useHomePageLogic } from "~/hooks/useHomePageLogic";
 
-// TODO: Rename component
-const HireReactDeveloperPage: FC = () => {
+export const metadata = {
+  icons: {
+    icon: "../punlic/favicon.png", // /public path
+  },
+};
+
+const HomePage: FC = () => {
   const {
     areDataFetched,
     isClaimStepperVisible,
     isCheckingEligibility,
-    handleCheckEligibility,
-    claimStatus,
     proofs,
-  } = useClaimContext();
-
-  const { isConnected } = useAccount();
-
-  const { onOpenAndCheckEligibility } = useWalletConnectContext();
-
-  const components = useMemo(() => {
-    if (claimStatus === ClaimStatusEnum.ELIGIBLE) {
-      return [InitialScreen, DelegateStep, ClaimStep, ClaimSuccess];
-    } else {
-      return [ClaimDenied];
-    }
-  }, [claimStatus]);
-
-  const checkEligibility = () => {
-    isConnected ? handleCheckEligibility(null) : onOpenAndCheckEligibility()
-  }
+    components,
+    checkEligibility,
+  } = useHomePageLogic();
 
   return (
     <>
@@ -65,4 +46,4 @@ const HireReactDeveloperPage: FC = () => {
   );
 };
 
-export default HireReactDeveloperPage;
+export default HomePage;

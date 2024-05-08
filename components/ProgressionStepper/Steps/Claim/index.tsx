@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { AvailableTokensBlock } from "~/components/Layout/AvailableTokensBlock";
 import { OptimisedImage } from "~/components/Layout/OptimisedImage";
 import StepForm from "~/components/ProgressionStepper/StepForm";
+import { useClaimAndDelegate } from "~/hooks/ClaimHooks/useClaimAndDelegate";
 import { Proof } from "~/types/common";
-import { useClaimContext } from "../../../../contexts/ClaimContext";
 
 interface ClaimStepProps {
   onBack: () => void;
@@ -12,18 +12,8 @@ interface ClaimStepProps {
 }
 
 const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit, proof }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { selectedDelegate } = useClaimContext();
-
-  const _onSubmit = () => {
-    setIsSubmitting(true);
-    setTimeout(() => {
-      onSubmit();
-    }, 3000);
-    setTimeout(() => {
-      setIsSubmitting(false);
-    }, 4000);
-  };
+  const { onClaim, claimError, isSubmitting, selectedDelegate } =
+    useClaimAndDelegate();
 
   return (
     <div className="inline snap-start transition-opacity">
@@ -31,7 +21,7 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit, proof }) => {
         isLoading={isSubmitting}
         buttonText="Claim and Delegate"
         onBack={onBack}
-        onSubmit={_onSubmit}
+        onSubmit={() => onClaim({ onSubmit, usersProof: proof })}
         scrollContainerClassName="mt-0"
       >
         <h2 className="w-full text-center text-xl font-bold xs:text-2xl">
@@ -52,17 +42,30 @@ const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit, proof }) => {
           <span className="text-caption mb-2 block text-xs uppercase">
             You're giving voting rights to
           </span>
-          <div className="flex h-14 items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
+          <div
+            className="grid grid-cols-[40px_minmax(9px,_1fr)] gap-x-4 h-14 w-full rounded-full bg-blue-grey-lighter px-2 items-center">
             <OptimisedImage
-              src={selectedDelegate?.account?.picture || ""}
+              src={
+                selectedDelegate?.account?.picture ||
+                "/img/icons/wallet-placeholder.png"
+              }
               alt="wallet"
               className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
+              layout="cover"
             />
-            <span className="text-caption">
-              {selectedDelegate?.account?.name}
-            </span>
+            <div className="shrink flex-grow">
+              <div className="text-caption truncate">{selectedDelegate?.account?.name}</div>
+              <div className="text-gray-300 truncate text-[12px]">
+                {selectedDelegate?.account?.address}
+              </div>
+            </div>
           </div>
         </div>
+        {claimError && (
+          <div className="text-errorColor">
+            An error has occurred, try again.
+          </div>
+        )}
       </StepForm>
     </div>
   );

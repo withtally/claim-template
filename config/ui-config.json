@@ -33,7 +33,7 @@
   "logo": {
     "type": "text",
     "img": "/img/logo/hedgeylogo.png",
-    "text": "Hedgey Claims"
+    "text": "DAO Claims"
   },
   "site": {
     "bgColor": "black",
@@ -79,18 +79,9 @@
     "Protocol"
   ],
   "eligibilityCriterias": [
-    {
-      "name": "Minted RAI and deposited to Aave",
-      "description": "Some info"
-    },
-    {
-      "name": "Provided LP on Uni V2 RAI/ETH",
-      "description": "Some info"
-    },
-    {
-      "name": "Voted on an OP DAO proposal with at least 50 OP",
-      "description": "Some info"
-    }
+     "Minted RAI and deposited to Aave",
+     "Provided LP on Uni V2 RAI/ETH",
+     "Voted on an OP DAO proposal with at least 50 OP"
   ],
   "tokenConversionData": {
     "tokenSymbol": "CGEEKS",

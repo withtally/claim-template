@@ -58,7 +58,7 @@ export const VotingPowerSection: FC<Props> = ({
   }, [selectedDelegate]);
 
   return (
-    <form className="relative z-10 flex h-fit min-h-[75svh] w-full flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md lg:sticky lg:top-[3svh] lg:max-w-[450px]">
+    <form className="relative z-10 flex h-fit lg:min-h-[75svh] w-full flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md lg:sticky lg:top-[3svh] lg:max-w-[450px]">
       <h2 className="text-caption text-subheading mb-6 uppercase">
         {getTextFromDictionary("stepper_step2_votingPowerSection_title")}
       </h2>
@@ -69,20 +69,23 @@ export const VotingPowerSection: FC<Props> = ({
 
       {selectedDelegate ? (
         <>
-          <CustomTooltip label={selectedDelegate?.account?.address}>
-            <div className="mb-6 flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
-              <OptimisedImage
-                src={
-                  selectedDelegate?.account?.picture ||
-                  "/img/icons/wallet-placeholder.png"
-                }
-                alt="wallet"
-                className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
-                layout="cover"
-              />
-              <span className="text-caption truncate">{displayName}</span>
+          <div className="grid grid-cols-[40px_minmax(9px,_1fr)] gap-x-4 h-14 w-full rounded-full bg-blue-grey-lighter px-2 mb-6 items-center">
+            <OptimisedImage
+              src={
+                selectedDelegate?.account?.picture ||
+                "/img/icons/wallet-placeholder.png"
+              }
+              alt="wallet"
+              className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
+              layout="cover"
+            />
+            <div className="shrink flex-grow">
+              <div className="text-caption truncate">{displayName}</div>
+              <div className="text-gray-300 truncate text-[12px]">
+                {selectedDelegate?.account?.address}
+              </div>
             </div>
-          </CustomTooltip>
+          </div>
 
           <p
             className={cx("mb-6", {
@@ -94,7 +97,7 @@ export const VotingPowerSection: FC<Props> = ({
         </>
       ) : (
         <>
-          <p className="m-auto flex-1 text-gray-400">
+          <p className="m-auto flex-1 text-gray-400 max-lg:mb-2">
             {getTextFromDictionary("stepper_step2_delegate_chooseDelegate")}
           </p>
         </>

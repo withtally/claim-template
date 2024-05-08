@@ -13,7 +13,14 @@ interface SEOProps {
   metadata?: Metadata;
 }
 
-export const SEO: FC<SEOProps> = ({ title, description, image, author, publishedTime, metadata }) => {
+export const SEO: FC<SEOProps> = ({
+  title,
+  description,
+  image,
+  author,
+  publishedTime,
+  metadata,
+}) => {
   const { pathname } = useRouter();
 
   // const favicon = process.env.siteFavicon
@@ -26,23 +33,16 @@ export const SEO: FC<SEOProps> = ({ title, description, image, author, published
   const siteName = getTextFromDictionary("site_title");
   const metaTitle = title ? `${title} | ${siteName}` : siteName;
   // const siteFavicon = favicon
-  const imagePreview = _image?.includes("https://") ? _image : `${process.env.siteUrl}${_image}`;
+  const imagePreview = _image?.includes("https://")
+    ? _image
+    : `${process.env.siteUrl}${_image}`;
 
   return (
     <Head>
       <meta charSet="utf-8" />
-      <meta
-        httpEquiv="X-UA-Compatible"
-        content="IE=edge"
-      />
-      <meta
-        property="title"
-        content={metaTitle}
-      />
-      <meta
-        name="description"
-        content={metaDescription}
-      />
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      <meta property="title" content={metaTitle} />
+      <meta name="description" content={metaDescription} />
       {publishedTime && (
         <meta
           name="publish_date"
@@ -50,86 +50,37 @@ export const SEO: FC<SEOProps> = ({ title, description, image, author, published
           content={publishedTime}
         />
       )}
-      {author && (
-        <meta
-          name="author"
-          content={author}
-        />
-      )}
+      {author && <meta name="author" content={author} />}
       <link
-        href="https://app.hedgey.finance/favicon-dark.svg"
-        rel="icon"
-        media="(prefers-color-scheme: light)"
-      />
-      <link
-        href="https://app.hedgey.finance/favicon-light.svg"
+        href="../../public/favicon.ico"
         rel="icon"
         media="(prefers-color-scheme: dark)"
       />
       {/* Open Graph */}
-      <meta
-        property="og:title"
-        content={metaTitle}
-        key="ogtitle"
-      />
+      <meta property="og:title" content={metaTitle} key="ogtitle" />
       <meta
         name="image"
         property="og:image"
         content={imagePreview}
         key="ogimage"
       />
-      <meta
-        property="og:site_name"
-        content={siteName}
-        key="ogsitename"
-      />
-      <meta
-        property="og:description"
-        content={metaDescription}
-        key="ogdesc"
-      />
-      <meta
-        property="og:type"
-        content="website"
-      />
+      <meta property="og:site_name" content={siteName} key="ogsitename" />
+      <meta property="og:description" content={metaDescription} key="ogdesc" />
+      <meta property="og:type" content="website" />
 
       {/* <!-- Facebook Meta Tags --> */}
-      <meta
-        property="og:url"
-        content={`${siteUrl}${pathname}`}
-      />
+      <meta property="og:url" content={`${siteUrl}${pathname}`} />
 
       {/* <!-- Twitter Meta Tags --> */}
-      <meta
-        property="twitter:domain"
-        content={siteDomain}
-      />
-      <meta
-        property="twitter:url"
-        content={siteUrl}
-      />
-      <meta
-        name="twitter:card"
-        content="summary_large_image"
-      />
-      <meta
-        name="twitter:title"
-        content={metaTitle}
-      />
-      <meta
-        name="twitter:description"
-        content={metaDescription}
-      />
-      <meta
-        name="twitter:image"
-        content={imagePreview}
-      />
+      <meta property="twitter:domain" content={siteDomain} />
+      <meta property="twitter:url" content={siteUrl} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={metaTitle} />
+      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:image" content={imagePreview} />
 
       {/* Tab theme colour */}
-      <meta
-        name="theme-color"
-        content="#FF6900"
-      />
+      <meta name="theme-color" content="#FF6900" />
 
       <title>{metaTitle}</title>
     </Head>

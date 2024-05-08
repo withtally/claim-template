@@ -1,17 +1,28 @@
-import React, { ReactNode, createContext, useContext, SyntheticEvent } from 'react'
+import React, {
+  ReactNode,
+  SyntheticEvent,
+  createContext,
+  useContext,
+} from "react";
 import { useCheckEligibility } from "~/hooks/ClaimHooks/useCheckEligibility";
 import { useDelegateSelector } from "~/hooks/delegateStep/useDelegateSelection";
+import { useHash } from "~/hooks/useHash";
 import { Address, ClaimStatusEnum, Proof } from "~/types/common";
 import { Delegate } from "~/types/delegate";
 
 type ClaimContextType = {
+  transactionHash: Address;
+  setTransactionHash: React.Dispatch<React.SetStateAction<Address>>;
   proofs: Proof | undefined;
   areDataFetched: boolean;
   claimStatus: ClaimStatusEnum;
   isClaimStepperVisible: boolean;
   isCheckingEligibility: boolean;
   setIsClaimStepperVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  handleCheckEligibility: (event: SyntheticEvent, passedAddress?: Address) => Promise<void>;
+  handleCheckEligibility: (
+    event: SyntheticEvent,
+    passedAddress?: Address,
+  ) => Promise<void>;
   checkEligibilityOfAnotherWallet: (
     address: Address,
   ) => Promise<ClaimStatusEnum>;
@@ -32,6 +43,8 @@ const useClaimContext = () => {
 const ClaimContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const { transactionHash, setTransactionHash } = useHash();
+
   const {
     proofs,
     areDataFetched,
@@ -46,6 +59,8 @@ const ClaimContextProvider: React.FC<{ children: ReactNode }> = ({
   const { selectedDelegate, onDelegateSelect } = useDelegateSelector();
 
   const contextValues: ClaimContextType = {
+    transactionHash,
+    setTransactionHash,
     proofs,
     areDataFetched,
     claimStatus,

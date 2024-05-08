@@ -48,7 +48,7 @@ const ClaimDeniedScreen: FC<Props> = ({ proof }) => {
                         key={i}
                         className="gap-x-4 first:mt-2 items-center"
                       >
-                        <span>{criteria.name}</span>
+                        <span>{criteria}</span>
                       </ListItem>
                     ))}
                   </UnorderedList>

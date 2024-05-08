@@ -8,14 +8,10 @@ module.exports = {
   reactStrictMode: false,
   swcMinify: true,
   env: {
-    // siteDomain: 'grg.com.au',
-    // projectName: 'Hedgey Claims',
-    siteDomain: 'app.hedgey.finance',
-    // siteTitle: ' | Hedgey Claims',
-    siteDescription:
-      '',
-    siteUrl: 'https://hedgey-claims.vercel.app',
-    siteImagePreviewURL: 'https://app.hedgey.finance/wordmark-twitter-card.jpg',
+    siteDomain: 'app.dao.finance',
+    siteDescription: '',
+    siteUrl: 'https://dao-claims.vercel.app',
+    // siteImagePreviewURL: 'https://app.hedgey.finance/wordmark-twitter-card.jpg',
   },
 
   images: {

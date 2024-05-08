@@ -22,11 +22,19 @@ export const useCheckEligibility = () => {
   const { infoToast, errorToast } = useCustomToasters();
 
   // TODO: use values from config
-  const contractAddress = "0x923b523b8ca37c5ea7bd990d1a98293495812be6";
-  const campaignUUID = "ea623f96-3806-4393-b995-aae93b6d3d55";
+  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+  const campaignUUID = process.env.NEXT_PUBLIC_CAMPAIGN_UUID;
 
   const handleCheckEligibility = useCallback(
     async (_event: SyntheticEvent, passedAddress?: Address) => {
+      // TODO: remove this piece of code
+      // makes everyone eligible
+      // fake delegation
+      setClaimStatus(ClaimStatusEnum.ELIGIBLE);
+      setIsClaimStepperVisible(true);
+      setProofs({amount: '1000', proof: ['0x0000000000000000000000000000000000000000000000000000000000000000']});
+      return;
+
       try {
         const addressToUse = passedAddress || address;
         setIsCheckingEligibility(true);
@@ -50,9 +58,10 @@ export const useCheckEligibility = () => {
         setProofs(proofsAndAmount);
 
         const hexId = parseUuidToHex(campaignUUID);
+
         const walletAlreadyClaimed = await readContract(config, {
           abi,
-          address: contractAddress,
+          address: contractAddress as Address,
           args: [hexId, addressToUse],
           functionName: "claimed",
         });
@@ -83,7 +92,7 @@ export const useCheckEligibility = () => {
         const hexId = parseUuidToHex(campaignUUID);
         const walletAlreadyClaimed = await readContract(config, {
           abi,
-          address: contractAddress,
+          address: contractAddress as Address,
           args: [hexId, address],
           functionName: "claimed",
         });
