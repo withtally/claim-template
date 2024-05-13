@@ -2,11 +2,11 @@ import { Button } from "@chakra-ui/react";
 import { FC, MouseEvent, useMemo } from 'react'
 import { Connector } from "wagmi";
 import { WalletIcon } from "~/components/Layout/WalletConnect/WalletIcon";
-import { WALLLET_CONNECT_ID } from "~/constants/site";
 import { WalletConnectors } from "~/types/wallet-connectors";
 import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
 import {isMobile} from "~/utils/isMobile";
 import { isInjectedConnector, isInjectedMetaMaskConnector, isMetaMaskConnector } from '~/utils/connectors'
+import Image from 'next/image'
 
 interface Props {
   connectors: readonly Connector[]
@@ -23,7 +23,11 @@ const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler }) => {
         if(isInjectedMetaMaskConnector(connector)){
           return true;
         }
-        return !isInjectedConnector(connector) && !isMetaMaskConnector(connector);
+        if(!isInjectedConnector(connector) && isMetaMaskConnector(connector)){
+          return false;
+        }
+
+        return true;
       })
 
     }else{
@@ -58,10 +62,14 @@ const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler }) => {
               variant="connectWallet"
               key={connector.name}
               rightIcon={
-                <WalletIcon
-                  className="size-10"
-                  walletName={connector.name as WalletConnectors}
-                />
+                connector?.icon ? (
+                    <Image src={connector?.icon} alt="connector icon" width={0} height={0} className="size-10"/>
+                  ) : (
+                    <WalletIcon
+                      className="size-10"
+                      walletName={connector.name as WalletConnectors}
+                    />
+                  )
               }
               iconSpacing="auto"
               onClick={defaultConnectHandler(connector)}

@@ -6,6 +6,7 @@ import { WalletConnectors } from "~/types/wallet-connectors";
 import { shortenAddress } from "../../../../../../libs/helpers/shortenAddress";
 import Copy from "../../../../../../public/img/icons/copy.svg";
 import { WalletIcon } from "../../../WalletIcon";
+import Image from 'next/image'
 
 interface Props {
   onDisconnect: () => void;
@@ -15,16 +16,21 @@ interface Props {
 }
 
 export const DisconnectContent: FC<Props> = ({ address, connector }) => {
-  const connectorName = connector?.name;
   const { successToast } = useCustomToasters();
 
   return (
     <>
       <div className="flex flex-col items-center justify-between gap-6">
-        <WalletIcon
-          className="size-14"
-          walletName={connectorName as WalletConnectors}
-        />
+        {
+          connector?.icon ? (
+            <Image src={connector?.icon} alt="connector icon" width={0} height={0} className="size-10"/>
+          ) : (
+            <WalletIcon
+              className="size-10"
+              walletName={connector.name as WalletConnectors}
+            />
+          )
+        }
 
         <div className="flex items-center justify-between gap-[10px]">
           <span>{address && shortenAddress(address)}</span>

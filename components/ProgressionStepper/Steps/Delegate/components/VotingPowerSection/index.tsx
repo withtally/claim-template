@@ -2,13 +2,12 @@ import { Button } from "@chakra-ui/react";
 import cx from "classnames";
 import { FC, useMemo } from "react";
 import { AvailableTokensBlock } from "~/components/Layout/AvailableTokensBlock";
-import { OptimisedImage } from "~/components/Layout/OptimisedImage";
-import CustomTooltip from "~/components/Layout/Tooltip";
+import { SelectedDelegateBlock } from "~/components/Layout/SelectedDelegateBlock";
 import { getChain } from "~/config/wagmi/getChain";
 import { chainToUse } from "~/constants/site";
 import { useChainMissmatch } from "~/hooks/useChainMissmatch";
 import useCustomToasters from "~/hooks/useToasters";
-import { Proof } from "~/types/common";
+import { Address, Proof } from "~/types/common";
 import { Delegate } from "~/types/delegate";
 import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
 import { shortenAddress } from "../../../../../../libs/helpers/shortenAddress";
@@ -69,24 +68,11 @@ export const VotingPowerSection: FC<Props> = ({
 
       {selectedDelegate ? (
         <>
-          <div className="grid grid-cols-[40px_minmax(9px,_1fr)] gap-x-4 h-14 w-full rounded-full bg-blue-grey-lighter px-2 mb-6 items-center">
-            <OptimisedImage
-              src={
-                selectedDelegate?.account?.picture ||
-                "/img/icons/wallet-placeholder.png"
-              }
-              alt="wallet"
-              className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
-              layout="cover"
-            />
-            <div className="shrink flex-grow">
-              <div className="text-caption truncate">{displayName}</div>
-              <div className="text-gray-300 truncate text-[12px]">
-                {selectedDelegate?.account?.address}
-              </div>
-            </div>
-          </div>
-
+          <SelectedDelegateBlock
+            address={selectedDelegate?.account?.address as Address}
+            name={selectedDelegate?.account?.name}
+            picture={selectedDelegate?.account?.picture}
+          />
           <p
             className={cx("mb-6", {
               "text-gray-400": !formatedStatementSummaryOrBio,
