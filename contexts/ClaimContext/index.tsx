@@ -28,6 +28,7 @@ type ClaimContextType = {
   ) => Promise<ClaimStatusEnum>;
   selectedDelegate: Delegate;
   onDelegateSelect: (delegate: Delegate) => void;
+  delegateToMyself: (onSubmit: () => void) => void;
 };
 
 const ClaimContext = createContext<ClaimContextType | undefined>(undefined);
@@ -56,7 +57,7 @@ const ClaimContextProvider: React.FC<{ children: ReactNode }> = ({
     checkEligibilityOfAnotherWallet,
   } = useCheckEligibility();
 
-  const { selectedDelegate, onDelegateSelect } = useDelegateSelector();
+  const { selectedDelegate, onDelegateSelect, delegateToMyself } = useDelegateSelector();
 
   const contextValues: ClaimContextType = {
     transactionHash,
@@ -71,6 +72,7 @@ const ClaimContextProvider: React.FC<{ children: ReactNode }> = ({
     checkEligibilityOfAnotherWallet,
     selectedDelegate,
     onDelegateSelect,
+    delegateToMyself,
   };
 
   return (
