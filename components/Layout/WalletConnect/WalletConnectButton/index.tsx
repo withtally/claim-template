@@ -7,10 +7,10 @@ import { WalletConnectors } from "~/types/wallet-connectors";
 import { useWalletConnectContext } from "../../../../contexts/WalletConnectContext";
 import { shortenAddress } from "../../../../libs/helpers/shortenAddress";
 import { WalletIcon } from "../WalletIcon";
+import Image from 'next/image'
 
 export const WalletConnector: FC = () => {
   const { address, isConnected, connector } = useAccount();
-  const connectorName = connector?.name;
 
   const { onOpenConnectPopup } = useWalletConnectContext();
   const isChainMissmatched = useChainMissmatch();
@@ -25,10 +25,16 @@ export const WalletConnector: FC = () => {
             <span className="pl-2">Wrong chain</span>
           ) : (
             <>
-              <WalletIcon
-                className="size-7"
-                walletName={connectorName as WalletConnectors}
-              />
+              {
+                connector?.icon ? (
+                  <Image src={connector?.icon} alt="connector icon" width={0} height={0} className="size-10"/>
+                ) : (
+                  <WalletIcon
+                    className="size-10"
+                    walletName={connector.name as WalletConnectors}
+                  />
+                )
+              }
               <span>{shortenAddress(address)}</span>
             </>
           )}
