@@ -22,10 +22,12 @@ interface DelegateStepProps {
 
 const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
   const { delegates, isError, error, isFetched, isLoading } = useGetDelegates();
-  const { selectedDelegate, onDelegateSelect } = useClaimContext();
+  const { selectedDelegate, onDelegateSelect, delegateToMyself } = useClaimContext();
   const [isScrollToTopVisible, setIsScrollToTopVisible] =
     useState<boolean>(false);
+
   const ref = useRef<HTMLDivElement | null>();
+
   const {
     processedDelegates,
     searchValue,
@@ -56,6 +58,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
     };
   }, []);
 
+
   return (
     <div className="inline snap-start transition-opacity">
       <section
@@ -83,17 +86,18 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                 {getTextFromDictionary("stepper_step2_delegate_chooseDelegate")}
               </h2>
               <p className="text-md mb-4 text-gray-400 md:text-md xl:text-xl">
-                {/*Pick someone who you believe will be invested in growing the ecosystem.*/}
-                {/*<br />*/}
-                {/*<b>You will keep all of your tokens.</b> The delegate only gets the voting power alloted to your token*/}
-                {/*value. You can keep voting power for yourself or redelegate at any time.*/}
                 {getTextFromDictionary("stepper_step2_delegate_paragraph1")}
                 <br />
                 <b>{getTextFromDictionary("stepper_step2_delegate_bold")}</b>
                 {getTextFromDictionary("stepper_step2_delegate_paragraph2")}
                 {getTextFromDictionary("stepper_step2_delegate_paragraph1")}
               </p>
-              <button className="mb-10 transition-colors hover:text-blue ">
+
+              {/* --- */}
+              <button
+                className="mb-10 transition-colors hover:text-blue"
+                onClick={()=> {delegateToMyself(onSubmit)}}
+              >
                 <span className="text-sm md:text-md xl:text-base">
                   <u>
                     {getTextFromDictionary(
@@ -102,6 +106,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                   </u>
                 </span>
               </button>
+              {/* --- */}
 
               <div className="mb-10 flex flex-nowrap gap-4">
                 <div className="flex-1 xl:basis-[40%]">
@@ -168,13 +173,13 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
 
                   {canLoadMoreDelegates && (
                     <Button
-                      size='md'
+                      size="md"
                       onClick={loadNextChunkOfDelegates}
                       className="mx-auto mt-10 w-[200px]"
                     >
                       Load more
                     </Button>
-                  )} 
+                  )}
                 </div>
               )}
 

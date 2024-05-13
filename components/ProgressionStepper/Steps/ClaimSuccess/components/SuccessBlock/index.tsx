@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import Link from "next/link";
 import { FC } from "react";
 import { AvailableTokensBlock } from "~/components/Layout/AvailableTokensBlock";
-import { OptimisedImage } from "~/components/Layout/OptimisedImage";
+import { SelectedDelegateBlock } from "~/components/Layout/SelectedDelegateBlock";
 import { Address } from "~/types/common";
 import { Delegate } from "~/types/delegate";
 
@@ -34,21 +34,13 @@ export const SuccessBlock: FC<Props> = ({
 
       <div className="mb-6" />
 
-      <div className="mb-2 md:mb-4 w-full">
-        <span className="text-caption mb-2 block text-xs uppercase">
-          You have given voting rights to
-        </span>
-        <div className="flex h-14 items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
-          <OptimisedImage
-            src={selectedDelegate?.account?.picture || ""}
-            alt="wallet"
-            className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
-          />
-          <span className="text-caption">
-            {selectedDelegate?.account?.name}
-          </span>
-        </div>
-      </div>
+      <SelectedDelegateBlock
+        address={selectedDelegate?.account?.address as Address}
+        name={selectedDelegate?.account?.name}
+        picture={selectedDelegate?.account?.picture}
+        title="You have given voting rights to"
+      />
+
       <div className="w-full flex gap-4 flex-wrap">
         <Link
           href={`${chain.chain.blockExplorers.default.url}/tx/${transactionHash}`}

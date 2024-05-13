@@ -11,8 +11,6 @@ export const useClaimSuccessLogic = () => {
   const { selectedDelegate, transactionHash } = useClaimContext();
   const chain = getChain(chainToUse);
 
-  console.log("chain2", getChain(chainToUse).chain);
-
   const { isLoading, isError, isSuccess, isPending, isFetching } =
     useWaitForTransactionReceipt({
       hash: transactionHash,
