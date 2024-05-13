@@ -93,7 +93,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                 {getTextFromDictionary("stepper_step2_delegate_paragraph1")}
               </p>
 
-              {/* --- */}
               <button
                 className="mb-10 transition-colors hover:text-blue"
                 onClick={()=> {delegateToMyself(onSubmit)}}
@@ -106,7 +105,6 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                   </u>
                 </span>
               </button>
-              {/* --- */}
 
               <div className="mb-10 flex flex-nowrap gap-4">
                 <div className="flex-1 xl:basis-[40%]">
