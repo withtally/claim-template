@@ -106,8 +106,8 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                 </span>
               </button>
 
-              <div className="mb-10 flex flex-nowrap gap-4">
-                <div className="flex-1 xl:basis-[40%]">
+              <div className="mb-10 flex max-xsm:flex-wrap xl:flex-nowrap gap-4">
+                <div className="grow max-xsm:shrink-0 max-xsm:basis-[100%] xl:basis-[40%]">
                   <Input
                     inputGroupClassName=""
                     value={searchValue}
@@ -136,7 +136,7 @@ const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
                     className="truncate"
                   />
                 </div>
-                <div className="xl:hidden">
+                <div className="xl:hidden max-xsm:grow max-xsm:shrink-0 max-xsm:basis-[100%]">
                   <MobileMilterMenu
                     selectedArea={selectedArea}
                     setSelectedArea={setSelectedArea}
