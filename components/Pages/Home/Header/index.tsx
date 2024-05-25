@@ -28,8 +28,8 @@ const Header: FC<HeaderProps> = ({
           className="w-[40vw] max-w-[600px] overflow-hidden rounded-md "
         />
       </div>
-      <Container className="flex h-svh min-h-[600px] flex-col items-start justify-center pt-16">
-        <header className="min-w-full flex flex-col items-center xsm:items-start gap-y-3 md:gap-y-4 lg:gap-y-6 ">
+      <Container className="flex h-svh min-h-[600px] flex-col xsm:items-start justify-center pt-16">
+        <header className="flex flex-col items-start gap-y-3 md:gap-y-4 lg:gap-y-6">
           <h1 className="text-display-m">
             {getTextFromDictionary("site_title")}{" "}
             {getTextFromDictionary("home_siteType")}
@@ -40,7 +40,7 @@ const Header: FC<HeaderProps> = ({
           <Button
             onClick={onClick}
             isLoading={isLoading}
-            className="!min-w-[200px]"
+            className="!min-w-[200px] max-xsm:mx-auto max-xsm:mt-2"
           >
             {getTextFromDictionary("home_checkEligibilityButton")}
           </Button>
