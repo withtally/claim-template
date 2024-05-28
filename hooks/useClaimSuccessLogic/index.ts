@@ -47,7 +47,6 @@ export const useClaimSuccessLogic = () => {
         },
       });
 
-      // TODO: conect it to ui
       if (wasAdded) {
         successToast({ title: "Token was added to your wallet!" })
       } else {

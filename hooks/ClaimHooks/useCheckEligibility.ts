@@ -21,14 +21,12 @@ export const useCheckEligibility = () => {
   const { infoToast, errorToast } = useCustomToasters();
 
   useEffect(() => {
-    console.log("address", address)
     if(Boolean(address)){
-      console.log("switched to another account", address)
       setIsClaimStepperVisible(false);
     }
   },[address])
 
-  // TODO: use values from config
+
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
   const campaignUUID = process.env.NEXT_PUBLIC_CAMPAIGN_UUID;
 
@@ -54,9 +52,11 @@ export const useCheckEligibility = () => {
           return;
         }
 
+        // look for valid proof for the address
         const proofsAndAmount = proofsToCheck.find(
           (proof) => proof.address === addressToUse
         );
+
 
         if (!proofsAndAmount) {
           setProofs(null);
