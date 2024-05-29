@@ -5,7 +5,12 @@ import { WalletIcon } from "~/components/Layout/WalletConnect/WalletIcon";
 import { WalletConnectors } from "~/types/wallet-connectors";
 import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
 import {isMobile} from "~/utils/isMobile";
-import { isInjectedConnector, isInjectedMetaMaskConnector, isMetaMaskConnector } from '~/utils/connectors'
+import {
+  isInjectedCoinbaseWalletConnector,
+  isInjectedConnector,
+  isInjectedMetaMaskConnector,
+  isMetaMaskConnector,
+} from '~/utils/connectors'
 import Image from 'next/image'
 
 interface Props {
@@ -23,6 +28,11 @@ const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler }) => {
         if(isInjectedMetaMaskConnector(connector)){
           return true;
         }
+
+        if(isInjectedCoinbaseWalletConnector(connector)){
+          return false;
+        }
+
         if(!isInjectedConnector(connector) && isMetaMaskConnector(connector)){
           return false;
         }
