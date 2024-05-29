@@ -4,11 +4,15 @@ import { UIconfig } from "~/config/UIconfig";
 import { getChain } from "~/config/wagmi/getChain";
 import { chainToUse } from "~/constants/site";
 import { useClaimContext } from "../../contexts/ClaimContext";
+import { Address } from '~/types/common'
+import useCustomToasters from '~/hooks/useToasters'
 
 export const useClaimSuccessLogic = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setIsClaimStepperVisible } = useClaimContext();
   const { selectedDelegate, transactionHash } = useClaimContext();
+  const { successToast, errorToast } = useCustomToasters();
+
   const chain = getChain(chainToUse);
 
   const { isLoading, isError, isSuccess, isPending, isFetching } =
@@ -22,6 +26,8 @@ export const useClaimSuccessLogic = () => {
   };
 
   const addToken = async () => {
+    const tokenAddress = process.env.NEXT_PUBLIC_TOKEN as Address;
+
     try {
       await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -32,9 +38,9 @@ export const useClaimSuccessLogic = () => {
         params: {
           type: "ERC20",
           options: {
-            address: "0x11aF999d883730a268cF71481D1028DAd8334534",
+            address: tokenAddress,
             symbol: UIconfig.tokenConversionData.tokenSymbol,
-            decimals: 18,
+            decimals: UIconfig.tokenConversionData.decimals,
             // A string URL of the token logo.
             // image: tokenImage,
           },
@@ -43,9 +49,9 @@ export const useClaimSuccessLogic = () => {
 
       // TODO: conect it to ui
       if (wasAdded) {
-        console.log("Thanks for your interest!");
+        successToast({ title: "Token was added to your wallet!" })
       } else {
-        console.log("Your loss!");
+        errorToast({ title: "Something went wrong. Please try again later." })
       }
     } catch (e) {
       console.error(e);
