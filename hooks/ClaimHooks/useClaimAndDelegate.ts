@@ -7,10 +7,7 @@ import { bytesToHex } from "viem";
 import { useAccount, type BaseError } from "wagmi";
 import { Address, Proof } from "~/types/common";
 import { config } from "../../config/wagmi/config";
-import {
-  default as abi,
-  default as claimCampaignAbi,
-} from "../../libs/abis/delegated.claim.abi";
+import { default as claimCampaignAbi } from "../../libs/abis/delegated.claim.abi";
 import { getUnixTimeHourFromNow } from "../../libs/helpers/getUnixTimeHourFromNow";
 
 interface IClaimAndDelegateArguments {
@@ -57,7 +54,7 @@ export const useClaimAndDelegate = () => {
 
   const getDomain = useCallback(async () => {
     const tokenDomain = await readContract(config, {
-      abi,
+      abi: claimCampaignAbi,
       address: token,
       functionName: "eip712Domain",
     });
