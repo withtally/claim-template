@@ -93,7 +93,7 @@ Go to file [getChain.ts](./config/wagmi/getChain.ts). Add name of import(for Eth
 **useClaimSuccessLogic** - the logic for the Success page.
 
 ### useHash
-**useHash** - Safes the hash of the transaction.
+**useHash** - Saves the hash of the transaction.
 
 ### useHomePageLogic
 **Safes the hash of the transaction** - Logic for home page.
