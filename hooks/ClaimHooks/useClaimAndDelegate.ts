@@ -114,9 +114,9 @@ export const useClaimAndDelegate = () => {
       // TODO: remove this piece of code
       // allows to do claim to everyone
       // fake delegation
-      return {
-        hash: "0xe48a25ea1fd7354ddf71b5d90404cfcf87fca78104491ce8ee8cb55bf5d6fc1c",
-      };
+      // return {
+      //   hash: "0xe48a25ea1fd7354ddf71b5d90404cfcf87fca78104491ce8ee8cb55bf5d6fc1c",
+      // };
 
       if (signature) {
         const bytesArray = parse(campaignUUID);

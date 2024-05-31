@@ -1,12 +1,18 @@
 import { readContract } from "@wagmi/core";
-import { SyntheticEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useAccount } from "wagmi";
+import { useGetProofs } from "~/hooks/ClaimHooks/useGetProofs";
 import { Address, ClaimStatusEnum, Proof } from "~/types/common";
 import { config } from "../../config/wagmi/config";
 import abi from "../../libs/abis/delegated.claim.abi";
 import { parseUuidToHex } from "../../libs/helpers/parseUuidToHex";
 import useCustomToasters from "../useToasters";
-import { useGetProofs } from '~/hooks/ClaimHooks/useGetProofs'
 
 export const useCheckEligibility = () => {
   const [proofs, setProofs] = useState<Proof | null>(null);
@@ -18,14 +24,13 @@ export const useCheckEligibility = () => {
 
   const { proofs: proofsToCheck, isFetched: isProofsFetched } = useGetProofs();
   const { address, isDisconnected } = useAccount();
-  const { infoToast, errorToast } = useCustomToasters();
+  const { infoToast } = useCustomToasters();
 
   useEffect(() => {
-    if(Boolean(address)){
+    if (Boolean(address)) {
       setIsClaimStepperVisible(false);
     }
-  },[address])
-
+  }, [address]);
 
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
   const campaignUUID = process.env.NEXT_PUBLIC_CAMPAIGN_UUID;
@@ -35,10 +40,10 @@ export const useCheckEligibility = () => {
       // TODO: remove this piece of code
       // makes everyone eligible
       // fake delegation
-      setClaimStatus(ClaimStatusEnum.ELIGIBLE);
-      setIsClaimStepperVisible(true);
-      setProofs({amount: '1000', proof: ['0x0000000000000000000000000000000000000000000000000000000000000000']});
-      return;
+      // setClaimStatus(ClaimStatusEnum.ELIGIBLE);
+      // setIsClaimStepperVisible(true);
+      // setProofs({amount: '1000', proof: ['0x0000000000000000000000000000000000000000000000000000000000000000']});
+      // return;
 
       try {
         const addressToUse = passedAddress || address;
@@ -54,9 +59,10 @@ export const useCheckEligibility = () => {
 
         // look for valid proof for the address
         const proofsAndAmount = proofsToCheck.find(
-          (proof) => proof.address === addressToUse
+          (proof) =>
+            proof.address.toLocaleLowerCase() ===
+            addressToUse.toLocaleLowerCase(),
         );
-
 
         if (!proofsAndAmount) {
           setProofs(null);
@@ -64,7 +70,10 @@ export const useCheckEligibility = () => {
           setIsClaimStepperVisible(true);
           return;
         }
-        setProofs({amount: `${proofsAndAmount.amount}`, proof: proofsAndAmount.proof});
+        setProofs({
+          amount: `${proofsAndAmount.amount}`,
+          proof: proofsAndAmount.proof,
+        });
 
         const hexId = parseUuidToHex(campaignUUID);
 
@@ -98,8 +107,10 @@ export const useCheckEligibility = () => {
       setIsCheckingEligibility(true);
       try {
         const proofs = proofsToCheck.find(
-          (proof) => proof.address === address
+          (proof) =>
+            proof.address.toLocaleLowerCase() === address.toLocaleLowerCase(),
         );
+
         const hexId = parseUuidToHex(campaignUUID);
         const walletAlreadyClaimed = await readContract(config, {
           abi,
@@ -130,10 +141,7 @@ export const useCheckEligibility = () => {
     [proofsToCheck],
   );
 
-  const areDataFetched = useMemo(
-    () => isProofsFetched,
-    [isProofsFetched],
-  );
+  const areDataFetched = useMemo(() => isProofsFetched, [isProofsFetched]);
 
   return {
     proofs,

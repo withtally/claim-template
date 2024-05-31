@@ -12,7 +12,7 @@ export const config = createConfig({
   connectors: [
     metaMask(),
     walletConnect({
-      projectId: "77804d9f3d662d865161a11b1c286c92",
+      projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string,
       qrModalOptions: {
         themeVariables: {
           "--wcm-z-index": "9999999"
