@@ -65,3 +65,42 @@ We are supporting only this list of chains:
 You can add another chain as well. Visit [wagmi chains docs](https://wagmi.sh/react/api/chains). Find chain that you need. For example, Ethereum. Under name of chain there is name of import.
 
 Go to file [getChain.ts](./config/wagmi/getChain.ts). Add name of import(for Ethereum it's "mainnet") to import object and to availableChains object. Here you go, now you can use new chain on website.
+
+## HOOKS
+### ClaimHooks
+**useCheckEligibility** - checks if a user is eligible for a claim.
+
+**useClaimAndDelegate** - claims tokens and delegates them to a selected delegate.
+
+**useGetProofs** - get proofs from a CDN.
+
+### DelegateStep
+
+**useDelegateSelection** - the logic for selecting a delegate.
+
+**useGetDelegates** - Fetches the delegates from the CDN.
+
+**useSortAndFilterDelegates** - Logic for sorting and filtering the delegates.
+
+### useChainMismatch
+**useChainMismatch** - Checks if the chain is the same on your wallet and the app.
+
+### useCheckAnotherWalletLogic
+**useCheckAnotherWalletLogic** - check eligibility of another wallet by address.
+
+### useClaimSuccessLogic
+
+**useClaimSuccessLogic** - the logic for the Success page.
+
+### useHash
+**useHash** - Saves the hash of the transaction.
+
+### useHomePageLogic
+**Safes the hash of the transaction** - Logic for home page.
+
+### useToasters
+**useCustomToasters** - custom toaster (errorToast, successToast, warningToast, infoToast, loadingToast)
+
+### useWalletConnect
+
+**useWalletConnect** - Logic for connecting wallets.
