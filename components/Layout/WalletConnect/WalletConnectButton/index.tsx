@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { FC } from "react";
 import { useAccount } from "wagmi";
-import { useChainMissmatch } from "~/hooks/useChainMissmatch";
+import { useChainMismatch } from "~/hooks/useChainMismatch";
 import ChevronDownIcon from "~/public/img/icons/chevron-down.svg";
 import { WalletConnectors } from "~/types/wallet-connectors";
 import { useWalletConnectContext } from "../../../../contexts/WalletConnectContext";
@@ -13,7 +13,7 @@ export const WalletConnector: FC = () => {
   const { address, isConnected, connector } = useAccount();
 
   const { onOpenConnectPopup } = useWalletConnectContext();
-  const isChainMissmatched = useChainMissmatch();
+  const isChainMissmatched = useChainMismatch();
   return (
     <>
       {isConnected ? (

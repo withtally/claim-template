@@ -5,7 +5,7 @@ import { AvailableTokensBlock } from "~/components/Layout/AvailableTokensBlock";
 import { SelectedDelegateBlock } from "~/components/Layout/SelectedDelegateBlock";
 import { getChain } from "~/config/wagmi/getChain";
 import { chainToUse } from "~/constants/site";
-import { useChainMissmatch } from "~/hooks/useChainMissmatch";
+import { useChainMismatch } from "~/hooks/useChainMismatch";
 import useCustomToasters from "~/hooks/useToasters";
 import { Address, Proof } from "~/types/common";
 import { Delegate } from "~/types/delegate";
@@ -23,7 +23,7 @@ export const VotingPowerSection: FC<Props> = ({
   onSubmit,
   proof,
 }) => {
-  const isChainMissmatched = useChainMissmatch();
+  const isChainMissmatched = useChainMismatch();
   const { warningToast } = useCustomToasters();
   const { chain } = getChain(chainToUse);
 

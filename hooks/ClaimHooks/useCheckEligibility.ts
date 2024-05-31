@@ -18,7 +18,7 @@ export const useCheckEligibility = () => {
 
   const { proofs: proofsToCheck, isFetched: isProofsFetched } = useGetProofs();
   const { address, isDisconnected } = useAccount();
-  const { infoToast, errorToast } = useCustomToasters();
+  const { infoToast } = useCustomToasters();
 
   useEffect(() => {
     if(Boolean(address)){
