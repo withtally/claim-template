@@ -58,7 +58,6 @@ export const Button = defineStyleConfig({
       _hover: {
         borderColor: "primary.600",
       },
-      // bg:"#EEE0CB"
     },
   },
   defaultProps: {
