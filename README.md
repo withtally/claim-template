@@ -8,6 +8,13 @@
 
 \
 Then open localhost to view in the browser. The page will reload if you make edits.
+# UI configuration documentation
+UI configuration file. [Click to open this
+documentation file](./UIconfig_documentation.md)
+
+# Dictionary config documentation
+Dictionary config documentation. [Click to open this
+documentation file](./dictionary-config-README.md)
 
 # Deployment
 
@@ -31,8 +38,69 @@ Then open localhost to view in the browser. The page will reload if you make edi
 ```
 NEXT_PUBLIC_DELEGATES_FETCH_URL - URL to fetch a JSON file with delegates
 NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID - ID of your WalletConnect project
+NEXT_PUBLIC_PROOFS_FETCH_URL - URL to fetch a JSON file with delegates
+NEXT_PUBLIC_TOKEN - address of token that will be claimed and delegated
+NEXT_PUBLIC_CONTRACT_ADDRESS - contract address of token claim campaign
+NEXT_PUBLIC_CAMPAIGN_UUID - UUID if token claim campaign
+NEXT_PUBLIC_CHAIN - chain of token(ex. sepolia)
 ```
 
 - To obtain `NEXT_PUBLIC_DELEGATES_FETCH_URL`, set up a `delegate-exporter` function and use the `R2.dev` URL to access the file containing the delegates.
 - To acquire NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID, set up the project on [walletconnect](https://cloud.walletconnect.com/sign-in)
 - After configuring the variables, click `Deploy`.
+
+### Available chains
+We are supporting only this list of chains:
+- avalanche 
+- bsc
+- arbitrum
+- gnosis
+- arbitrumNova
+- zkSync
+- moonbeam
+- bscTestnet
+- polygonMumbai
+- avalancheFuji
+
+You can add another chain as well. Visit [wagmi chains docs](https://wagmi.sh/react/api/chains). Find chain that you need. For example, Ethereum. Under name of chain there is name of import.
+
+Go to file [getChain.ts](./config/wagmi/getChain.ts). Add name of import(for Ethereum it's "mainnet") to import object and to availableChains object. Here you go, now you can use new chain on website.
+
+## HOOKS
+### ClaimHooks
+**useCheckEligibility** - checks if a user is eligible for a claim.
+
+**useClaimAndDelegate** - claims tokens and delegates them to a selected delegate.
+
+**useGetProofs** - get proofs from a CDN.
+
+### DelegateStep
+
+**useDelegateSelection** - the logic for selecting a delegate.
+
+**useGetDelegates** - Fetches the delegates from the CDN.
+
+**useSortAndFilterDelegates** - Logic for sorting and filtering the delegates.
+
+### useChainMismatch
+**useChainMismatch** - Checks if the chain is the same on your wallet and the app.
+
+### useCheckAnotherWalletLogic
+**useCheckAnotherWalletLogic** - check eligibility of another wallet by address.
+
+### useClaimSuccessLogic
+
+**useClaimSuccessLogic** - the logic for the Success page.
+
+### useHash
+**useHash** - Saves the hash of the transaction.
+
+### useHomePageLogic
+**Safes the hash of the transaction** - Logic for home page.
+
+### useToasters
+**useCustomToasters** - custom toaster (errorToast, successToast, warningToast, infoToast, loadingToast)
+
+### useWalletConnect
+
+**useWalletConnect** - Logic for connecting wallets.

@@ -1,13 +1,18 @@
 import { readContract } from "@wagmi/core";
-import { SyntheticEvent, useCallback, useMemo, useState } from "react";
+import {
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useAccount } from "wagmi";
+import { useGetProofs } from "~/hooks/ClaimHooks/useGetProofs";
 import { Address, ClaimStatusEnum, Proof } from "~/types/common";
 import { config } from "../../config/wagmi/config";
 import abi from "../../libs/abis/delegated.claim.abi";
-import { getProofs } from "../../libs/helpers/getProofs";
 import { parseUuidToHex } from "../../libs/helpers/parseUuidToHex";
 import useCustomToasters from "../useToasters";
-import { useGetMerkleTree } from "./useGetMerkleTree";
 
 export const useCheckEligibility = () => {
   const [proofs, setProofs] = useState<Proof | null>(null);
@@ -17,11 +22,16 @@ export const useCheckEligibility = () => {
     ClaimStatusEnum.UNKNOWN,
   );
 
-  const { merkleTree, isFetched: isMerkleTreeFetched } = useGetMerkleTree();
+  const { proofs: proofsToCheck, isFetched: isProofsFetched } = useGetProofs();
   const { address, isDisconnected } = useAccount();
-  const { infoToast, errorToast } = useCustomToasters();
+  const { infoToast } = useCustomToasters();
 
-  // TODO: use values from config
+  useEffect(() => {
+    if (Boolean(address)) {
+      setIsClaimStepperVisible(false);
+    }
+  }, [address]);
+
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
   const campaignUUID = process.env.NEXT_PUBLIC_CAMPAIGN_UUID;
 
@@ -30,10 +40,10 @@ export const useCheckEligibility = () => {
       // TODO: remove this piece of code
       // makes everyone eligible
       // fake delegation
-      setClaimStatus(ClaimStatusEnum.ELIGIBLE);
-      setIsClaimStepperVisible(true);
-      setProofs({amount: '1000', proof: ['0x0000000000000000000000000000000000000000000000000000000000000000']});
-      return;
+      // setClaimStatus(ClaimStatusEnum.ELIGIBLE);
+      // setIsClaimStepperVisible(true);
+      // setProofs({amount: '1000', proof: ['0x0000000000000000000000000000000000000000000000000000000000000000']});
+      // return;
 
       try {
         const addressToUse = passedAddress || address;
@@ -47,7 +57,12 @@ export const useCheckEligibility = () => {
           return;
         }
 
-        const proofsAndAmount = getProofs(merkleTree, addressToUse);
+        // look for valid proof for the address
+        const proofsAndAmount = proofsToCheck.find(
+          (proof) =>
+            proof.address.toLocaleLowerCase() ===
+            addressToUse.toLocaleLowerCase(),
+        );
 
         if (!proofsAndAmount) {
           setProofs(null);
@@ -55,7 +70,10 @@ export const useCheckEligibility = () => {
           setIsClaimStepperVisible(true);
           return;
         }
-        setProofs(proofsAndAmount);
+        setProofs({
+          amount: `${proofsAndAmount.amount}`,
+          proof: proofsAndAmount.proof,
+        });
 
         const hexId = parseUuidToHex(campaignUUID);
 
@@ -81,14 +99,18 @@ export const useCheckEligibility = () => {
         setIsCheckingEligibility(false);
       }
     },
-    [isDisconnected, merkleTree, address, isMerkleTreeFetched],
+    [isDisconnected, proofsToCheck, address, isProofsFetched],
   );
 
   const checkEligibilityOfAnotherWallet = useCallback(
     async (address: Address): Promise<ClaimStatusEnum> => {
       setIsCheckingEligibility(true);
       try {
-        const proofs = getProofs(merkleTree, address);
+        const proofs = proofsToCheck.find(
+          (proof) =>
+            proof.address.toLocaleLowerCase() === address.toLocaleLowerCase(),
+        );
+
         const hexId = parseUuidToHex(campaignUUID);
         const walletAlreadyClaimed = await readContract(config, {
           abi,
@@ -116,13 +138,10 @@ export const useCheckEligibility = () => {
         setIsCheckingEligibility(false);
       }
     },
-    [merkleTree],
+    [proofsToCheck],
   );
 
-  const areDataFetched = useMemo(
-    () => isMerkleTreeFetched,
-    [isMerkleTreeFetched],
-  );
+  const areDataFetched = useMemo(() => isProofsFetched, [isProofsFetched]);
 
   return {
     proofs,

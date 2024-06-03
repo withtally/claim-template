@@ -1,4 +1,4 @@
-import { IconButton, Menu, MenuButton, MenuDivider, MenuItemOption, MenuList, MenuOptionGroup } from '@chakra-ui/react'
+import { Button, Menu, MenuButton, MenuDivider, MenuItemOption, MenuList, MenuOptionGroup } from '@chakra-ui/react'
 import FilterIcon from '../../../../../../public/img/icons/filter-icon.svg'
 import { FC } from 'react'
 import { SortOptionsEnum } from '~/types/FilterAndSortingOptions'
@@ -21,14 +21,16 @@ export const MobileMilterMenu: FC<Props> = ({
   sortOptions,
 }) => {
   return (
-    <Menu closeOnSelect={true}>
+    <Menu closeOnSelect={true} placement="bottom-end">
       <MenuButton
         size={'md'}
         variant="secondary"
         borderRadius="5px"
-        as={IconButton}
-        icon={<FilterIcon className="size-3" />}
-      />
+        className="max-xsm:w-full"
+        textAlign="start"
+        as={Button}
+        rightIcon={<FilterIcon className="size-3 ml-2" />}
+      >Filter</MenuButton>
       <MenuList>
         <MenuOptionGroup
           value={selectedArea}
