@@ -27,10 +27,10 @@ export const WalletConnector: FC = () => {
             <>
               {
                 connector?.icon ? (
-                  <Image src={connector?.icon} alt="connector icon" width={0} height={0} className="size-10"/>
+                  <Image src={connector?.icon} alt="connector icon" width={0} height={0} className="size-8 ml-1"/>
                 ) : (
                   <WalletIcon
-                    className="size-7"
+                    className="size-8 ml-1"
                     walletName={connector.name as WalletConnectors}
                   />
                 )
