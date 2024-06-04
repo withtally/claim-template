@@ -22,7 +22,7 @@ export const SelectedDelegateBlock: FC<Props> = ({
           {title}
         </span>
       )}
-      <div className="grid grid-cols-[40px_minmax(9px,_1fr)] gap-x-4 h-14 w-full rounded-full bg-blue-grey-lighter px-2 items-center">
+      <div className="grid grid-cols-[40px_minmax(9px,_1fr)] gap-x-4 h-14 w-full rounded-full bg-blue-grey-lighter pl-2 pr-6 items-center">
         <OptimisedImage
           src={picture || "/img/icons/wallet-placeholder.png"}
           alt="wallet"
