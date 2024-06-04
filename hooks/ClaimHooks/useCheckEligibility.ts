@@ -42,7 +42,7 @@ export const useCheckEligibility = () => {
       // fake delegation
       // setClaimStatus(ClaimStatusEnum.ELIGIBLE);
       // setIsClaimStepperVisible(true);
-      // setProofs({amount: '1000', proof: ['0x0000000000000000000000000000000000000000000000000000000000000000']});
+      // setProofs({amount: '1000000000000000000', proof: ['0x0000000000000000000000000000000000000000000000000000000000000000']});
       // return;
 
       try {
