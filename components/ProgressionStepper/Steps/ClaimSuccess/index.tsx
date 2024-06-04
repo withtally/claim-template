@@ -27,6 +27,7 @@ const ClaimSuccess: FC<ClaimSuccessProps> = ({ proof }) => {
   return (
     <div className="inline snap-start transition-opacity">
       <StepForm
+        disableSubmitButton={isLoading}
         isLoading={isSubmitting}
         buttonText="Go back to homepage"
         onSubmit={_onSubmit}

@@ -23,8 +23,6 @@ export const SEO: FC<SEOProps> = ({
 }) => {
   const { pathname } = useRouter();
 
-  // const favicon = process.env.siteFavicon
-  // const titleSuffix = process.env.siteTitle
   const _image = image || process.env.siteImagePreviewURL;
   const metaDescription = description || process.env.siteDescription;
 
@@ -32,7 +30,6 @@ export const SEO: FC<SEOProps> = ({
   const siteDomain = process.env.siteDomain;
   const siteName = getTextFromDictionary("site_title");
   const metaTitle = title ? `${title} | ${siteName}` : siteName;
-  // const siteFavicon = favicon
   const imagePreview = _image?.includes("https://")
     ? _image
     : `${process.env.siteUrl}${_image}`;
