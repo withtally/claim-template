@@ -38,7 +38,11 @@ const WalletsList: FC<Props> = ({ connectors, defaultConnectHandler }) => {
         }
 
         return true;
-      })
+      }).filter((connector, index, self) =>
+          index === self.findIndex((t) => (
+            t.id === connector.id
+          ))
+      )
 
     }else{
       return connectors
