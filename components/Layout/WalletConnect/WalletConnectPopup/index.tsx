@@ -68,7 +68,7 @@ export const WalletConnectPopup: FC<Props> = ({
           ) : (
             <div className="flex flex-wrap">
               <p className="mr-[8px]">Don't have a wallet?</p>
-              <a href="https://ethereum.org/en/wallets/" className="group transition duration-300">
+              <a href="https://ethereum.org/en/wallets/" target="_blank" className="group transition duration-300">
                 Learn more
                 <chakra.span
                   className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5" bg="primary.600"></chakra.span>
