@@ -19,23 +19,25 @@ Made by [Tally](https://tally.xyz/), [Hedgey](https://hedgey.finance/), and [Cod
 - Delegate profiles created on Tally with our "Delegate Registration" flow
   
 
-# Install the dependencies
+# Setup
 
-### `npm install` or `yarn install`
+### Install dependencies
 
-# Start the web server
+`npm install` or `yarn install`
 
-### `npm run dev` or `yarn dev`
+### Start the web server
 
-\
+`npm run dev` or `yarn dev`
+
 Then open localhost to view in the browser. The page will reload if you make edits.
-# UI configuration documentation
-UI configuration file. [Click to open this
-documentation file](./UIconfig_documentation.md)
 
-# Dictionary config documentation
-Dictionary config documentation. [Click to open this
-documentation file](./dictionary-config-README.md)
+# Configuration
+
+### Configure the UI
+[UIconfig_documentation.md](./UIconfig_documentation.md) describes how to [use ui-config.json](./config/ui-config.json) to customize some of the UI elements.
+
+### Dictionary config documentation
+The [README for dictionary config](./dictionary-config-README.md) describes how to edit the copy in [dictionaryConfig.json](./config/dictionaryConfig.json).
 
 # Deployment
 
@@ -44,15 +46,7 @@ documentation file](./dictionary-config-README.md)
 - In your Vercel account, click on `Add New`, then select `Project` option. You will see a list of your projects on GitHub.
 - Choose the project that includes the `Claim app` and click on `Import`.
 
-## DDOS Protection from Vercel
-
-**!!! Notify, Attack Challange Mode may cause issue on Iphones. Site may not load and stuck on security checkpoint page.**
-
-- Open your deployed project
-- Click on settings, then on security
-- Turn on/off Attack Challange Mode
-
-### Configure the Project
+### Configure the Vercel project
 
 - In the Environment `Variables section`, set all the required environment variables, adhering to the following naming conventions:
 
@@ -87,7 +81,16 @@ You can add another chain as well. Visit [wagmi chains docs](https://wagmi.sh/re
 
 Go to file [getChain.ts](./config/wagmi/getChain.ts). Add name of import(for Ethereum it's "mainnet") to import object and to availableChains object. Here you go, now you can use new chain on website.
 
-## HOOKS
+
+### Set up DDoS Protection from Vercel
+
+**!!! Notify, Attack Challange Mode may cause issue on Iphones. Site may not load and stuck on security checkpoint page.**
+
+- Open your deployed project
+- Click on settings, then on security
+- Turn on/off Attack Challange Mode
+
+# HOOKS
 ### ClaimHooks
 **useCheckEligibility** - checks if a user is eligible for a claim.
 
