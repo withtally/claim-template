@@ -1,0 +1,44 @@
+{
+  "site": {
+    "title": "DAO Claim"
+  },
+  "home": {
+    "siteType": "Portal",
+    "checkEligibility": "Check your eligibility to claim tokens",
+    "checkEligibilityButton": "Check eligibility"
+  },
+  "connectModal": {
+    "title": "Connect Wallet",
+    "description": "Please select a wallet to connect to"
+  },
+  "stepper": {
+    "step1": {
+      "header1": "sign message",
+      "paragraph1": "The message is a confirmation you're delegating your votes to the delegate you selected",
+      "header2": "claim token & delegate voting rights",
+      "paragraph2": "Submit the transaction to claim and delegate your tokens on-chain.",
+      "amountOfActions": "2",
+      "confirm":"Continue",
+      "progressInfo": "Processing transaction",
+      "progress": "Updating live..."
+    },
+    "step2": {
+      "votingPowerSection": {
+        "title": "voting power",
+        "confirm": "Continue"
+      },
+      "delegate": {
+        "paragraph1": "Pick someone who you believe will be invested in growing the ecosystem.",
+        "bold": "You will keep all of your tokens. ",
+        "paragraph2": "The delegate only gets the voting power alloted to your token value. You can keep voting power for yourself or redelegate at any time.",
+        "delegateMyself": "I want to delegate to myself",
+        "searchPlaceholder": "Exact ENS or address",
+        "chooseDelegate": "Choose a Delegate"
+      }
+    },
+
+    "step4": {
+      "errorText": "An error has happened while processing your transaction"
+    }
+  }
+}

@@ -1,10 +1,17 @@
 import type { DocumentProps } from 'next/document'
 import { Head, Html, Main, NextScript } from 'next/document'
 import { FC } from 'react'
+import { ColorModeScript } from '@chakra-ui/react'
+import Link from 'next/link'
+
 
 export const Document: FC<DocumentProps> = () => (
   <Html lang="en">
     <Head>
+      <link
+        rel="icon"
+        href="./favicon.ico"
+      />
       <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -20,6 +27,7 @@ export const Document: FC<DocumentProps> = () => (
       />
     </Head>
     <body>
+      <ColorModeScript initialColorMode="dark" />
       <Main />
       <NextScript />
     </body>

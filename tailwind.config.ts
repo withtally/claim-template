@@ -1,4 +1,11 @@
+import { UIconfig } from './config/UIconfig'
+
+const { colors, site, modal } = UIconfig;
+
 module.exports = {
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -6,6 +13,7 @@ module.exports = {
     './hooks/**/*.{js,ts,jsx,tsx}',
     './context/**/*.{js,ts,jsx,tsx}',
   ],
+  // important: "#root",
   theme: {
     screens: {
       // Used to override main styles
@@ -14,6 +22,7 @@ module.exports = {
       xsm: '440px',
       sm: '640px',
       md: '768px',
+      xmd: '850px',
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
@@ -26,16 +35,19 @@ module.exports = {
         DEFAULT: '#1e69ff',
       },
       colors: {
-        green: '#4EC272',
-        blue: '#00a5d3',
-        'blue-grey': '#262b33',
-        'blue-grey-lighter': '#3d424d',
-        'card-background': '#262b33cc',
+        green: colors.selected,
+        blue: colors.primary,
+        'blue-grey': modal.bgColor,
+        'blue-grey-lighter': colors.infoBlockBgColor,
+        navbar: site.bgColor,
+        maintext: site.textColor,
+        gray: UIconfig.colors.gray,
+        errorColor: modal.errorColor
       },
     },
     fontFamily: {
-      sans: ["'Poppins'", 'sans-serif'],
-      caption: ["'Barlow Semi Condensed'", 'sans-serif'],
+      sans: UIconfig.fonts.main,
+      caption: UIconfig.fonts.caption,
     },
   },
 }

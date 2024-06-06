@@ -1,131 +1,209 @@
-import { FC, useState } from 'react'
-import Button from '~/components/Layout/Button'
-import Container from '~/components/Layout/Container'
-import { OptimisedImage } from '~/components/Layout/OptimisedImage'
-import TickIcon from '~/public/img/icons/tick.svg'
+import { ArrowUpIcon } from "@chakra-ui/icons";
+import { Button, IconButton, Spinner } from "@chakra-ui/react";
+import { FC, useEffect, useRef, useState } from "react";
+import Container from "~/components/Layout/Container";
+import { DelegateCard } from "~/components/Layout/DelegateCard";
+import { Input } from "~/components/Layout/Input";
+import { Select } from "~/components/Layout/Select";
+import { useGetDelegates } from "~/hooks/delegateStep/useGetDelegates";
+import { useSortAndFilterDelegates } from "~/hooks/delegateStep/useSortAndFilterDelegates";
+import { Proof } from "~/types/common";
+import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
+import { useClaimContext } from "../../../../contexts/ClaimContext";
+import SearchIcon from "../../../../public/img/icons/search.svg";
+import { MobileMilterMenu } from "./components/MobileFilterMenu";
+import { VotingPowerSection } from "./components/VotingPowerSection";
 
 interface DelegateStepProps {
-  onBack: () => void
-  onSubmit: () => void
+  onBack: () => void;
+  onSubmit: () => void;
+  proof: Proof | undefined;
 }
 
-const DelegateStep: FC<DelegateStepProps> = ({ onSubmit }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+const DelegateStep: FC<DelegateStepProps> = ({ onSubmit, proof }) => {
+  const { delegates, isError, error, isFetched, isLoading } = useGetDelegates();
+  const { selectedDelegate, onDelegateSelect, delegateToMyself } = useClaimContext();
+  const [isScrollToTopVisible, setIsScrollToTopVisible] =
+    useState<boolean>(false);
 
-  const _onSubmit = () => {
-    setIsSubmitting(true)
-    setTimeout(() => {
-      setIsSubmitting(false)
-    }, 3000)
-  }
+  const ref = useRef<HTMLDivElement | null>();
+
+  const {
+    processedDelegates,
+    searchValue,
+    canLoadMoreDelegates,
+    focusAreasOptions,
+    selectedArea,
+    sortOptionValue,
+    sortOptions,
+    setSearchValue,
+    setSelectedArea,
+    setSortOptionValue,
+    loadNextChunkOfDelegates,
+  } = useSortAndFilterDelegates({
+    delegates,
+  });
+
+  useEffect(() => {
+    const scrollToTop = () => {
+      if (ref?.current?.scrollTop > ref.current.scrollHeight / 3) {
+        setIsScrollToTopVisible(true);
+      } else {
+        setIsScrollToTopVisible(false);
+      }
+    };
+    ref?.current?.addEventListener("scroll", scrollToTop);
+    return () => {
+      ref?.current?.removeEventListener("scroll", scrollToTop);
+    };
+  }, []);
+
 
   return (
     <div className="inline snap-start transition-opacity">
-      <section className="min-w-[100vw]">
-        <Container className="flex h-svh items-center pb-[72px] pt-20 xxs:static xxs:px-4 md:px-6 md:pb-20 md:pt-16">
-          <div className="mx-auto flex min-w-[1200px] gap-x-10">
+      <section
+        ref={ref}
+        className=" mt-[64px] max-h-[calc(100svh-64px)] w-[100svw] overflow-auto"
+      >
+        <Container className="relative mb-[55px] mt-[3svh] max-w-[1920px]">
+          <div className="relative mx-auto flex flex-col-reverse gap-10 lg:flex-row">
+            {isScrollToTopVisible && (
+              <IconButton
+                isRound={true}
+                size="sm"
+                aria-label="scroll to top"
+                icon={<ArrowUpIcon />}
+                className="!fixed bottom-4 right-[20px] z-[15]"
+                onClick={() => {
+                  ref.current.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            )}
+
             {/* LEFT SIDE */}
-            <div className="h-[600px] w-full rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
-              <h2 className="mb-4 text-3xl font-medium">Choose a Delegate</h2>
-              <p className="mb-4 text-xl text-gray-400">
-                Pick someone who you believe will be invested in growing the ecosystem.
+            <div className="min-h-[1000px] h-[auto] w-full overflow-y-auto max-md:overflow-x-hidden rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md">
+              <h2 className="mb-4 text-xl font-medium md:text-2xl xl:text-3xl">
+                {getTextFromDictionary("stepper_step2_delegate_chooseDelegate")}
+              </h2>
+              <p className="text-md mb-4 text-gray-400 md:text-md xl:text-xl">
+                {getTextFromDictionary("stepper_step2_delegate_paragraph1")}
                 <br />
-                <b>You will keep all of your tokens.</b> The delegate only gets the voting power alloted to your token
-                value. You can keep voting power for yourself or redelegate at any time.
+                <b>{getTextFromDictionary("stepper_step2_delegate_bold")}</b>
+                {getTextFromDictionary("stepper_step2_delegate_paragraph2")}
+                {getTextFromDictionary("stepper_step2_delegate_paragraph1")}
               </p>
-              <button className="mb-10 transition-colors hover:text-blue">
-                <span>
-                  <u>I want to delegate to myself</u>
+
+              <button
+                className="mb-10 transition-colors hover:text-blue"
+                onClick={()=> {delegateToMyself(onSubmit)}}
+              >
+                <span className="text-sm md:text-md xl:text-base">
+                  <u>
+                    {getTextFromDictionary(
+                      "stepper_step2_delegate_delegateMyself",
+                    )}
+                  </u>
                 </span>
               </button>
-              {/* DELEGATE CARD */}
-              <div className="grid grid-cols-2 gap-4">
-                {/* CARD #1 */}
-                <div className="relative rounded-md border-2 bg-blue-grey p-4 pt-10">
-                  <div className="absolute right-2 top-2 inline-flex items-center gap-x-2 rounded bg-green/20 p-1 pb-1.5 text-xs text-green">
-                    <TickIcon className="size-4" />
-                    <span className="text-caption uppercase">Selected</span>
-                  </div>
-                  {/* WALLET DETAILS */}
-                  <div className="mb-6 flex items-center gap-x-4">
-                    <OptimisedImage
-                      src="/img/icons/wallet-placeholder.png"
-                      alt="wallet"
-                      className="mt-2 size-12 max-h-12 min-h-12 min-w-12 max-w-12 overflow-hidden rounded-full"
-                    />
-                    <div>
-                      <h3 className="text-subheading mb-1">nevergonnagiveyouup.eth</h3>
-                      <p className="break-all text-xs text-gray-400">0x7C9Aa8714e50cF4B4497631Fdb2cADC98b4B9a6D</p>
-                    </div>
-                  </div>
 
-                  <p className="mb-6">
-                    Liquidity mining is an important part of the decentralization process of a DAO...
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {['🎗️ Public goods funding', '⛓️ Further decentralizing the chain'].map((item) => (
-                      <span
-                        key={item}
-                        className="whitespace-nowrap rounded-full border border-gray-600 p-2 text-xs text-gray-300"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
+              <div className="mb-10 flex max-xsm:flex-wrap xl:flex-nowrap gap-4">
+                <div className="grow max-xsm:shrink-0 max-xsm:basis-[100%] xl:basis-[40%]">
+                  <Input
+                    inputGroupClassName=""
+                    value={searchValue}
+                    onChange={setSearchValue}
+                    placeholder={getTextFromDictionary(
+                      "stepper_step2_delegate_searchPlaceholder",
+                    )}
+                    inputLeftElement={<SearchIcon className="size-4" />}
+                    showCross
+                  />
+                </div>
+                <div className="hidden xl:block  basis-[30%]">
+                  <Select
+                    value={selectedArea}
+                    onChange={setSelectedArea}
+                    options={focusAreasOptions}
+                    placeholder="All Focus Areas"
+                    className="truncate"
+                  />
+                </div>
+                <div className="hidden xl:block basis-[30%]">
+                  <Select
+                    value={sortOptionValue}
+                    onChange={setSortOptionValue}
+                    options={sortOptions}
+                    className="truncate"
+                  />
+                </div>
+                <div className="xl:hidden max-xsm:grow max-xsm:shrink-0 max-xsm:basis-[100%]">
+                  <MobileMilterMenu
+                    selectedArea={selectedArea}
+                    setSelectedArea={setSelectedArea}
+                    sortOptionValue={sortOptionValue}
+                    setSortOptionValue={setSortOptionValue}
+                    sortOptions={sortOptions}
+                    FocusAreasOptions={focusAreasOptions}
+                  />
                 </div>
               </div>
+
+              {/* DELEGATE CARDa container */}
+              {isFetched && !isError && !isLoading && (
+                <div className="flex flex-col">
+                  {processedDelegates.length > 0 ? (
+                    <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+                      {/* CARDS */}
+                      {processedDelegates.map((delegate) => (
+                        <DelegateCard
+                          delegate={delegate}
+                          isSelected={delegate.id === selectedDelegate?.id}
+                          setSelectedDelegate={onDelegateSelect}
+                          key={delegate.id}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="rounded-md border p-2 text-center">
+                      No results found
+                    </p>
+                  )}
+
+                  {canLoadMoreDelegates && (
+                    <Button
+                      size="md"
+                      onClick={loadNextChunkOfDelegates}
+                      className="mx-auto mt-10 w-[200px]"
+                    >
+                      Load more
+                    </Button>
+                  )}
+                </div>
+              )}
+
+              {isLoading && (
+                <div className="flex justify-center">
+                  <Spinner size="xl" />
+                </div>
+              )}
+
+              {isError && (
+                <div className="rounded-md border p-2 text-center">
+                  Can't fetch delegates
+                </div>
+              )}
             </div>
             {/* RIGHT SIDE */}
-            <form
-              // onSubmit={(e) => {
-              //   e.preventDefault()
-              //   _onSubmit()
-              // }}
-              className="relative z-10 flex w-full max-w-[450px] flex-col items-start rounded-2xl bg-blue-grey/70 p-6 backdrop-blur-md"
-              // className="xxs:bg-transparent xxs:backdrop-blur-none"
-            >
-              <h2 className="text-caption text-subheading mb-6 uppercase">Voting Power</h2>
-
-              <div className="flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
-                <div className="inline-flex size-10 items-center justify-center rounded-full bg-blue-grey">
-                  <div className="gradient-background orange-blue-gradient size-6 max-h-6 min-h-6 min-w-6 max-w-6 overflow-hidden rounded-full xxs:relative xxs:z-0 xxs:opacity-100 xxs:blur-none" />
-                </div>
-                <span className="text-caption">6500.0</span>
-              </div>
-
-              <hr className="my-4 w-full border-gray-500" />
-              <div className="mb-6 flex h-14 w-full items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
-                <OptimisedImage
-                  src="/img/icons/wallet-placeholder.png"
-                  alt="wallet"
-                  className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
-                />
-                <span className="text-caption">Lindsey Winder</span>
-              </div>
-
-              <p className="text-gray-400">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et viverra urna. Nulla facilisi. Donec ac
-                nunc nec orci aliquam lobortis. Nullam nec nunc nec orci aliquam lobortis. Nullam nec nunc nec orci
-                aliquam lobortis.
-              </p>
-
-              <div className="flex w-full flex-1 items-end">
-                <Button
-                  // type="submit"
-                  isLoading={isSubmitting}
-                  labelClassName="md:translate-x-0 translate-x-3"
-                  className="w-full"
-                >
-                  Claim and Delegate
-                </Button>
-              </div>
-            </form>
+            <VotingPowerSection
+              selectedDelegate={selectedDelegate}
+              onSubmit={onSubmit}
+              proof={proof}
+            />
           </div>
         </Container>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default DelegateStep
+export default DelegateStep;

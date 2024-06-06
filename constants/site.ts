@@ -1,1 +1,3 @@
-export const siteName = process.env.NEXT_PUBLIC_PROJECT_NAME || 'Hedgey'
+export const siteName = process.env.NEXT_PUBLIC_PROJECT_NAME || "DAO";
+export const WALLLET_CONNECT_ID = "walletConnect";
+export const chainToUse = process.env.NEXT_PUBLIC_CHAIN || "mainnet";

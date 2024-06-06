@@ -1,17 +1,25 @@
-import { FC, useState } from 'react'
-import AnimateOnUpdate from '~/components/Layout/AnimateOnUpdate'
-import Header from '~/components/Pages/Home/Header'
-import ProgessionStepper from '~/components/ProgressionStepper'
-import ClaimStep from '~/components/ProgressionStepper/Steps/Claim'
-import DelegateStep from '~/components/ProgressionStepper/Steps/Delegate'
-import InitialScreen from '~/components/ProgressionStepper/Steps/Initial'
-import { SEO } from '~/components/SEO'
+import { FC } from "react";
+import AnimateOnUpdate from "~/components/Layout/AnimateOnUpdate";
+import Header from "~/components/Pages/Home/Header";
+import ProgessionStepper from "~/components/ProgressionStepper";
+import { SEO } from "~/components/SEO";
+import { useHomePageLogic } from "~/hooks/useHomePageLogic";
 
-const HireReactDeveloperPage: FC = () => {
-  const [isClaimStepperVisible, setIsClaimStepperVisible] = useState(false)
-  const components = [InitialScreen, ClaimStep, DelegateStep]
+export const metadata = {
+  icons: {
+    icon: "../punlic/favicon.png", // /public path
+  },
+};
 
-  const handleShowClaimStepper = () => setIsClaimStepperVisible(true)
+const HomePage: FC = () => {
+  const {
+    areDataFetched,
+    isClaimStepperVisible,
+    isCheckingEligibility,
+    proofs,
+    components,
+    checkEligibility,
+  } = useHomePageLogic();
 
   return (
     <>
@@ -21,16 +29,21 @@ const HireReactDeveloperPage: FC = () => {
         className="flex max-h-svh flex-col"
       >
         {!isClaimStepperVisible ? (
-          <Header onClick={handleShowClaimStepper} />
+          <Header
+            onClick={checkEligibility}
+            areDataFetched={areDataFetched}
+            isCheckingEligibility={isCheckingEligibility}
+          />
         ) : (
           <ProgessionStepper
             components={components}
-            totalSteps={components.length}
+            totalSteps={components.length - 1}
+            proof={proofs}
           />
         )}
       </AnimateOnUpdate>
     </>
-  )
-}
+  );
+};
 
-export default HireReactDeveloperPage
+export default HomePage;

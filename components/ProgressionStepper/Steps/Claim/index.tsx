@@ -1,71 +1,58 @@
-import { FC, useState } from 'react'
-import { OptimisedImage } from '~/components/Layout/OptimisedImage'
-import StepForm from '~/components/ProgressionStepper/StepForm'
+import { FC } from "react";
+import { AvailableTokensBlock } from "~/components/Layout/AvailableTokensBlock";
+import { OptimisedImage } from "~/components/Layout/OptimisedImage";
+import { SelectedDelegateBlock } from "~/components/Layout/SelectedDelegateBlock";
+import StepForm from "~/components/ProgressionStepper/StepForm";
+import { useClaimAndDelegate } from "~/hooks/ClaimHooks/useClaimAndDelegate";
+import { Address, Proof } from "~/types/common";
 
 interface ClaimStepProps {
-  onBack: () => void
-  onSubmit: () => void
+  onBack: () => void;
+  onSubmit: () => void;
+  proof: Proof | undefined;
 }
 
-const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const _onSubmit = () => {
-    setIsSubmitting(true)
-    setTimeout(() => {
-      onSubmit()
-    }, 3000)
-    setTimeout(() => {
-      setIsSubmitting(false)
-    }, 4000)
-  }
+const ClaimStep: FC<ClaimStepProps> = ({ onBack, onSubmit, proof }) => {
+  const { onClaim, claimError, isSubmitting, selectedDelegate } =
+    useClaimAndDelegate();
 
   return (
     <div className="inline snap-start transition-opacity">
       <StepForm
         isLoading={isSubmitting}
-        buttonText="Claim your tokens"
+        buttonText="Claim and Delegate"
         onBack={onBack}
-        onSubmit={_onSubmit}
+        onSubmit={() => onClaim({ onSubmit, usersProof: proof })}
         scrollContainerClassName="mt-0"
       >
-        <div className="flex items-center gap-x-4">
-          <OptimisedImage
-            src="/img/icons/wallet-placeholder.png"
-            alt="wallet"
-            className="mt-2 size-12 max-h-12 min-h-12 min-w-12 max-w-12 overflow-hidden rounded-full"
-          />
-          <div>
-            <h3 className="text-subheading mb-1">nevergonnagiveyouup.eth</h3>
-            <p className="break-all text-xs text-gray-400">0x7C9Aa8714e50cF4B4497631Fdb2cADC98b4B9a6D</p>
-          </div>
-        </div>
-        <hr className="my-4 w-full border-gray-500" />
+        <h2 className="w-full text-center text-xl font-bold xs:text-2xl">
+          <span>Confirm details</span>
+        </h2>
 
-        <div className="mb-6 w-full">
-          <span className="text-caption mb-2 block text-xs uppercase">You will receive</span>
-          <div className="flex h-14 items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
-            <div className="inline-flex size-10 items-center justify-center rounded-full bg-blue-grey">
-              <div className="gradient-background orange-blue-gradient size-6 max-h-6 min-h-6 min-w-6 max-w-6 overflow-hidden rounded-full xxs:relative xxs:z-0 xxs:opacity-100 xxs:blur-none" />
-            </div>
-            <span className="text-caption">6500.0</span>
-          </div>
-        </div>
+        <hr className="border-1 my-4 w-full" />
 
-        <div className="mb-4 w-full">
-          <span className="text-caption mb-2 block text-xs uppercase">You're giving voting rights to</span>
-          <div className="flex h-14 items-center gap-x-4 rounded-full bg-blue-grey-lighter px-2">
-            <OptimisedImage
-              src="/img/icons/wallet-placeholder.png"
-              alt="wallet"
-              className="size-10 max-h-10 min-h-10 min-w-10 max-w-10 overflow-hidden rounded-full"
-            />
-            <span className="text-caption">Lindsey Winder</span>
+        <AvailableTokensBlock
+          amount={proof?.amount}
+          title="You will receive"
+          useXsTitle
+        />
+
+        <div className="mb-6" />
+
+        <SelectedDelegateBlock
+          address={selectedDelegate?.account?.address as Address}
+          name={selectedDelegate?.account?.name}
+          picture={selectedDelegate?.account?.picture}
+          title="You're giving voting rights to"
+        />
+        {claimError && (
+          <div className="text-errorColor">
+            An error has occurred, try again.
           </div>
-        </div>
+        )}
       </StepForm>
     </div>
-  )
-}
+  );
+};
 
-export default ClaimStep
+export default ClaimStep;

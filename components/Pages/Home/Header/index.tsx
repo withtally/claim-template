@@ -1,33 +1,53 @@
-import { FC } from 'react'
-import Button from '~/components/Layout/Button'
-import Container from '~/components/Layout/Container'
-import { OptimisedImage } from '~/components/Layout/OptimisedImage'
-import { siteName } from '~/constants/site'
+import { Button } from "@chakra-ui/react";
+import { FC } from "react";
+import Container from "~/components/Layout/Container";
+import { OptimisedImage } from "~/components/Layout/OptimisedImage";
+import { UIconfig } from "~/config/UIconfig";
+import { getTextFromDictionary } from "~/utils/getTextFromDictionary";
 
 interface HeaderProps {
-  onClick: () => void
+  onClick: () => void;
+  areDataFetched: boolean;
+  isCheckingEligibility: boolean;
 }
 
-const Header: FC<HeaderProps> = ({ onClick }) => {
+const Header: FC<HeaderProps> = ({
+  onClick,
+  areDataFetched,
+  isCheckingEligibility,
+}) => {
+  const isLoading = !areDataFetched || isCheckingEligibility;
+
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-end pr-40">
+      <div className="absolute inset-0 flex items-center justify-end 2xl:pr-40 max-xsm:hidden mt-[64px] max-h-[calc(100svh-64px)]">
         <OptimisedImage
-          src="/img/home/background-placeholder.jpg"
+          src={UIconfig.backgroundImage.deckstop}
           alt=""
           layout="cover"
-          className="w-[600px] overflow-hidden rounded-md"
+          className="w-[40vw] max-w-[600px] overflow-hidden rounded-md "
         />
       </div>
-      <Container className="flex h-svh min-h-[600px] flex-col items-start justify-center pt-16">
-        <header className="flex flex-col items-start gap-y-6">
-          <h1 className="text-display-m">{siteName} Claim Portal</h1>
-          <p className="text-title text-gray-400">Check your eligibility to claim tokens</p>
-          <Button onClick={onClick}>Check eligibility</Button>
+      <Container className="flex h-svh min-h-[600px] flex-col xsm:items-start justify-center pt-16">
+        <header className="flex flex-col items-start gap-y-3 md:gap-y-4 lg:gap-y-6">
+          <h1 className="text-display-m">
+            {getTextFromDictionary("site_title")}{" "}
+            {getTextFromDictionary("home_siteType")}
+          </h1>
+          <p className="text-title text-gray-400">
+            {getTextFromDictionary("home_checkEligibility")}
+          </p>
+          <Button
+            onClick={onClick}
+            isLoading={isLoading}
+            className="!min-w-[200px] max-xsm:mx-auto max-xsm:mt-2"
+          >
+            {getTextFromDictionary("home_checkEligibilityButton")}
+          </Button>
         </header>
       </Container>
     </section>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

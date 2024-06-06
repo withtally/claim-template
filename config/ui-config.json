@@ -1,0 +1,90 @@
+{
+  "backgroundImage": {
+    "deckstop": "/img/home/background-placeholder.jpg"
+  },
+  "socialMedia": [
+    {
+      "name": "telegram",
+      "url": "https://web.telegram.org/a/"
+    },
+    {
+      "name": "discord",
+      "url": "https://discord.com/"
+    },
+    {
+      "name": "twitter",
+      "url": "https://twitter.com/?lang=uk"
+    }
+  ],
+  "navigation": [
+    {
+      "title": "Link 1",
+      "url": "/link1"
+    },
+    {
+      "title": "Link 2",
+      "url": "/link2"
+    },
+    {
+      "title": "Link 3",
+      "url": "/link3"
+    }
+  ],
+  "logo": {
+    "type": "text",
+    "img": "/img/logo/hedgeylogo.png",
+    "text": "DAO Claims"
+  },
+  "site": {
+    "bgColor": "black",
+    "textColor": "white",
+    "borderColor": "#414e61"
+  },
+  "colors": {
+    "primary": "#0099cc",
+    "secondary": "rgb(75 85 99)",
+    "subtext": "#4B5563",
+    "infoBlockBgColor": "#3d424d",
+    "selected": "#4EC272"
+  },
+  "backgroundGradient": {
+    "blue-purple": "conic-gradient(from 230.29deg at 51.63% 52.16%,rgb(36, 0, 255) 0deg,rgb(0, 135, 255) 67.5deg,rgb(108, 39, 157) 198.75deg,rgb(24, 38, 163) 251.25deg,rgb(54, 103, 196) 301.88deg,rgb(105, 30, 255) 360deg);"
+  },
+  "toastBg": {
+    "success": "#9AE6B4",
+    "error": "#FEB2B2",
+    "info": "#90cdf4",
+    "warning": "#FBD38D",
+    "loading": "#90cdf4"
+  },
+  "modal": {
+    "bgColor": "#262b33",
+    "errorColor": "#FF3333",
+    "overlay": {}
+  },
+  "mobileNavBar": {
+    "bg": "linear-gradient(270deg, #262b33 100%, #262b33cc 100%)"
+  },
+  "fonts": {
+    "main": "Poppins, sans-serif",
+    "caption": "Barlow Semi Condensed, sans-serif"
+  },
+  "focusAreas": [
+    "Public Goods",
+    "Decentralization",
+    "Treasury Management",
+    "Working Groups",
+    "Grants Programs",
+    "Community Outreach",
+    "Protocol"
+  ],
+  "eligibilityCriterias": [
+     "Minted RAI and deposited to Aave",
+     "Provided LP on Uni V2 RAI/ETH",
+     "Voted on an OP DAO proposal with at least 50 OP"
+  ],
+  "tokenConversionData": {
+    "tokenSymbol": "CGEEKS",
+    "decimals": 18
+  }
+}
