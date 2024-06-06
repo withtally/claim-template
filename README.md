@@ -1,3 +1,24 @@
+# Governance Launcher Template
+This repo provides a scaffold for launching governance. This app covers two key user flows: 
+1) let users claim airdropped tokens
+2) let users delegate the voting power of those tokens to delegates.
+
+After users go through this flow, the DAO will have tokens distributed to stakeholders and voting power distributed to delegates.
+
+This app is set up as a scaffold or template. Customize this app any way you want. Add your copy, your branding, and any special requirements.
+
+This site is set up for scalability! Airdrop sites experience heavy traffic at launch or even denial-of-service attacks. To keep the site and its dependencies from going down, this template doesn't make API calls. Instead, [a background job](https://github.com/withtally/delegate-exporter) make API calls and saves the responses to a CDN.
+
+Made by [Tally](https://tally.xyz/), [Hedgey](https://hedgey.finance/), and [Codegeeks](https://codegeeks.solutions/)
+
+### What you'll need before using this repo
+- An `ERC20` token contract with the `ERC20Votes` extension.
+- A deployed [Hedgey claim contract](https://github.com/hedgey-finance/DelegatedTokenClaims)
+- A [Governor contract](https://docs.tally.xyz/knowledge-base/tally/governor-framework). Optionally, do the airdrop first and deploy the Governor later.
+- The airdrop details (the merkle proofs) from Hedgey claims
+- Delegate profiles created on Tally with our "Delegate Registration" flow
+  
+
 # Install the dependencies
 
 ### `npm install` or `yarn install`
