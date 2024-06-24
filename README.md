@@ -15,9 +15,9 @@ Made by [Tally](https://tally.xyz/), [Hedgey](https://hedgey.finance/), and [Cod
 - An `ERC20` token contract with the `ERC20Votes` extension.
 - A deployed [Hedgey claim contract](https://github.com/hedgey-finance/DelegatedTokenClaims)
 - A [Governor contract](https://docs.tally.xyz/knowledge-base/tally/governor-framework). Optionally, do the airdrop first and deploy the Governor later.
+- Governance contracts [added to Tally](https://www.tally.xyz/get-started)
 - The airdrop details (the merkle proofs) from Hedgey claims
 - Delegate profiles created on Tally with our "Delegate Registration" flow
-  
 
 # Setup
 
